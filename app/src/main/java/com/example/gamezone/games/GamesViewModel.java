@@ -1,9 +1,11 @@
-package com.example.gamezone;
+package com.example.gamezone.games;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import androidx.lifecycle.ViewModel;
+
+import com.example.gamezone.R;
+import com.example.gamezone.games.models.Game;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.gamezone.databinding.ActivityMainBinding;
+import com.example.gamezone.games.GamesFragment;
 
 public class MainActivity extends AppCompatActivity {
 

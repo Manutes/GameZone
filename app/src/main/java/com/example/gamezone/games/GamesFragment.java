@@ -1,4 +1,4 @@
-package com.example.gamezone;
+package com.example.gamezone.games;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.gamezone.SetOnClickListener;
 import com.example.gamezone.databinding.FragmentGamesBinding;
+import com.example.gamezone.games.adapter.GamesAdapter;
+import com.example.gamezone.games.models.Game;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GamesFragment extends Fragment implements SetOnClickListener {

@@ -1,4 +1,4 @@
-package com.example.gamezone;
+package com.example.gamezone.games.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gamezone.SetOnClickListener;
 import com.example.gamezone.databinding.ItemJuegoBinding;
+import com.example.gamezone.games.models.Game;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
