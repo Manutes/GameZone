@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityHomeScreenBinding;
+import com.example.gamezone.remolachagame.difficultgame.DifficultGameActivity;
 import com.example.gamezone.remolachagame.easygame.EasyGameActivity;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -82,6 +83,12 @@ public class HomeScreenActivity extends AppCompatActivity {
     private void setButtons() {
         binding.btnNewEasyGame.setOnClickListener(it -> {
             Intent intent = new Intent(this, EasyGameActivity.class);
+            mp.stop();
+            startActivity(intent);
+        });
+
+        binding.btnNewDifficultGame.setOnClickListener(it -> {
+            Intent intent = new Intent(this, DifficultGameActivity.class);
             mp.stop();
             startActivity(intent);
         });

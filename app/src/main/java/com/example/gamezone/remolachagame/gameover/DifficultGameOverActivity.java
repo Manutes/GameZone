@@ -7,18 +7,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.gamezone.R;
-import com.example.gamezone.databinding.ActivityEasyGameOverBinding;
-import com.example.gamezone.remolachagame.easygame.EasyGameActivity;
+import com.example.gamezone.databinding.ActivityDifficultGameOverBinding;
+import com.example.gamezone.remolachagame.difficultgame.DifficultGameActivity;
 import com.example.gamezone.remolachagame.homescreen.HomeScreenActivity;
 
-public class EasyGameOverActivity extends AppCompatActivity {
+public class DifficultGameOverActivity extends AppCompatActivity {
 
-    ActivityEasyGameOverBinding binding;
+    ActivityDifficultGameOverBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityEasyGameOverBinding.inflate(getLayoutInflater());
+        binding = ActivityDifficultGameOverBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setBackgroundGif();
@@ -36,7 +36,7 @@ public class EasyGameOverActivity extends AppCompatActivity {
     }
 
     public void restart() {
-        Intent intent = new Intent(this, EasyGameActivity.class);
+        Intent intent = new Intent(this, DifficultGameActivity.class);
         startActivity(intent);
         finish();
     }
