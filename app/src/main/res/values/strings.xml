@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Pasatiempos App</string>
+
+    <string name="nav_bar_titulo_juegos">Juegos</string>
+    <string name="nav_bar_titulo_social">Social</string>
+    <string name="nav_bar_titulo_opciones">Opciones</string>
+
+    <string name="titulo_pasatiempos">Pasatiempos</string>
+
+    <string name="titulo_juego_remolacha">Remolacha Hero</string>
+
+</resources>
