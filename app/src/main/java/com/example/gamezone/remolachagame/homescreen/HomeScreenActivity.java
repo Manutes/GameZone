@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityHomeScreenBinding;
 import com.example.gamezone.remolachagame.easygame.EasyGameActivity;
-import com.example.gamezone.remolachagame.easygame.EasyGameScreen;
 
 public class HomeScreenActivity extends AppCompatActivity {
 

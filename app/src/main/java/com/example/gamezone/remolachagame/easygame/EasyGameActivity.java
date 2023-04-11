@@ -111,10 +111,12 @@ public class EasyGameActivity extends AppCompatActivity {
     public void goToGameOver(){
         Intent intent = new Intent(this, EasyGameOverActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goToVictory(){
         Intent intent = new Intent(this, VictoryActivity.class);
         startActivity(intent);
+        finish();
     }
 }
