@@ -1,6 +1,7 @@
 package com.example.gamezone.games;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.example.gamezone.games.adapter.SetOnClickListener;
 import com.example.gamezone.databinding.FragmentGamesBinding;
 import com.example.gamezone.games.adapter.GamesAdapter;
 import com.example.gamezone.games.models.Game;
+import com.example.gamezone.remolachagame.homescreen.HomeScreenActivity;
 
 import java.util.List;
 
@@ -64,7 +66,13 @@ public class GamesFragment extends Fragment implements SetOnClickListener {
 
     @Override
     public void onItemClick(Game game, int position) {
-        Toast.makeText(context, "Remolacha Hero Seleccionado", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, game.getTitle(), Toast.LENGTH_LONG).show();
+        switch (game.getId()) {
+            case 1:
+                Intent intent = new Intent (context, HomeScreenActivity.class);
+                startActivity(intent);
+        }
+
     }
 
 }

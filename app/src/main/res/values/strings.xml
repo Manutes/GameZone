@@ -13,5 +13,10 @@
     <string name="instrucciones_text">Instrucciones</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reintentar_text">Reintentar</string>
+    <string name="volver_al_menu_principal_text">Volver al menu principal</string>
+    <string name="game_over_text">Game over</string>
+    <string name="lo_conseguiste_text">¡Lo conseguiste!</string>
+    <string name="dios_remolachas_text">¡Eres el dios de las remolachas!</string>
 
 </resources>
