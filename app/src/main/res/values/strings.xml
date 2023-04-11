@@ -11,5 +11,7 @@
     <string name="nueva_partida_facil_text">Nueva Partida Facil</string>
     <string name="nueva_partida_dificil_text">Nueva Partida Dificil</string>
     <string name="instrucciones_text">Instrucciones</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
