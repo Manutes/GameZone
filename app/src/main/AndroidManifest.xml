@@ -12,13 +12,13 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".VictoryActivity"
+            android:name=".remolachagame.victory.VictoryActivity"
             android:exported="false" />
         <activity
-            android:name=".EasyGameOverActivity"
+            android:name=".remolachagame.gameover.EasyGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".EasyGameActivity"
+            android:name=".remolachagame.easygame.EasyGameActivity"
             android:exported="false" />
         <activity
             android:name="com.example.gamezone.remolachagame.homescreen.HomeScreenActivity"

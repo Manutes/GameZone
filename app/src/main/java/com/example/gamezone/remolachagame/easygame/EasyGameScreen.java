@@ -80,10 +80,6 @@ public class EasyGameScreen extends View {
         points.setTextAlign(Paint.Align.RIGHT);
         points.setTextSize(100);
         points.setColor(Color.WHITE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            Typeface tf = Resources.getSystem().getFont(R.font.fuente);
-            points.setTypeface(tf);
-        }
         canvas.drawText(score.toString(), 150, 150, points);
     }
 

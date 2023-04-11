@@ -54,6 +54,12 @@ public class EasyGameActivity extends AppCompatActivity {
         easyGameScreen.audio[0].start();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        easyGameScreen.audio[0].stop();
+    }
+
     private void setViewTreeObserver() {
         easyGameScreen = binding.easyGameScreen;
 

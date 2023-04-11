@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityHomeScreenBinding;
+import com.example.gamezone.remolachagame.easygame.EasyGameActivity;
 import com.example.gamezone.remolachagame.easygame.EasyGameScreen;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -33,16 +34,57 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     private void setMediaPlayer() {
-        mp = MediaPlayer.create(this,R.raw.banjo);
+        if (mp != null) {
+            mp.release();
+        }
+        mp = MediaPlayer.create(this, R.raw.banjo);
         mp.start();
+        mp.setOnCompletionListener(MediaPlayer::start);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mp != null && mp.isPlaying()) {
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setMediaPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setMediaPlayer();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mp != null) {
+            mp.release();
+            mp = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mp != null) {
+            mp.release();
+            mp = null;
+        }
     }
 
     private void setButtons() {
         binding.btnNewEasyGame.setOnClickListener(it -> {
-            Intent intent = new Intent(this, EasyGameScreen.class);
+            Intent intent = new Intent(this, EasyGameActivity.class);
             mp.stop();
             startActivity(intent);
         });
     }
-
 }
