@@ -1,12 +1,14 @@
 package com.example.gamezone.remolachagame.easygame;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 
 import androidx.annotation.Nullable;
@@ -78,6 +80,10 @@ public class EasyGameScreen extends View {
         points.setTextAlign(Paint.Align.RIGHT);
         points.setTextSize(100);
         points.setColor(Color.WHITE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Typeface tf = Resources.getSystem().getFont(R.font.fuente);
+            points.setTypeface(tf);
+        }
         canvas.drawText(score.toString(), 150, 150, points);
     }
 
@@ -93,8 +99,8 @@ public class EasyGameScreen extends View {
         Paint beet = new Paint();
 
         RectF rectBeet = new RectF((beetX - radio), (beetY - radio), (beetX + radio), (beetY + radio));
-        Bitmap bitmapbeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolacha);
-        canvas.drawBitmap(bitmapbeet, null, rectBeet, beet);
+        Bitmap bitmapBeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolacha);
+        canvas.drawBitmap(bitmapBeet, null, rectBeet, beet);
 
         if (beetY > height) {
             score -= 1;
@@ -114,8 +120,8 @@ public class EasyGameScreen extends View {
 
         if ((score == 15 || score == 30) && !goldenBeetCaught) {
             RectF rectGoldenBeet = new RectF((goldenBeetX - radio), (goldenBeetY - radio), (goldenBeetX + radio), (goldenBeetY + radio));
-            Bitmap bitmapbeetOro = BitmapFactory.decodeResource(getResources(), R.drawable.remolachaoro);
-            canvas.drawBitmap(bitmapbeetOro, null, rectGoldenBeet, goldenBeet);
+            Bitmap bitmapGoldenBeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolachaoro);
+            canvas.drawBitmap(bitmapGoldenBeet, null, rectGoldenBeet, goldenBeet);
 
             if (goldenBeetY > height) {
                 goldenBeetY = 50;
@@ -135,8 +141,8 @@ public class EasyGameScreen extends View {
         Paint farmer = new Paint();
 
         RectF rectFarmer = new RectF((farmerX - radio), (farmerY - radio), (farmerX + radio), (farmerY + radio));
-        Bitmap bitmapfarmer = BitmapFactory.decodeResource(getResources(), R.drawable.granjero);
-        canvas.drawBitmap(bitmapfarmer, null, rectFarmer, farmer);
+        Bitmap bitmapFarmer = BitmapFactory.decodeResource(getResources(), R.drawable.granjero);
+        canvas.drawBitmap(bitmapFarmer, null, rectFarmer, farmer);
 
         if (farmerY > height) {
             farmerY = 50;
@@ -155,8 +161,8 @@ public class EasyGameScreen extends View {
 
         if (score >= 20) {
             RectF rectBear = new RectF((bearX - radio), (bearY - radio), (bearX + radio), (bearY + radio));
-            Bitmap bitmapbear = BitmapFactory.decodeResource(getResources(), R.drawable.oso);
-            canvas.drawBitmap(bitmapbear, null, rectBear, bear);
+            Bitmap bitmapBear = BitmapFactory.decodeResource(getResources(), R.drawable.oso);
+            canvas.drawBitmap(bitmapBear, null, rectBear, bear);
 
             if (bearY > height) {
                 bearY = 50;
