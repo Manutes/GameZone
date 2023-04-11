@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".remolachagame.HomeScreenActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnNewEasyGame"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_36"
+            android:fontFamily="@font/fuente"
+            android:text="@string/nueva_partida_facil_text"
+            android:textAlignment="center"
+            android:textColor="@color/new_easy_game_text"
+            android:textSize="@dimen/dimen_50"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnNewDifficultGame"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:fontFamily="@font/fuente"
+            android:text="@string/nueva_partida_dificil_text"
+            android:textAlignment="center"
+            android:textColor="@color/new_difficult_game"
+            android:textSize="@dimen/dimen_50"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnNewEasyGame" />
+
+        <Button
+            android:id="@+id/btnInstructions"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:fontFamily="@font/fuente"
+            android:text="@string/instrucciones_text"
+            android:textAlignment="center"
+            android:textColor="@color/instructions"
+            android:textSize="@dimen/dimen_50"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnNewDifficultGame" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

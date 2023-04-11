@@ -8,5 +8,8 @@
     <string name="titulo_pasatiempos">Pasatiempos</string>
 
     <string name="titulo_juego_remolacha">Remolacha Hero</string>
+    <string name="nueva_partida_facil_text">Nueva Partida Facil</string>
+    <string name="nueva_partida_dificil_text">Nueva Partida Dificil</string>
+    <string name="instrucciones_text">Instrucciones</string>
 
 </resources>

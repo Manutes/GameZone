@@ -12,4 +12,8 @@
     <color name="primary_text">#212121</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="new_easy_game_text">#9112A6</color>
+    <color name="new_difficult_game">#D8180A</color>
+    <color name="instructions">#016C62</color>
 </resources>

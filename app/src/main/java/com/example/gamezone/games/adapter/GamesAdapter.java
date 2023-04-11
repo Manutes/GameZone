@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gamezone.SetOnClickListener;
 import com.example.gamezone.databinding.ItemJuegoBinding;
 import com.example.gamezone.games.models.Game;
 import com.google.android.material.imageview.ShapeableImageView;
