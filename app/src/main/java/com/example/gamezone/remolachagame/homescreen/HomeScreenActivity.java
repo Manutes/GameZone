@@ -13,6 +13,7 @@ import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityHomeScreenBinding;
 import com.example.gamezone.remolachagame.difficultgame.DifficultGameActivity;
 import com.example.gamezone.remolachagame.easygame.EasyGameActivity;
+import com.example.gamezone.remolachagame.instructions.InstructionsFragment;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -91,6 +92,10 @@ public class HomeScreenActivity extends AppCompatActivity {
             Intent intent = new Intent(this, DifficultGameActivity.class);
             mp.stop();
             startActivity(intent);
+        });
+        binding.btnInstructions.setOnClickListener(it -> {
+            InstructionsFragment instructionsFragment = InstructionsFragment.newInstance();
+            instructionsFragment.show(getSupportFragmentManager(), "intructions_fragment");
         });
     }
 }

@@ -21,7 +21,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +31,17 @@
             android:orientation="vertical"
             android:padding="@dimen/dimen_12">
 
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/round_close_24"
+                app:tint="@color/new_easy_game_text"
+                android:background="@null"
+                android:minWidth="@dimen/dimen_36"
+                android:minHeight="@dimen/dimen_36"
+                android:scaleType="fitXY"/>
+
             <TextView
                 android:id="@+id/tvHistory"
                 android:layout_width="match_parent"
@@ -39,7 +49,7 @@
                 android:fontFamily="@font/fuente"
                 android:text="@string/textview_instructions_history"
                 android:textAlignment="center"
-                android:layout_marginTop="@dimen/dimen_24"
+                android:layout_marginTop="@dimen/dimen_12"
                 android:textColor="@color/instructions"
                 android:textSize="@dimen/dimen_26"
                 android:textStyle="bold" />
