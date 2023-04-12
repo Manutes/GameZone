@@ -7,12 +7,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.gamezone.R;
 
@@ -78,7 +81,19 @@ public class DifficultGameScreen extends View {
         points.setTextAlign(Paint.Align.RIGHT);
         points.setTextSize(100);
         points.setColor(Color.WHITE);
+        points.setTypeface(setCustomTypeface());
         canvas.drawText(score.toString(), 150, 150, points);
+    }
+
+    private Typeface setCustomTypeface() {
+        Typeface typeface;
+        if (Build.VERSION.SDK_INT >= 28) {
+            Typeface typefaceA = ResourcesCompat.getFont(getContext(), R.font.fuente);
+            typeface = Typeface.create(typefaceA, 700, false);
+        } else {
+            typeface = ResourcesCompat.getFont(getContext(), R.font.fuente);
+        }
+        return typeface;
     }
 
     private void setBasketPosition(Canvas canvas) {
