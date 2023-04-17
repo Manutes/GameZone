@@ -1,18 +1,32 @@
 package com.example.gamezone;
 
+import static com.example.gamezone.R.*;
+
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.gamezone.databinding.ActivityMainBinding;
 import com.example.gamezone.games.GamesFragment;
+import com.example.gamezone.options.OptionsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private ActivityMainBinding binding;
+
+    FragmentManager fragmentManager = getSupportFragmentManager();
+
+    final Fragment gamesFragment = new GamesFragment();
+    final Fragment socialFragment = new Fragment();
+    final Fragment optionsFragment = new OptionsFragment();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,42 +35,25 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        setupBottomNav();
+        binding.navBar.setOnItemSelectedListener(this);
+        binding.navBar.setSelectedItemId(id.games);
     }
 
-    private void setupBottomNav() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case id.games:
+                fragmentManager.beginTransaction().replace(id.hostFragment, gamesFragment).commit();
+                return true;
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+            case id.social:
+                fragmentManager.beginTransaction().replace(id.hostFragment, socialFragment).commit();
+                return true;
 
-        final Fragment gamesFragment = new GamesFragment();
-        final Fragment socialFragment = new Fragment();
-        final Fragment optionsFragment = new Fragment();
-
-        fragmentManager.beginTransaction()
-                .add(R.id.hostFragment, gamesFragment, GamesFragment.class.getName()).commit();
-
-        fragmentManager.beginTransaction()
-                .add(R.id.hostFragment, socialFragment).hide(socialFragment).commit();
-
-        fragmentManager.beginTransaction()
-                .add(R.id.hostFragment, optionsFragment).hide(optionsFragment).commit();
-
-        binding.navBar.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.games:
-                    fragmentManager.beginTransaction().replace(R.id.hostFragment, gamesFragment).commit();
-                    return true;
-
-                case R.id.social:
-                    fragmentManager.beginTransaction().replace(R.id.hostFragment, socialFragment).commit();
-                    return true;
-
-                case R.id.options:
-                    fragmentManager.beginTransaction().replace(R.id.hostFragment, optionsFragment).commit();
-                    return true;
-            }
-            return false;
-        });
+            case id.options:
+                fragmentManager.beginTransaction().replace(id.hostFragment, optionsFragment).commit();
+                return true;
+        }
+        return false;
     }
-
 }

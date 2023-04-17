@@ -23,5 +23,9 @@
     <string name="textview_instructions_easy_mode">En el modo facil, tendras que sortear al propietario para poder robar 50 remolachas, aunque cuando lleves 20, llamara a su mascota Fujur para que le ayude</string>
     <string name="textview_instructions_difficult_mode">En el modo dificil tendras que darte mucha mas prisa en coger 100 remolachas. Esta vez el propietario va con su sobrino Loco Joe, y cuando lleves 20 sacara a su mascota Fujur</string>
 
+    <string name="options_sound_title">Sonido</string>
+    <string name="options_sound_on">ON</string>
+    <string name="options_sound_off">OFF</string>
+
 
 </resources>
