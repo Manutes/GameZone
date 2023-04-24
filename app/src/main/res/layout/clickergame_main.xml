@@ -4,56 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondobg"
+    android:theme="@style/AppTheme"
     tools:context=".MainActivity">
+
 
     <TextView
         android:id="@+id/score_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="148dp"
+        android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="28dp"
-        android:text="Score: 0"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/fuentedigital"
+        android:text="Dinero: 0"
+        android:textColor="@color/white"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="391dp"
+        android:layout_height="328dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/click_speed_button"
+            android:layout_width="271dp"
+            android:layout_height="73dp"
+            android:text="@string/button_increase_click_speed"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:backgroundTint="@color/purple_200"
+            app:cornerRadius="28dp"
+            app:layout_constraintStart_toStartOf="@+id/click_value_button"
+            app:layout_constraintTop_toBottomOf="@+id/click_value_button" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/click_value_button"
+            android:layout_width="270dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/button_increase_click_value"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:backgroundTint="@color/purple_200"
+            app:cornerRadius="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/click_button"
+        android:layout_width="233dp"
+        android:layout_height="193dp"
+        android:layout_marginTop="136dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/fondo_uno"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/click_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="160dp"
-        android:text="Click Me!"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_text_view" />
-
-    <Button
-        android:id="@+id/click_value_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:text="Increase Click Value (+1): 10 Coins"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/click_button" />
-
-    <Button
-        android:id="@+id/click_speed_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="72dp"
-        android:text="Increase Click Speed: 50 Coins"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/click_value_button"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/click_value_button"
-        app:layout_constraintTop_toBottomOf="@+id/click_value_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

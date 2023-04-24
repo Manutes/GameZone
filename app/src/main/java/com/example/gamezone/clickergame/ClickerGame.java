@@ -1,39 +1,90 @@
-package com.example.clickergamem13;
+package com.example.gamezone.clickergame;
+
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import com.example.gamezone.R;
 
-public class MainActivity extends AppCompatActivity {
+public class ClickerGame extends AppCompatActivity {
 
     private int score = 0;
     private int clickValue = 1;
     private int clickValueCost = 10;
     private int clickSpeed = 1000;
     private int clickSpeedCost = 50;
-    private Button clickButton;
+    private ImageButton clickButton;
     private TextView scoreTextView;
+    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer2;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.clickergame_main);
 
         scoreTextView = findViewById(R.id.score_text_view);
         clickButton = findViewById(R.id.click_button);
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.clic);
+        mediaPlayer2 = MediaPlayer.create(this, R.raw.bootup);
+
         loadGame();
 
+        mediaPlayer2.seekTo(0);
+        mediaPlayer2.start();
+
+        ImageButton clickButton = findViewById(R.id.click_button);
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mediaPlayer.seekTo(0);
+                mediaPlayer.start();
                 score += clickValue;
                 updateScoreTextView();
+            }
+        });
+
+        clickButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Define la animación de presionado del botón
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v, "scaleX", 0.95f);
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v, "scaleY", 0.95f);
+                    scaleDownX.setDuration(100);
+                    scaleDownY.setDuration(100);
+
+                    AnimatorSet scaleDown = new AnimatorSet();
+                    scaleDown.play(scaleDownX).with(scaleDownY);
+
+                    // Ejecuta la animación de presionado del botón
+                    scaleDown.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    // Define la animación de soltar el botón
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v, "scaleX", 1f);
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v, "scaleY", 1f);
+                    scaleDownX.setDuration(100);
+                    scaleDownY.setDuration(100);
+
+                    AnimatorSet scaleDown = new AnimatorSet();
+                    scaleDown.play(scaleDownX).with(scaleDownY);
+                    // Ejecuta la animación de soltar el botón
+                    scaleDown.start();
+                }
+                return false;
             }
         });
 
@@ -82,7 +133,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateScoreTextView() {
-        scoreTextView.setText("Score: " + score);
+        scoreTextView.setText("Dinero: " + score);
+
+        // Cambiar la imagen del botón si se ha superado el umbral
+        if (score >= 1000) {
+            clickButton.setImageResource(R.drawable.fondo_dos);
+        }
+        if (score >= 10000) {
+            clickButton.setImageResource(R.drawable.fondo_tres);
+        }
+        if (score >= 100000) {
+            clickButton.setImageResource(R.drawable.fondo_cuatro);
+        }
+        if (score >= 1000000) {
+            clickButton.setImageResource(R.drawable.fondo_cinco);
+        }
+        if (score >= 10000000) {
+            clickButton.setImageResource(R.drawable.fondo_seis);
+        }
+        if (score >= 100000000) {
+            clickButton.setImageResource(R.drawable.fondo_siete);
+        }
+        if (score >= 1000000000) {
+            clickButton.setImageResource(R.drawable.fondo_ocho);
+        }
+        if (score >= 10000000000L) {
+            clickButton.setImageResource(R.drawable.fondo_nueve);
+        }
+
     }
 
     private void updateClickValueButton() {

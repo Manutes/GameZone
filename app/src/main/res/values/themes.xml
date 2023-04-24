@@ -14,4 +14,11 @@
         <!-- Customize your theme here. -->
         <item name="android:textColorHighlightInverse">@color/primary_color</item>
     </style>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/purple_200</item>
+        <item name="android:windowBackground">@drawable/fondobg</item>
+    </style>
 </resources>

@@ -16,4 +16,8 @@
     <color name="new_easy_game_text">#9112A6</color>
     <color name="new_difficult_game">#D8180A</color>
     <color name="instructions">#016C62</color>
+
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="purple_200">#BB86FC</color>
 </resources>

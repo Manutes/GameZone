@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.gamezone.clickergame.ClickerGame;
 import com.example.gamezone.games.adapter.SetOnClickListener;
 import com.example.gamezone.databinding.FragmentGamesBinding;
 import com.example.gamezone.games.adapter.GamesAdapter;
@@ -71,6 +72,10 @@ public class GamesFragment extends Fragment implements SetOnClickListener {
             case 1:
                 Intent intent = new Intent (context, HomeScreenActivity.class);
                 startActivity(intent);
+                break;
+            case 2:
+                Intent intentCG = new Intent (context, ClickerGame.class);
+                startActivity(intentCG);
         }
 
     }
