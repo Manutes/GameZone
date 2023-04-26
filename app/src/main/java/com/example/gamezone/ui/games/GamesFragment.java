@@ -1,4 +1,4 @@
-package com.example.gamezone.games;
+package com.example.gamezone.ui.games;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.gamezone.games.adapter.SetOnClickListener;
+import com.example.gamezone.ui.games.adapter.SetOnClickListener;
 import com.example.gamezone.databinding.FragmentGamesBinding;
-import com.example.gamezone.games.adapter.GamesAdapter;
-import com.example.gamezone.games.models.Game;
-import com.example.gamezone.remolachagame.homescreen.HomeScreenActivity;
+import com.example.gamezone.ui.games.adapter.GamesAdapter;
+import com.example.gamezone.ui.games.models.Game;
+import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 
 import java.util.List;
 

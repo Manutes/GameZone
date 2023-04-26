@@ -1,4 +1,4 @@
-package com.example.gamezone.remolachagame.difficultgame;
+package com.example.gamezone.ui.remolachagame.difficultgame;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.databinding.ActivityDifficultGameBinding;
-import com.example.gamezone.remolachagame.gameover.DifficultGameOverActivity;
-import com.example.gamezone.remolachagame.victory.VictoryActivity;
+import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
+import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 
 import java.util.Random;
 import java.util.Timer;

@@ -1,4 +1,4 @@
-package com.example.gamezone.remolachagame.gameover;
+package com.example.gamezone.ui.remolachagame.gameover;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityDifficultGameOverBinding;
-import com.example.gamezone.remolachagame.difficultgame.DifficultGameActivity;
-import com.example.gamezone.remolachagame.homescreen.HomeScreenActivity;
+import com.example.gamezone.ui.remolachagame.difficultgame.DifficultGameActivity;
+import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 
 public class DifficultGameOverActivity extends AppCompatActivity {
 

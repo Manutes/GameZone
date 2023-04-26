@@ -1,4 +1,4 @@
-package com.example.gamezone.games.models;
+package com.example.gamezone.ui.games.models;
 
 public class Game {
 

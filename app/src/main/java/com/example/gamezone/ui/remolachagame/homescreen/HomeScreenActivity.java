@@ -1,4 +1,4 @@
-package com.example.gamezone.remolachagame.homescreen;
+package com.example.gamezone.ui.remolachagame.homescreen;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityHomeScreenBinding;
-import com.example.gamezone.remolachagame.difficultgame.DifficultGameActivity;
-import com.example.gamezone.remolachagame.easygame.EasyGameActivity;
-import com.example.gamezone.remolachagame.instructions.InstructionsFragment;
+import com.example.gamezone.ui.remolachagame.difficultgame.DifficultGameActivity;
+import com.example.gamezone.ui.remolachagame.easygame.EasyGameActivity;
+import com.example.gamezone.ui.remolachagame.instructions.InstructionsFragment;
 
 public class HomeScreenActivity extends AppCompatActivity {
 

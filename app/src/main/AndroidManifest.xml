@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,25 +21,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".remolachagame.difficultgame.DifficultGameActivity"
+            android:name=".ui.remolachagame.difficultgame.DifficultGameActivity"
             android:exported="false" />
         <activity
-            android:name=".remolachagame.gameover.DifficultGameOverActivity"
+            android:name=".ui.remolachagame.gameover.DifficultGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".remolachagame.victory.VictoryActivity"
+            android:name=".ui.remolachagame.victory.VictoryActivity"
             android:exported="false" />
         <activity
-            android:name=".remolachagame.gameover.EasyGameOverActivity"
+            android:name=".ui.remolachagame.gameover.EasyGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".remolachagame.easygame.EasyGameActivity"
+            android:name=".ui.remolachagame.easygame.EasyGameActivity"
             android:exported="false" />
         <activity
-            android:name=".remolachagame.homescreen.HomeScreenActivity"
+            android:name=".ui.remolachagame.homescreen.HomeScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false">
         </activity>
     </application>

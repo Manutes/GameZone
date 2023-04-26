@@ -1,4 +1,4 @@
-package com.example.gamezone.remolachagame.difficultgame;
+package com.example.gamezone.ui.remolachagame.easygame;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,11 +21,11 @@ import com.example.gamezone.R;
 
 import java.util.Random;
 
-public class DifficultGameScreen extends View {
+public class EasyGameScreen extends View {
 
     public int width, height;
     public int posX, posY, radio;
-    public int farmerX, farmerY, nephewX, nephewY, bearX, bearY;
+    public int farmerX, farmerY, bearX, bearY;
     public int beetX, beetY, goldenBeetX, goldenBeetY;
     private RectF rectBasket;
     private final Random random = new Random();
@@ -33,21 +33,21 @@ public class DifficultGameScreen extends View {
     public Integer score = 0;
     public MediaPlayer[] audio = new MediaPlayer[3];
 
-    public DifficultGameScreen(Context context) {
+    public EasyGameScreen(Context context) {
         super(context);
     }
 
-    public DifficultGameScreen(Context context, @Nullable AttributeSet attrs) {
+    public EasyGameScreen(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public EasyGameScreen(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        audio[0] = MediaPlayer.create(context, R.raw.dificil);
+        audio[0] = MediaPlayer.create(context, R.raw.normal);
         audio[1] = MediaPlayer.create(context, R.raw.yija);
         audio[2] = MediaPlayer.create(context, R.raw.gameover);
         audio[0].start();
         audio[0].setOnCompletionListener(mp -> audio[0].start());
-    }
-
-    public DifficultGameScreen(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     @Override
@@ -71,7 +71,6 @@ public class DifficultGameScreen extends View {
         setBeetScore(canvas);
         setGoldenBeetScore(canvas);
         setFarmerEnemy(canvas);
-        setNephewEnemy(canvas);
         setBearEnemy(canvas);
     }
 
@@ -127,7 +126,7 @@ public class DifficultGameScreen extends View {
     private void setGoldenBeetScore(Canvas canvas) {
         Paint goldenBeet = new Paint();
 
-        if ((score == 25 || score == 50 || score == 75) && !goldenBeetCaught) {
+        if ((score == 15 || score == 30) && !goldenBeetCaught) {
             RectF rectGoldenBeet = new RectF((goldenBeetX - radio), (goldenBeetY - radio), (goldenBeetX + radio), (goldenBeetY + radio));
             Bitmap bitmapGoldenBeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolachaoro);
             canvas.drawBitmap(bitmapGoldenBeet, null, rectGoldenBeet, goldenBeet);
@@ -138,7 +137,7 @@ public class DifficultGameScreen extends View {
             }
 
             if (RectF.intersects(rectBasket, rectGoldenBeet)) {
-                score += 10;
+                score += 5;
                 beetY = 50;
                 beetX = random.nextInt(width);
                 goldenBeetCaught = true;
@@ -162,25 +161,6 @@ public class DifficultGameScreen extends View {
             score -= 3;
             farmerY = 50;
             farmerX = random.nextInt(width);
-        }
-    }
-
-    private void setNephewEnemy(Canvas canvas) {
-        Paint nephew = new Paint();
-
-        RectF rectNephew = new RectF((nephewX - radio), (nephewY - radio), (nephewX + radio), (nephewY + radio));
-        Bitmap mvl_bitmapNephew = BitmapFactory.decodeResource(getResources(), R.drawable.sobrino);
-        canvas.drawBitmap(mvl_bitmapNephew, null, rectNephew, nephew);
-
-        if (nephewY > height) {
-            nephewY = 50;
-            nephewX = random.nextInt(width);
-        }
-
-        if (RectF.intersects(rectBasket, rectNephew)) {
-            score -= 5;
-            nephewY = 50;
-            nephewX = random.nextInt(width);
         }
     }
 

@@ -1,17 +1,15 @@
-package com.example.gamezone.remolachagame.victory;
+package com.example.gamezone.ui.remolachagame.victory;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityVictoryBinding;
-import com.example.gamezone.remolachagame.homescreen.HomeScreenActivity;
+import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 
 public class VictoryActivity extends AppCompatActivity {
 

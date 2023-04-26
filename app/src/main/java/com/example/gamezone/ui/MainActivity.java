@@ -1,4 +1,4 @@
-package com.example.gamezone;
+package com.example.gamezone.ui;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityMainBinding;
-import com.example.gamezone.games.GamesFragment;
+import com.example.gamezone.ui.games.GamesFragment;
 
 public class MainActivity extends AppCompatActivity {
 

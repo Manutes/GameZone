@@ -4,6 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".ui.login.LoginActivity"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/titleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dimen_60"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgGame"
+            android:layout_width="@dimen/dimen_150"
+            android:layout_height="@dimen/dimen_150"
+            android:src="@drawable/ic_gamezone"
+            android:scaleType="centerCrop"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
