@@ -22,6 +22,10 @@
     <string name="textview_instructions_history">Estas hambriento y te has encontrado con la vieja granja de remolachas de la familia Perkins. Debes intentar guardar las remolachas sin que te pille el propietario de la granja. Si pierdes alguna por el camino te penalizara. ¡Atento a las remolachas doradas!</string>
     <string name="textview_instructions_easy_mode">En el modo facil, tendras que sortear al propietario para poder robar 50 remolachas, aunque cuando lleves 20, llamara a su mascota Fujur para que le ayude</string>
     <string name="textview_instructions_difficult_mode">En el modo dificil tendras que darte mucha mas prisa en coger 100 remolachas. Esta vez el propietario va con su sobrino Loco Joe, y cuando lleves 20 sacara a su mascota Fujur</string>
+    <string name="check_user_text">El user no puede estar vacío</string>
+    <string name="check_password_text">La contraseña no puede estar vacía</string>
+    <string name="btn_login_text">Login</string>
+    <string name="btn_register_text">Registro</string>
 
 
 </resources>

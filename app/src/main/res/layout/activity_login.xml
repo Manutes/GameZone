@@ -53,7 +53,6 @@
             style="@style/TextInputLayout.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_12"
             android:hint="Email"
             app:startIconDrawable="@drawable/ic_email"
             app:startIconTint="@drawable/ic_color_selector">
@@ -68,12 +67,21 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tvEmptyUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_user_text"
+            android:textColor="@color/red"
+            style="@style/FirebaseUI.Text.T11"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPassword"
             style="@style/TextInputLayout.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_12"
             android:hint="Password"
             app:startIconDrawable="@drawable/ic_password"
             app:startIconTint="@drawable/ic_color_selector">
@@ -87,6 +95,16 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvEmptyPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_password_text"
+            android:textColor="@color/red"
+            style="@style/FirebaseUI.Text.T11"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
@@ -108,7 +126,8 @@
             android:layout_weight="1"
             android:background="@drawable/round_shape"
             android:fontFamily="@font/barcadenobar"
-            android:text="LOGIN" />
+            android:text="@string/btn_login_text"
+            android:enabled="false"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
@@ -117,7 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_6"
             android:layout_weight="1"
-            android:text="Registro" />
+            android:text="@string/btn_register_text"
+            android:enabled="false"/>
     </LinearLayout>
 
 
