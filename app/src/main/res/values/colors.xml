@@ -20,4 +20,7 @@
     <color name="purple_500">#6200EE</color>
     <color name="purple_700">#3700B3</color>
     <color name="purple_200">#BB86FC</color>
+
+    <color name="bg_clicker_game">#FFE0D2A5</color>
+    <color name="bg_mejoras_clicker_game">#949698</color>
 </resources>
