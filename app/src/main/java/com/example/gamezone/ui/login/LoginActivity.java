@@ -22,8 +22,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private final Firebase firebase = new Firebase();
 
-    String user = "";
-    String password = "";
+    CharSequence user = "";
+    CharSequence password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +41,15 @@ public class LoginActivity extends AppCompatActivity {
         setUserTextWatcher(binding.tilEmail);
         setPasswordTextWatcher(binding.tilPassword);
 
-        binding.btnLogin.setOnClickListener(view -> firebase.signIn(user, password, this));
+        binding.btnLogin.setOnClickListener(view -> firebase.signIn(user.toString(), password.toString(), this));
 
         binding.btnRegister.setOnClickListener(view -> {
-            firebase.createAccount(user, password, this);
+            firebase.createAccount(user.toString(), password.toString(), this);
             //firebase.signIn(user, password, this);
         });
     }
 
     private void setUserTextWatcher(TextInputLayout til) {
-            String[] editText = new String[1];
             Objects.requireNonNull(til.getEditText()).addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -58,8 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    editText[0] = charSequence.toString();
-                    user = Arrays.toString(editText);
+                    user = charSequence;
                     validate();
                 }
 
@@ -70,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setPasswordTextWatcher(TextInputLayout til) {
-        String[] editText = new String[1];
         Objects.requireNonNull(til.getEditText()).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -78,8 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                editText[0] = charSequence.toString();
-                password = Arrays.toString(editText);
+                password = charSequence;
                 validate();
             }
 
@@ -90,11 +86,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validate() {
-        if(!user.isEmpty() && !password.isEmpty()) {
-            binding.btnLogin.setEnabled(true);
-        } else {
-            binding.btnLogin.setEnabled(false);
-        }
+        binding.btnLogin.setEnabled(user.length() > 0 && password.length() > 0);
+        binding.btnRegister.setEnabled(user.length() > 0 && password.length() > 0);
+
     }
 
     @Override
