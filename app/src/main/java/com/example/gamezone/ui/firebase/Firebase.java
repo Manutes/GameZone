@@ -52,6 +52,9 @@ public class Firebase {
                 });
     }
 
+    public void signOut() {
+        mFirebaseAuth.signOut();
+    }
     private void updateUI(FirebaseUser user) {
 
     }

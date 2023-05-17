@@ -2,7 +2,6 @@ package com.example.gamezone.ui.login;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
     CharSequence user = "";
     CharSequence password = "";
+
+    com.example.gamezone.ui.sharedpreferences.SharedPreferences sharedPreferences = new com.example.gamezone.ui.sharedpreferences.SharedPreferences();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +75,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkCredentials() {
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        user = prefs.getString("user", "");
-        password = prefs.getString("password", "");
+        user = sharedPreferences.getPrefs("user", this);
+        password = sharedPreferences.getPrefs("password", this);
 
         if (user.length() > 0 && password.length() > 0) {
             firebase.signIn(user.toString(), password.toString(), this);
@@ -86,11 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void rememberCredentials() {
         if (binding.cbRememberCredentials.isChecked()) {
-            SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("user", user.toString());
-            editor.putString("password", password.toString());
-            editor.apply();
+            sharedPreferences.savePrefs(user.toString(), password.toString(), this);
         }
     }
 
@@ -133,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
     private void validate() {
         binding.btnLogin.setEnabled(user.length() > 0 && password.length() > 0);
         binding.btnRegister.setEnabled(user.length() > 0 && password.length() > 0);
-
     }
 
     @Override
