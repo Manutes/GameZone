@@ -2,6 +2,7 @@ package com.example.gamezone.ui.login;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        checkCredentials();
+
         setUi();
     }
 
@@ -52,9 +55,8 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.btnLogin.setOnClickListener(view -> {
             firebase.signIn(user.toString(), password.toString(), this);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            rememberCredentials();
+            goToMainActivity();
         });
 
         binding.btnRegister.setOnClickListener(view -> {
@@ -69,6 +71,27 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    private void checkCredentials() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        user = prefs.getString("user", "");
+        password = prefs.getString("password", "");
+
+        if (user.length() > 0 && password.length() > 0) {
+            firebase.signIn(user.toString(), password.toString(), this);
+            goToMainActivity();
+        }
+    }
+
+    private void rememberCredentials() {
+        if (binding.cbRememberCredentials.isChecked()) {
+            SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("user", user.toString());
+            editor.putString("password", password.toString());
+            editor.apply();
+        }
     }
 
     private void setUserTextWatcher(TextInputLayout til) {
@@ -119,5 +142,10 @@ public class LoginActivity extends AppCompatActivity {
         firebase.checkUser();
     }
 
+    private void goToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }
