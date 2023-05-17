@@ -35,6 +35,9 @@
     <string name="button_click_me">PULSA</string>
     <string name="button_increase_click_value">Incrementar valor del click</string>
     <string name="button_increase_click_speed">Incrementar click automático</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="text_rememeber_password">Recordar contraseña</string>
+    <string name="hint_email">Email</string>
 
 
 </resources>

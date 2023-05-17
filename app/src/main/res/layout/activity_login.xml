@@ -53,62 +53,56 @@
             style="@style/TextInputLayout.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/hint_email"
             app:startIconDrawable="@drawable/ic_email"
-            app:startIconTint="@drawable/ic_color_selector">
+            app:startIconTint="@drawable/ic_color_selector"
+            android:layout_marginBottom="@dimen/dimen_12">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="Email"
+                android:contentDescription="@string/hint_email"
                 android:fontFamily="@font/barcadenobar"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tvEmptyUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_user_text"
-            android:textColor="@color/red"
-            style="@style/FirebaseUI.Text.T11"
-            android:layout_gravity="center"
-            android:visibility="invisible"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPassword"
             style="@style/TextInputLayout.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/hint_password"
             app:startIconDrawable="@drawable/ic_password"
-            app:startIconTint="@drawable/ic_color_selector">
+            app:startIconTint="@drawable/ic_color_selector"
+            android:layout_marginBottom="@dimen/dimen_12">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="Password"
+                android:contentDescription="@string/hint_password"
                 android:fontFamily="@font/barcadenobar"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvEmptyPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_password_text"
-            android:textColor="@color/red"
-            style="@style/FirebaseUI.Text.T11"
-            android:layout_gravity="center"
-            android:visibility="invisible"/>
-
     </LinearLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbRememberCredentials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/loginContainer"
+        app:layout_constraintStart_toStartOf="@id/loginContainer"
+        android:text="@string/text_rememeber_password"
+        android:textColor="@color/primary_color"
+        android:fontFamily="@font/barcadenobar"
+        android:buttonTint="@color/primary_color"/>
+
     <LinearLayout
+        android:id="@+id/buttonsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_24"
@@ -116,7 +110,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginContainer">
+        app:layout_constraintTop_toBottomOf="@id/cbRememberCredentials">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
@@ -127,11 +121,12 @@
             android:background="@drawable/round_shape"
             android:fontFamily="@font/barcadenobar"
             android:text="@string/btn_login_text"
-            android:enabled="false"/>
+            android:enabled="false"
+            tools:enabled="true"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
-            style="@style/Button.Outlined"
+            style="@style/MyOutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_6"
@@ -139,6 +134,5 @@
             android:text="@string/btn_register_text"
             android:enabled="false"/>
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

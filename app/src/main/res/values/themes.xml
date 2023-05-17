@@ -21,4 +21,9 @@
         <item name="colorAccent">@color/purple_200</item>
         <item name="android:windowBackground">@drawable/fondobg</item>
     </style>
+
+    <style name="MyOutlinedButton" parent="Button.Outlined">
+        <item name="strokeColor">@drawable/button_color_selector</item>
+        <item name="android:textColor">@drawable/button_color_selector</item>
+    </style>
 </resources>
