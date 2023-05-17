@@ -27,5 +27,14 @@
     <string name="btn_login_text">Login</string>
     <string name="btn_register_text">Registro</string>
 
+    <string name="options_sound_title">Sonido</string>
+    <string name="options_sound_on">ON</string>
+    <string name="options_sound_off">OFF</string>
+
+    <string name="titulo_juego_clickergame">Clicker Game</string>
+    <string name="button_click_me">PULSA</string>
+    <string name="button_increase_click_value">Incrementar valor del click</string>
+    <string name="button_increase_click_speed">Incrementar click automático</string>
+
 
 </resources>

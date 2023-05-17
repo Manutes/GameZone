@@ -19,4 +19,8 @@
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/primary_color</color>
     <color name="red">#CC1818</color>
+
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="purple_200">#BB86FC</color>
 </resources>
