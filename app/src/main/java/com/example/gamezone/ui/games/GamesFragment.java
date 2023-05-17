@@ -76,6 +76,7 @@ public class GamesFragment extends Fragment implements SetOnClickListener {
             case 2:
                 Intent intentCG = new Intent (context, ClickerGame.class);
                 startActivity(intentCG);
+                break;
         }
 
     }

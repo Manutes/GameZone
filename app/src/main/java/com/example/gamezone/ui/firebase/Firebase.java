@@ -3,6 +3,7 @@ package com.example.gamezone.ui.firebase;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.gamezone.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -23,10 +24,10 @@ public class Firebase {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
                         updateUI(user);
-                        Toast.makeText(context, "Registro completado",
+                        Toast.makeText(context, context.getString(R.string.register_successful_text),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Error al autenticar",
+                        Toast.makeText(context, context.getString(R.string.register_error_text),
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
@@ -41,11 +42,11 @@ public class Firebase {
 
                         String userName = user.getUid();
 
-                        Toast.makeText(context, "Bienvenido " + userName, Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, context.getString(R.string.welcome_text) + userName, Toast.LENGTH_SHORT).show();
 
                         updateUI(user);
                     } else {
-                        Toast.makeText(context, "Error al autenticar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.credentials_login_error_text), Toast.LENGTH_LONG).show();
                         updateUI(null);
                     }
                 });

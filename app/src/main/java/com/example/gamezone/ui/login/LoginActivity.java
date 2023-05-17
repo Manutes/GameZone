@@ -1,20 +1,18 @@
 package com.example.gamezone.ui.login;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityLoginBinding;
+import com.example.gamezone.ui.MainActivity;
 import com.example.gamezone.ui.firebase.Firebase;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -52,12 +50,17 @@ public class LoginActivity extends AppCompatActivity {
         setUserTextWatcher(binding.tilEmail);
         setPasswordTextWatcher(binding.tilPassword);
 
-        binding.btnLogin.setOnClickListener(view -> firebase.signIn(user.toString(), password.toString(), this));
+        binding.btnLogin.setOnClickListener(view -> {
+            firebase.signIn(user.toString(), password.toString(), this);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         binding.btnRegister.setOnClickListener(view -> {
             if (PASSWORD_PATTERN.matcher(password.toString()).matches()) {
                 firebase.createAccount(user.toString(), password.toString(), this);
-                firebase.signIn(user.toString(), password.toString(), this);
+
             } else {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setMessage(R.string.dialog_password_text);
