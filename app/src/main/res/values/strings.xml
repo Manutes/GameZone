@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pasatiempos App</string>
+    <string name="app_name">Gamezone</string>
 
     <string name="nav_bar_titulo_juegos">Juegos</string>
     <string name="nav_bar_titulo_social">Social</string>

@@ -39,7 +39,7 @@ public class Firebase {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
 
-                        String userName = user.getDisplayName();
+                        String userName = user.getUid();
 
                         Toast.makeText(context, "Bienvenido " + userName, Toast.LENGTH_LONG).show();
 
