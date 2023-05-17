@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/imgGame"
-            android:layout_width="@dimen/dimen_150"
-            android:layout_height="@dimen/dimen_150"
+            android:layout_width="@dimen/dimen_125"
+            android:layout_height="@dimen/dimen_125"
             android:src="@drawable/ic_gamezone"
             android:scaleType="centerCrop"/>
 

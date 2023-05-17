@@ -9,43 +9,68 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dimen_12">
+        android:paddingBottom="@dimen/dimen_12"
+        android:paddingHorizontal="@dimen/dimen_24">
 
-        <ImageView
-            android:id="@+id/profilePhoto"
-            android:layout_width="@dimen/dimen_200"
-            android:layout_height="@dimen/dimen_200"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="@dimen/dimen_250"
+            android:layout_height="@dimen/dimen_250"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/dimen_50"
-            android:src="@drawable/consola"
-            android:scaleType="fitXY"/>
+            android:background="@drawable/round"
+            app:cardElevation="@dimen/dimen_24"
+            app:cardCornerRadius="@dimen/dimen_125"
+            android:layout_marginTop="@dimen/dimen_24"
+            app:strokeColor="@color/primary_color"
+            app:strokeWidth="@dimen/dimen_2">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/imgSearch"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/consola"
+                    android:scaleType="fitXY"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageButton
+            android:id="@+id/imgBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/profilePhoto"
-            app:layout_constraintEnd_toEndOf="@id/profilePhoto"
-            app:layout_constraintTop_toBottomOf="@id/profilePhoto"
-            style="@style/MyOutlinedButton"
-            app:icon="@drawable/ic_image_search"
-            android:text="Cambiar imagen de perfil"
-            app:iconTint="@color/accent_light"
-            android:layout_marginTop="@dimen/dimen_12"/>
+            android:background="@drawable/round"
+            android:cropToPadding="true"
+            android:padding="@dimen/dimen_16"
+            android:layout_marginBottom="@dimen/dimen_6"
+            android:layout_marginEnd="@dimen/dimen_6"
+            android:src="@drawable/ic_image_search"
+            app:layout_constraintEnd_toEndOf="@id/cardView"
+            app:layout_constraintBottom_toBottomOf="@id/cardView"
+            android:elevation="@dimen/dimen_24"
+            app:tint="@color/accent_light" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgSearch"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Nombre completo"
+            android:gravity="center"
             android:fontFamily="@font/barcadenobar"
             android:textAppearance="?attr/textAppearanceHeadline5"
-            android:layout_marginTop="@dimen/dimen_36"/>
+            android:layout_marginTop="@dimen/dimen_24"/>
 
         <TextView
             android:id="@+id/tvEmail"
@@ -59,14 +84,28 @@
             android:layout_marginTop="@dimen/dimen_6"
             android:textAppearance="?attr/textAppearanceSubtitle1"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/change_username"
+                android:fontFamily="@font/barcadenobar"
+                app:icon="@drawable/ic_rename"
+                style="@style/MyOutlinedButton"
+                app:iconTint="@color/accent_light"
+                android:layout_marginTop="@dimen/dimen_24"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEmail"
+            app:layout_constraintTop_toBottomOf="@id/btnChangeUserName"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/dimen_36"
+            android:layout_marginTop="@dimen/dimen_24"
             android:text="@string/logout_text"
             android:fontFamily="@font/barcadenobar"
             app:icon="@drawable/ic_logout"

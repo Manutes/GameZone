@@ -47,6 +47,11 @@
     <string name="register_successful_text">Registro completado. Ya puedes hacer login</string>
     <string name="register_error_text">Error al crear la cuenta. Revisa que el email y la contraseña estén bien escritas</string>
     <string name="logout_text">Cerrar sesion</string>
+    <string name="change_username">Cambiar nombre de usuario</string>
+    <string name="change_profile_img_text">Cambiar imagen de perfil</string>
+    <string name="dialog_change_username_text">Escribe tu nuevo nombre de usuario</string>
+    <string name="dialog_accept_button">Aceptar</string>
+    <string name="dialog_cancel_button">Cancelar</string>
 
 
 </resources>

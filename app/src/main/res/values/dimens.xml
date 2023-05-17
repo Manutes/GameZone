@@ -17,4 +17,8 @@
     <dimen name="dimen_26">26dp</dimen>
     <dimen name="dimen_250">250dp</dimen>
     <dimen name="dimen_200">200dp</dimen>
+    <dimen name="dimen_125">125dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_2">2dp</dimen>
 </resources>
