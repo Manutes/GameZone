@@ -44,7 +44,7 @@
             android:name=".ui.remolachagame.homescreen.HomeScreenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.gamezone.clickergame.ClickerGame"
+            android:name="com.example.gamezone.ui.clickergame.ClickerGame"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.gamezone.databinding.ActivityMainBinding;
 import com.example.gamezone.ui.games.GamesFragment;
-import com.example.gamezone.options.OptionsFragment;
+import com.example.gamezone.ui.options.OptionsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {

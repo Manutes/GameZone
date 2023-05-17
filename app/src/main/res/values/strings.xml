@@ -38,6 +38,8 @@
     <string name="hint_password">Contraseña</string>
     <string name="text_rememeber_password">Recordar contraseña</string>
     <string name="hint_email">Email</string>
+    <string name="dialog_password_text">La contraseña debe contener al menos una letra minúscula, una letra mayuscula, un número y contener entre 6 y 12 caracteres</string>
+    <string name="dialog_ok_button">Ok</string>
 
 
 </resources>

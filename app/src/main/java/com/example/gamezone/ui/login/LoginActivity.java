@@ -1,26 +1,37 @@
 package com.example.gamezone.ui.login;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityLoginBinding;
 import com.example.gamezone.ui.firebase.Firebase;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.Arrays;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
     private final Firebase firebase = new Firebase();
+
+    private static final String PASSWORD_REGEX =
+            "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$";
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile(PASSWORD_REGEX);
 
     CharSequence user = "";
     CharSequence password = "";
@@ -44,8 +55,16 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(view -> firebase.signIn(user.toString(), password.toString(), this));
 
         binding.btnRegister.setOnClickListener(view -> {
-            firebase.createAccount(user.toString(), password.toString(), this);
-            //firebase.signIn(user, password, this);
+            if (PASSWORD_PATTERN.matcher(password.toString()).matches()) {
+                firebase.createAccount(user.toString(), password.toString(), this);
+                firebase.signIn(user.toString(), password.toString(), this);
+            } else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage(R.string.dialog_password_text);
+                dialog.setPositiveButton(R.string.dialog_ok_button, (dialogInterface, i) -> dialogInterface.dismiss());
+                dialog.create();
+                dialog.show();
+            }
         });
     }
 

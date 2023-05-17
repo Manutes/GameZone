@@ -1,4 +1,4 @@
-package com.example.gamezone.options;
+package com.example.gamezone.ui.options;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

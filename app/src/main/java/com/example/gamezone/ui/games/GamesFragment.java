@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.gamezone.ui.games.adapter.SetOnClickListener;
-import com.example.gamezone.clickergame.ClickerGame;
+import com.example.gamezone.ui.clickergame.ClickerGame;
 import com.example.gamezone.databinding.FragmentGamesBinding;
 import com.example.gamezone.ui.games.adapter.GamesAdapter;
 import com.example.gamezone.ui.games.models.Game;
