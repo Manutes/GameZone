@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="fontFamily">@font/barcadenobar</item>
+        <item name="cornerRadius">@dimen/dimen_42</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="strokeColor">@color/primary_color</item>
+    </style>
+
+    <style name="TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="fontFamily">@font/barcadenobar</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/dimen_24</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dimen_24</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/dimen_24</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dimen_24</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColorHint">@color/primary_color</item>
+        <item name="boxStrokeColor">@color/accent_light</item>
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="hintTextColor">@color/accent_light</item>
+        <item name="colorControlNormal">@color/primary_color</item>
+    </style>
+</resources>

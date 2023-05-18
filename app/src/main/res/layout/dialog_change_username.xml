@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dimen_24">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"
+            app:strokeWidth="@dimen/dimen_1"
+            app:strokeColor="@color/primary_color"
+            android:layout_gravity="center"
+            app:cardCornerRadius="@dimen/dimen_12"
+            android:layout_marginVertical="@dimen/dimen_12">
+
+            <ImageView
+                android:src="@drawable/ic_gamezone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:background="@color/background" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/dialog_change_username_text"
+            android:fontFamily="@font/barcadenobar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:textColor="@color/accent_light"/>
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilUsername"
+        style="@style/TextInputLayout.Outlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_username"
+        app:startIconDrawable="@drawable/ic_rename"
+        app:startIconTint="@drawable/ic_color_selector"
+        android:layout_marginBottom="@dimen/dimen_12">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/hint_username"
+            android:fontFamily="@font/barcadenobar"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

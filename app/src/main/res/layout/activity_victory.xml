@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#BDC198"
-    tools:context=".remolachagame.victory.VictoryActivity">
+    tools:context=".ui.remolachagame.victory.VictoryActivity">
 
     <ImageView
         android:id="@+id/gif"

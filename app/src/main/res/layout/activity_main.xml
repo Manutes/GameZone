@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/titleContainer"
@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/imgGame"
-            android:layout_width="@dimen/dimen_150"
-            android:layout_height="@dimen/dimen_150"
+            android:layout_width="@dimen/dimen_125"
+            android:layout_height="@dimen/dimen_125"
             android:src="@drawable/ic_gamezone"
             android:scaleType="centerCrop"/>
 
