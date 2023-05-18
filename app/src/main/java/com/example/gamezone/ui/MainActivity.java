@@ -1,6 +1,6 @@
 package com.example.gamezone.ui;
 
-import static com.example.gamezone.R.*;
+import static com.example.gamezone.R.id;
 
 import android.os.Bundle;
 import android.view.MenuItem;

@@ -11,20 +11,27 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.gamezone.R;
+import com.example.gamezone.data.database.Firestore;
+import com.example.gamezone.data.firebase.Firebase;
+import com.example.gamezone.data.sharedpreferences.SharedPreferences;
 import com.example.gamezone.databinding.DialogChangeUsernameBinding;
 import com.example.gamezone.databinding.FragmentOptionsBinding;
-import com.example.gamezone.ui.firebase.Firebase;
 import com.example.gamezone.ui.games.GamesFragment;
 import com.example.gamezone.ui.login.LoginActivity;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Objects;
 
@@ -34,14 +41,16 @@ public class OptionsFragment extends Fragment {
     FragmentOptionsBinding binding;
     DialogChangeUsernameBinding alertBinding;
 
-
+    Firestore db = new Firestore();
     Firebase firebase = new Firebase();
 
-    com.example.gamezone.ui.sharedpreferences.SharedPreferences sharedPreferences = new com.example.gamezone.ui.sharedpreferences.SharedPreferences();
+    SharedPreferences sharedPreferences = new SharedPreferences();
 
     int SELECT_PICTURE = 200;
 
     CharSequence newUsername = "";
+
+    Uri selectedImageUri;
 
     public OptionsFragment() {
     }
@@ -49,7 +58,6 @@ public class OptionsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -72,6 +80,8 @@ public class OptionsFragment extends Fragment {
     private void setUi() {
         setUserTextWatcher(alertBinding.tilUsername);
 
+        setPhotoUri();
+
         binding.tvName.setText(firebase.mFirebaseAuth.getCurrentUser().getDisplayName());
         binding.tvEmail.setText(firebase.mFirebaseAuth.getCurrentUser().getEmail());
 
@@ -81,6 +91,12 @@ public class OptionsFragment extends Fragment {
 
         binding.btnChangeUserName.setOnClickListener(view1 -> setAlertDialog());
 
+    }
+
+    private void setPhotoUri() {
+        Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
+        doc.addOnSuccessListener(documentSnapshot ->
+                binding.imgPhoto.setImageURI(Uri.parse(documentSnapshot.getString("Photo"))));
     }
 
     private void setAlertDialog() {
@@ -118,6 +134,7 @@ public class OptionsFragment extends Fragment {
 
     private void changeUsername() {
         firebase.changeUsername(newUsername.toString(), requireContext());
+        db.updateUsername(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), newUsername.toString());
     }
 
     private void goToHome() {
@@ -140,12 +157,27 @@ public class OptionsFragment extends Fragment {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
-                Uri selectedImageUri = data.getData();
+                selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
                     binding.imgPhoto.setImageURI(selectedImageUri);
+                    db.updateProfilePhoto(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), selectedImageUri.toString());
+                    Toast.makeText(requireContext(), selectedImageUri.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }
+    }
+
+    void choosePhoto() {
+        ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    if (uri != null) {
+                        Toast.makeText(requireContext(), uri.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
     }
 
     private void signOut() {

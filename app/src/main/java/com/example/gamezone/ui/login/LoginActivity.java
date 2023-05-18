@@ -11,9 +11,10 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
+import com.example.gamezone.data.sharedpreferences.SharedPreferences;
 import com.example.gamezone.databinding.ActivityLoginBinding;
 import com.example.gamezone.ui.MainActivity;
-import com.example.gamezone.ui.firebase.Firebase;
+import com.example.gamezone.data.firebase.Firebase;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     CharSequence user = "";
     CharSequence password = "";
 
-    com.example.gamezone.ui.sharedpreferences.SharedPreferences sharedPreferences = new com.example.gamezone.ui.sharedpreferences.SharedPreferences();
+    SharedPreferences sharedPreferences = new SharedPreferences();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

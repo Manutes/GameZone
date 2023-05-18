@@ -1,14 +1,11 @@
-package com.example.gamezone.ui.firebase;
+package com.example.gamezone.data.firebase;
 
 import android.content.Context;
-import android.net.Uri;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.example.gamezone.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.gamezone.data.database.Firestore;
+import com.example.gamezone.data.sharedpreferences.SharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -18,6 +15,9 @@ import java.util.Objects;
 public class Firebase {
 
     public final FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+    SharedPreferences sharedPreferences = new SharedPreferences();
+
+    Firestore db = new Firestore();
 
     public void checkUser() {
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
@@ -31,13 +31,12 @@ public class Firebase {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                        updateUI(user);
+                        updateUI(user, context);
                         Toast.makeText(context, context.getString(R.string.register_successful_text),
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context, context.getString(R.string.register_error_text),
                                 Toast.LENGTH_SHORT).show();
-                        updateUI(null);
                     }
                 });
     }
@@ -47,15 +46,11 @@ public class Firebase {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
-
                         String userName = user.getDisplayName();
-
+                        updateUI(user, context);
                         Toast.makeText(context, context.getString(R.string.welcome_text) + " " + userName, Toast.LENGTH_SHORT).show();
-
-                        updateUI(user);
                     } else {
                         Toast.makeText(context, context.getString(R.string.credentials_login_error_text), Toast.LENGTH_LONG).show();
-                        updateUI(null);
                     }
                 });
     }
@@ -63,8 +58,8 @@ public class Firebase {
     public void signOut() {
         mFirebaseAuth.signOut();
     }
-    private void updateUI(FirebaseUser user) {
-
+    private void updateUI(FirebaseUser user, Context context) {
+        db.writeNewUser( user.getUid(), user.getDisplayName(), user.getEmail(), context);
     }
 
     public void changeUsername (String username, Context context) {

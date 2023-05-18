@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.sharedpreferences;
+package com.example.gamezone.data.sharedpreferences;
 
 import android.app.Activity;
 import android.content.Context;
