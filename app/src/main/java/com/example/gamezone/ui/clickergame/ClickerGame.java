@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
 
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
+
 public class ClickerGame extends AppCompatActivity {
 
     private int score = 0;
@@ -29,7 +32,6 @@ public class ClickerGame extends AppCompatActivity {
     private ImageButton clickButton;
     private TextView scoreTextView;
     private MediaPlayer mediaPlayer;
-    private MediaPlayer mediaPlayer2;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -44,7 +46,7 @@ public class ClickerGame extends AppCompatActivity {
         clickButton = findViewById(R.id.click_button);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.clic);
-        mediaPlayer2 = MediaPlayer.create(this, R.raw.bootup);
+        MediaPlayer mediaPlayer2 = MediaPlayer.create(this, R.raw.bootup);
 
         loadGame();
 
@@ -52,73 +54,61 @@ public class ClickerGame extends AppCompatActivity {
         mediaPlayer2.start();
 
         ImageButton clickButton = findViewById(R.id.click_button);
-        clickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaPlayer.seekTo(0);
-                mediaPlayer.start();
-                score += clickValue;
-                updateScoreTextView();
-            }
+        clickButton.setOnClickListener(view -> {
+            mediaPlayer.seekTo(0);
+            mediaPlayer.start();
+            score += clickValue;
+            updateScoreTextView();
         });
 
-        clickButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // Define la animación de presionado del botón
-                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v, "scaleX", 0.95f);
-                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v, "scaleY", 0.95f);
-                    scaleDownX.setDuration(100);
-                    scaleDownY.setDuration(100);
+        clickButton.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                // Define la animación de presionado del botón
+                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v, "scaleX", 0.95f);
+                ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v, "scaleY", 0.95f);
+                scaleDownX.setDuration(100);
+                scaleDownY.setDuration(100);
 
-                    AnimatorSet scaleDown = new AnimatorSet();
-                    scaleDown.play(scaleDownX).with(scaleDownY);
+                AnimatorSet scaleDown = new AnimatorSet();
+                scaleDown.play(scaleDownX).with(scaleDownY);
 
-                    // Ejecuta la animación de presionado del botón
-                    scaleDown.start();
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    // Define la animación de soltar el botón
-                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v, "scaleX", 1f);
-                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v, "scaleY", 1f);
-                    scaleDownX.setDuration(100);
-                    scaleDownY.setDuration(100);
+                // Ejecuta la animación de presionado del botón
+                scaleDown.start();
+            } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                // Define la animación de soltar el botón
+                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v, "scaleX", 1f);
+                ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v, "scaleY", 1f);
+                scaleDownX.setDuration(100);
+                scaleDownY.setDuration(100);
 
-                    AnimatorSet scaleDown = new AnimatorSet();
-                    scaleDown.play(scaleDownX).with(scaleDownY);
-                    // Ejecuta la animación de soltar el botón
-                    scaleDown.start();
-                }
-                return false;
+                AnimatorSet scaleDown = new AnimatorSet();
+                scaleDown.play(scaleDownX).with(scaleDownY);
+                // Ejecuta la animación de soltar el botón
+                scaleDown.start();
             }
+            return false;
         });
 
         Button clickValueButton = findViewById(R.id.click_value_button);
-        clickValueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (score >= clickValueCost) {
-                    score -= clickValueCost;
-                    clickValue++;
-                    clickValueCost *= 2;
-                    updateScoreTextView();
-                    updateClickValueButton();
-                }
+        clickValueButton.setOnClickListener(view -> {
+            if (score >= clickValueCost) {
+                score -= clickValueCost;
+                clickValue++;
+                clickValueCost *= 2;
+                updateScoreTextView();
+                updateClickValueButton();
             }
         });
 
         Button clickSpeedButton = findViewById(R.id.click_speed_button);
-        clickSpeedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (score >= clickSpeedCost) {
-                    score -= clickSpeedCost;
-                    clickSpeed /= 2;
-                    clickSpeedCost *= 2;
-                    updateScoreTextView();
-                    updateClickSpeedButton();
-                    startAutoClicker();
-                }
+        clickSpeedButton.setOnClickListener(view -> {
+            if (score >= clickSpeedCost) {
+                score -= clickSpeedCost;
+                clickSpeed /= 2;
+                clickSpeedCost *= 2;
+                updateScoreTextView();
+                updateClickSpeedButton();
+                startAutoClicker();
             }
         });
 
@@ -138,7 +128,7 @@ public class ClickerGame extends AppCompatActivity {
     }
 
     private void updateScoreTextView() {
-        scoreTextView.setText("Dinero: " + score);
+        scoreTextView.setText(MessageFormat.format("{0}{1}{2}", getString(R.string.money_text), " ", format(score)));
 
         // Cambiar la imagen del botón si se ha superado el umbral
         if (score >= 1000) {
@@ -162,20 +152,28 @@ public class ClickerGame extends AppCompatActivity {
         if (score >= 1000000000) {
             clickButton.setImageResource(R.drawable.fondo_ocho);
         }
-        if (score >= 10000000000L) {
-            clickButton.setImageResource(R.drawable.fondo_nueve);
-        }
 
+    }
+
+    public static String format(float value) {
+        String[] arr = {"", "K", "M", "B", "T", "P", "E"};
+        int index = 0;
+        while ((value / 1000) >= 1) {
+            value = value / 1000;
+            index++;
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        return String.format("%s %s", decimalFormat.format(value), arr[index]);
     }
 
     private void updateClickValueButton() {
         Button clickValueButton = findViewById(R.id.click_value_button);
-        clickValueButton.setText("Increase Click Value (+1): " + clickValueCost + " Coins");
+        clickValueButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_value), " ", clickValueCost, " ", getString(R.string.coins_text)));
     }
 
     private void updateClickSpeedButton() {
         Button clickSpeedButton = findViewById(R.id.click_speed_button);
-        clickSpeedButton.setText("Increase Click Speed: " + clickSpeedCost + " Coins");
+        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_speed), " ", clickSpeedCost, " ", getString(R.string.coins_text)));
     }
 
     @Override
