@@ -32,12 +32,7 @@ public class Firestore {
     public void updateUsername(FirebaseUser currentUser, String newUsername) {
         Map<String, Object> user = new HashMap<>();
         user.put("Name", newUsername);
-        user.put("Email", currentUser.getEmail());
-        Task<DocumentSnapshot> doc = getUserDocument(currentUser.getUid());
-        doc.addOnSuccessListener(documentSnapshot -> {
-            user.put("Photo", documentSnapshot.getString("Photo"));
-        });
-        db.collection("Users").document(currentUser.getUid()).set(user);
+        db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
     public Task<DocumentSnapshot> getUserDocument (String id) {

@@ -32,6 +32,7 @@ public class Firebase {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                        setDefaultUsername(Objects.requireNonNull(user));
                         updateUI(Objects.requireNonNull(user), context);
                         Toast.makeText(context, context.getString(R.string.register_successful_text),
                                 Toast.LENGTH_SHORT).show();
@@ -48,7 +49,6 @@ public class Firebase {
                     if (task.isSuccessful()) {
                         goToMain(context, activity);
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                        //updateUI(Objects.requireNonNull(user), context);
                         String userName = user.getDisplayName();
                         Toast.makeText(context, context.getString(R.string.welcome_text) + " " + userName, Toast.LENGTH_SHORT).show();
                     } else {
@@ -75,6 +75,14 @@ public class Firebase {
                 Toast.makeText(context, context.getString(R.string.change_username_success_text) + " " + username, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setDefaultUsername (FirebaseUser user) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(user.getUid())
+                .build();
+
+        Objects.requireNonNull(mFirebaseAuth.getCurrentUser()).updateProfile(profileUpdates);
     }
 
     private void goToMain(Context context, Activity activity) {
