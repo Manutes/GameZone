@@ -42,7 +42,7 @@
 
     <string name="dialog_password_text">La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y contener entre 6 y 12 caracteres</string>
     <string name="dialog_ok_button">Ok</string>
-    <string name="welcome_text">\"Bienvenido \"</string>
+    <string name="welcome_text">Bienvenido </string>
     <string name="credentials_login_error_text">Error con las credenciales</string>
     <string name="register_successful_text">Registro completado. Ya puedes hacer login</string>
     <string name="register_error_text">Error al crear la cuenta. Revisa que el email y la contraseña estén bien escritas</string>
@@ -52,6 +52,8 @@
     <string name="dialog_change_username_text">Escribe tu nuevo nombre de usuario</string>
     <string name="dialog_accept_button">Aceptar</string>
     <string name="dialog_cancel_button">Cancelar</string>
+    <string name="hint_username">Nombre de usuario</string>
+    <string name="change_username_success_text">Nombre de usuario cambiado con éxito a</string>
 
 
 </resources>

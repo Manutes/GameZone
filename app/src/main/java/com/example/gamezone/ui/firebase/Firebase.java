@@ -48,9 +48,9 @@ public class Firebase {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
 
-                        String userName = user.getUid();
+                        String userName = user.getDisplayName();
 
-                        Toast.makeText(context, context.getString(R.string.welcome_text) + userName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.welcome_text) + " " + userName, Toast.LENGTH_SHORT).show();
 
                         updateUI(user);
                     } else {
@@ -75,7 +75,7 @@ public class Firebase {
 
         Objects.requireNonNull(mFirebaseAuth.getCurrentUser()).updateProfile(profileUpdates).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(context, "Nombre de usuario cambiado con éxito", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.change_username_success_text) + " " + username, Toast.LENGTH_SHORT).show();
             }
         });
     }
