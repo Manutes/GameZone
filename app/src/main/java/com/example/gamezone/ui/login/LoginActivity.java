@@ -56,9 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         setPasswordTextWatcher(binding.tilPassword);
 
         binding.btnLogin.setOnClickListener(view -> {
-            firebase.signIn(user.toString(), password.toString(), this);
+            firebase.signIn(user.toString(), password.toString(), this, this);
             rememberCredentials();
-            goToMainActivity();
         });
 
         binding.btnRegister.setOnClickListener(view -> {
@@ -80,8 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         password = sharedPreferences.getPrefs("password", this);
 
         if (user.length() > 0 && password.length() > 0) {
-            firebase.signIn(user.toString(), password.toString(), this);
-            goToMainActivity();
+            firebase.signIn(user.toString(), password.toString(), this, this);
         }
     }
 
@@ -138,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         firebase.checkUser();
     }
 
-    private void goToMainActivity() {
+    public void goToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -13,9 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -147,7 +144,7 @@ public class OptionsFragment extends Fragment {
     private void openGallery() {
         Intent i = new Intent();
         i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
+        i.setAction(Intent.ACTION_OPEN_DOCUMENT);
 
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
@@ -165,19 +162,6 @@ public class OptionsFragment extends Fragment {
                 }
             }
         }
-    }
-
-    void choosePhoto() {
-        ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
-                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                    if (uri != null) {
-                        Toast.makeText(requireContext(), uri.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        pickMedia.launch(new PickVisualMediaRequest.Builder()
-                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                .build());
     }
 
     private void signOut() {

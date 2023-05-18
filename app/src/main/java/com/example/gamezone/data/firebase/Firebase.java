@@ -1,11 +1,13 @@
 package com.example.gamezone.data.firebase;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
-import com.example.gamezone.data.sharedpreferences.SharedPreferences;
+import com.example.gamezone.ui.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -15,7 +17,6 @@ import java.util.Objects;
 public class Firebase {
 
     public final FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-    SharedPreferences sharedPreferences = new SharedPreferences();
 
     Firestore db = new Firestore();
 
@@ -31,7 +32,7 @@ public class Firebase {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                        updateUI(user, context);
+                        updateUI(Objects.requireNonNull(user), context);
                         Toast.makeText(context, context.getString(R.string.register_successful_text),
                                 Toast.LENGTH_SHORT).show();
                     } else {
@@ -41,13 +42,14 @@ public class Firebase {
                 });
     }
 
-    public void signIn(String email, String password, Context context) {
+    public void signIn(String email, String password, Context context, Activity activity) {
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        goToMain(context, activity);
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                        //updateUI(Objects.requireNonNull(user), context);
                         String userName = user.getDisplayName();
-                        updateUI(user, context);
                         Toast.makeText(context, context.getString(R.string.welcome_text) + " " + userName, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context, context.getString(R.string.credentials_login_error_text), Toast.LENGTH_LONG).show();
@@ -73,5 +75,11 @@ public class Firebase {
                 Toast.makeText(context, context.getString(R.string.change_username_success_text) + " " + username, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void goToMain(Context context, Activity activity) {
+        Intent intent = new Intent(context, MainActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }
