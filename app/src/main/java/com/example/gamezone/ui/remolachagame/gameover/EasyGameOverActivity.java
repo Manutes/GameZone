@@ -13,9 +13,13 @@ import com.example.gamezone.databinding.ActivityEasyGameOverBinding;
 import com.example.gamezone.ui.remolachagame.easygame.EasyGameActivity;
 import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 
+import java.util.Collections;
+
 public class EasyGameOverActivity extends AppCompatActivity {
 
     ActivityEasyGameOverBinding binding;
+
+    EasyGameActivity game = new EasyGameActivity();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,8 @@ public class EasyGameOverActivity extends AppCompatActivity {
         binding.btnRestart.setOnClickListener(view -> restart());
 
         binding.btnHomeScreen.setOnClickListener(view -> goToHomeScreen());
+
+        //setScore();
     }
 
     private void setBackgroundGif() {
@@ -50,5 +56,11 @@ public class EasyGameOverActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void setScore() {
+        game.scoreList.sort(Collections.reverseOrder());
+        String score = game.scoreList.get(0).toString();
+        binding.tvScore.setText("Has conseguido " + score + " remolachas");
     }
 }

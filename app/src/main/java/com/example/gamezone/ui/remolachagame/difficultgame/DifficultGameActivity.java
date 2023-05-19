@@ -10,12 +10,15 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gamezone.data.database.Firestore;
+import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityDifficultGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
 import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +29,12 @@ public class DifficultGameActivity extends AppCompatActivity {
 
     public DifficultGameScreen difficultGameScreen;
     private final Handler handler = new Handler();
-    ArrayList<Integer> scoreList = new ArrayList<>();
+    public ArrayList<Integer> scoreList = new ArrayList<>();
+
+    Firestore firestore = new Firestore();
+
+    Firebase firebase = new Firebase();
+
     Random random = new Random();
 
     @Override
@@ -91,6 +99,8 @@ public class DifficultGameActivity extends AppCompatActivity {
                         timer.cancel();
                         difficultGameScreen.audio[0].stop();
                         difficultGameScreen.audio[1].start();
+                        firestore.updateDifficultRecord(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), scoreList.get(0));
+                        firestore.updateLastScore(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), scoreList.get(0));
                         goToGameOver();
                         difficultGameScreen.audio[2].start();
                     }
@@ -101,7 +111,6 @@ public class DifficultGameActivity extends AppCompatActivity {
                     }
                     scoreList.add(difficultGameScreen.score);
                     scoreList.sort(Collections.reverseOrder());
-                    scoreList.get(0).toString();
 
                     difficultGameScreen.beetY += 20;
                     difficultGameScreen.farmerY += 25;
@@ -125,5 +134,9 @@ public class DifficultGameActivity extends AppCompatActivity {
         Intent intent = new Intent(this, VictoryActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public boolean checkRecord() {
+        return true;
     }
 }

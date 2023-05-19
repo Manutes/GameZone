@@ -16,6 +16,7 @@
     <color name="new_easy_game_text">#9112A6</color>
     <color name="new_difficult_game">#D8180A</color>
     <color name="instructions">#016C62</color>
+    <color name="score">#2072B3</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/primary_color</color>
     <color name="red">#CC1818</color>

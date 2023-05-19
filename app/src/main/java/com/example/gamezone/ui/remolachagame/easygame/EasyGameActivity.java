@@ -5,27 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
+import com.example.gamezone.data.database.Firestore;
+import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityEasyGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.EasyGameOverActivity;
 import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import io.grpc.internal.LogExceptionRunnable;
 
 public class EasyGameActivity extends AppCompatActivity {
 
@@ -34,7 +30,11 @@ public class EasyGameActivity extends AppCompatActivity {
     public EasyGameScreen easyGameScreen;
     private final Handler handler = new Handler();
 
-    ArrayList<Integer> scoreList = new ArrayList<>();
+    public ArrayList<Integer> scoreList = new ArrayList<>();
+
+    Firestore firestore = new Firestore();
+
+    Firebase firebase = new Firebase();
 
     Random random = new Random();
 
@@ -106,6 +106,8 @@ public class EasyGameActivity extends AppCompatActivity {
                         timer.cancel();
                         easyGameScreen.audio[0].stop();
                         easyGameScreen.audio[1].start();
+                        firestore.updateEasyRecord(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), scoreList.get(0));
+                        firestore.updateLastScore(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), scoreList.get(0));
                         goToGameOver();
                         easyGameScreen.audio[2].start();
                     }
@@ -116,7 +118,7 @@ public class EasyGameActivity extends AppCompatActivity {
                     }
                     scoreList.add(easyGameScreen.score);
                     scoreList.sort(Collections.reverseOrder());
-                    scoreList.get(0).toString();
+
 
                     easyGameScreen.beetY += 10;
                     easyGameScreen.farmerY += 15;
