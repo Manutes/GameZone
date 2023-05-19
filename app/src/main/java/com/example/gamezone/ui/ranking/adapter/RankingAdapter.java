@@ -1,6 +1,5 @@
 package com.example.gamezone.ui.ranking.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
