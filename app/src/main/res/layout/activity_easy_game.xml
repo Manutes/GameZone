@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/fondo"
     tools:context=".ui.remolachagame.easygame.EasyGameActivity">
 
@@ -13,5 +14,17 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/easyTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/dimen_24"
+        android:fontFamily="@font/fuente"
+        android:text="00:00:00"
+        android:textColor="@color/new_easy_game_text"
+        android:textSize="@dimen/dimen_42"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

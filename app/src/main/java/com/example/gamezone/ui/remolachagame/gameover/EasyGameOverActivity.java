@@ -2,6 +2,8 @@ package com.example.gamezone.ui.remolachagame.gameover;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +19,9 @@ public class EasyGameOverActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         binding = ActivityEasyGameOverBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

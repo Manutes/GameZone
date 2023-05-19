@@ -17,26 +17,39 @@
         android:scaleType="centerCrop"
         android:alpha="0.4"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Remolacha Hero"
+        android:fontFamily="@font/fuente"
+        android:textSize="@dimen/dimen_80"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_24"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_margin="@dimen/dimen_6"
+        android:paddingVertical="@dimen/dimen_24">
 
         <Button
             android:id="@+id/btnNewEasyGame"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_36"
             android:fontFamily="@font/fuente"
             android:text="@string/nueva_partida_facil_text"
             android:textAlignment="center"
             android:textColor="@color/new_easy_game_text"
-            android:textSize="@dimen/dimen_50"
+            android:textSize="@dimen/dimen_42"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +65,7 @@
             android:text="@string/nueva_partida_dificil_text"
             android:textAlignment="center"
             android:textColor="@color/new_difficult_game"
-            android:textSize="@dimen/dimen_50"
+            android:textSize="@dimen/dimen_42"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnNewEasyGame" />
@@ -67,7 +80,7 @@
             android:text="@string/instrucciones_text"
             android:textAlignment="center"
             android:textColor="@color/instructions"
-            android:textSize="@dimen/dimen_50"
+            android:textSize="@dimen/dimen_42"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnNewDifficultGame" />

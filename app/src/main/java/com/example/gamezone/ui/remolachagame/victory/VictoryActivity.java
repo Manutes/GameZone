@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
 import com.example.gamezone.R;
@@ -18,6 +20,9 @@ public class VictoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         binding = ActivityVictoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -35,6 +40,7 @@ public class VictoryActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         mp.stop();
         startActivity(intent);
+        finish();
     }
 
     private void setBackgroundGif() {
