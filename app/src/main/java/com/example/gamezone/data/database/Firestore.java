@@ -38,7 +38,7 @@ public class Firestore {
         db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
-    public void updateScores(FirebaseUser currentUser, String field, int newScore) {
+    public void updateScores(FirebaseUser currentUser, String field, String newScore) {
         Map<String, Object> user = new HashMap<>();
         user.put(field, newScore);
         db.collection("Users").document(currentUser.getUid()).update(user);

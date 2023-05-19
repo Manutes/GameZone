@@ -32,7 +32,7 @@
             android:text="@string/game_over_text"
             android:textAlignment="center"
             android:textColor="@color/instructions"
-            android:textSize="@dimen/dimen_60"
+            android:textSize="@dimen/dimen_100"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

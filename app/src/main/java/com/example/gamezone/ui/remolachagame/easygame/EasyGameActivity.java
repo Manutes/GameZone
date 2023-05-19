@@ -108,7 +108,7 @@ public class EasyGameActivity extends AppCompatActivity {
                         easyGameScreen.audio[0].stop();
                         easyGameScreen.audio[1].start();
                         FirebaseUser user = Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser());
-                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0));
+                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0).toString());
                         goToGameOver();
                         easyGameScreen.audio[2].start();
                     }

@@ -101,7 +101,7 @@ public class DifficultGameActivity extends AppCompatActivity {
                         difficultGameScreen.audio[0].stop();
                         difficultGameScreen.audio[1].start();
                         FirebaseUser user = Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser());
-                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0));
+                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0).toString());
                         goToGameOver();
                         difficultGameScreen.audio[2].start();
                     }

@@ -27,6 +27,10 @@ public class DifficultGameOverActivity extends AppCompatActivity {
 
     DifficultGameActivity game = new DifficultGameActivity();
 
+    Firestore db = new Firestore();
+
+    Firebase firebase = new Firebase();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -45,7 +49,7 @@ public class DifficultGameOverActivity extends AppCompatActivity {
 
         binding.btnHomeScreen.setOnClickListener(view -> goToHomeScreen());
 
-        //setScore();
+        setScore();
     }
 
     private void setBackgroundGif() {
@@ -65,8 +69,8 @@ public class DifficultGameOverActivity extends AppCompatActivity {
     }
 
     private void setScore() {
-        game.scoreList.sort(Collections.reverseOrder());
-        String score = game.scoreList.get(0).toString();
-        binding.tvScore.setText("Has conseguido " + score + " remolachas");
+        Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
+        doc.addOnSuccessListener(documentSnapshot ->
+                binding.tvScore.setText("Conseguiste " + documentSnapshot.getString("RemolachaHeroLastScore") + " remolacha/s"));
     }
 }
