@@ -17,7 +17,7 @@ import com.example.gamezone.ui.games.adapter.SetOnClickListener;
 import com.example.gamezone.ui.clickergame.ClickerGame;
 import com.example.gamezone.databinding.FragmentGamesBinding;
 import com.example.gamezone.ui.games.adapter.GamesAdapter;
-import com.example.gamezone.ui.games.models.Game;
+import com.example.gamezone.data.models.Game;
 import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 
 import java.util.List;

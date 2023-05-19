@@ -57,5 +57,11 @@
     <string name="hint_username">Nombre de usuario</string>
     <string name="change_username_success_text">Nombre de usuario cambiado con éxito a</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ranking_remolacha_hero_easy">Ranking Remolacha Hero Fácil</string>
+    <string name="ranking_remolacha_hero_difficult">Ranking Remolacha Hero Dificil</string>
+    <string name="ranking_clicker_game">Ranking Clicker Game</string>
+    <string name="ranking_marcianitos">Ranking Marcianitos</string>
+
 
 </resources>

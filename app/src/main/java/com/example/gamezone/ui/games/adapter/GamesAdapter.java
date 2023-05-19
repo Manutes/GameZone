@@ -9,7 +9,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gamezone.databinding.ItemJuegoBinding;
-import com.example.gamezone.ui.games.models.Game;
+import com.example.gamezone.data.models.Game;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
@@ -70,6 +70,4 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.GameViewHold
                 .setTopLeftCornerSize(120f)
                 .build());
     }
-
-
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.ViewModel;
 
 import com.example.gamezone.R;
-import com.example.gamezone.ui.games.models.Game;
+import com.example.gamezone.data.models.Game;
 
 import java.util.ArrayList;
 import java.util.List;
