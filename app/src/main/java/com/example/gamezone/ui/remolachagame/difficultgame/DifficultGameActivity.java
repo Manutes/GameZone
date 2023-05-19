@@ -15,6 +15,7 @@ import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityDifficultGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
 import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -99,8 +100,8 @@ public class DifficultGameActivity extends AppCompatActivity {
                         timer.cancel();
                         difficultGameScreen.audio[0].stop();
                         difficultGameScreen.audio[1].start();
-                        firestore.updateDifficultRecord(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), scoreList.get(0));
-                        firestore.updateLastScore(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), scoreList.get(0));
+                        FirebaseUser user = Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser());
+                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0));
                         goToGameOver();
                         difficultGameScreen.audio[2].start();
                     }

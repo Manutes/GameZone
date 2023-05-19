@@ -15,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Firestore {
 
@@ -24,14 +23,12 @@ public class Firestore {
     public void writeNewUser(String userId, String name, String email, Context context) {
         User newUser = new User(name, email);
         Map<String, Object> user = new HashMap<>();
-        Map<String, Integer> remolachaScores = new HashMap<>();
-        remolachaScores.put("EasyRecord", null);
-        remolachaScores.put("DifficultRecord", null);
-        remolachaScores.put("LastScore", null);
         user.put("Name", newUser.username);
         user.put("Email", newUser.email);
         user.put("Photo", setDefaultImage(context, R.drawable.consola));
-        user.put("RemolachaHero", remolachaScores);
+        user.put("RemolachaHeroEasyRecord", null);
+        user.put("RemolachaHeroDifficultRecord", null);
+        user.put("RemolachaHeroLastScore", null);
         db.collection("Users").document(userId).set(user);
     }
 
@@ -41,45 +38,14 @@ public class Firestore {
         db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
-    public void getScore (String id, String field) {
-        db.collection("Users").document(id)
-                .collection("RemolachaHero").document().get().addOnSuccessListener(documentSnapshot -> {
-                    int score = Integer.parseInt(Objects.requireNonNull(documentSnapshot.getString(field)));
-                });
-    }
-
-    public void updateEasyRecord(FirebaseUser currentUser, int newEasyRecord) {
+    public void updateScores(FirebaseUser currentUser, String field, int newScore) {
         Map<String, Object> user = new HashMap<>();
-        Map<String, Integer> field = new HashMap<>();
-        field.put("EasyRecord", newEasyRecord);
-        field.put("DifficultRecord", null);
-        field.put("LastScore", null);
-        user.put("RemolachaHero", field);
+        user.put(field, newScore);
         db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
-    public void updateDifficultRecord(FirebaseUser currentUser, int newDifficultRecord) {
-        Map<String, Object> user = new HashMap<>();
-        Map<String, Integer> field = new HashMap<>();
-        field.put("EasyRecord", null);
-        field.put("DifficultRecord", newDifficultRecord);
-        field.put("LastScore", null);
-        user.put("RemolachaHero", field);
-        db.collection("Users").document(currentUser.getUid()).update(user);
-    }
-
-    public void updateLastScore(FirebaseUser currentUser, int lastScore) {
-        Map<String, Object> user = new HashMap<>();
-        Map<String, Integer> field = new HashMap<>();
-        field.put("EasyRecord", null);
-        field.put("DifficultRecord", null);
-        field.put("LastScore", lastScore);
-        user.put("RemolachaHero", field);
-        db.collection("Users").document(currentUser.getUid()).update(user);
-    }
-
-    public Task<DocumentSnapshot> getUserDocument (String id) {
-        return db.collection("Users").document(id).get();
+    public Task<DocumentSnapshot> getUserDocument (String userId) {
+        return db.collection("Users").document(userId).get();
     }
 
     public void updateProfilePhoto(FirebaseUser currentUser, String newUri) {
