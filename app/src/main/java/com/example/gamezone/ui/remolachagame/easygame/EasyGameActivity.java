@@ -5,18 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.gamezone.databinding.ActivityEasyGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.EasyGameOverActivity;
 import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import io.grpc.internal.LogExceptionRunnable;
 
 public class EasyGameActivity extends AppCompatActivity {
 
@@ -24,6 +33,9 @@ public class EasyGameActivity extends AppCompatActivity {
 
     public EasyGameScreen easyGameScreen;
     private final Handler handler = new Handler();
+
+    ArrayList<Integer> scoreList = new ArrayList<>();
+
     Random random = new Random();
 
     @Override
@@ -45,6 +57,7 @@ public class EasyGameActivity extends AppCompatActivity {
     public void onBackPressed() {
         easyGameScreen.audio[0].stop();
         super.onBackPressed();
+        finish();
     }
 
     @Override
@@ -101,6 +114,9 @@ public class EasyGameActivity extends AppCompatActivity {
                         easyGameScreen.audio[0].stop();
                         goToVictory();
                     }
+                    scoreList.add(easyGameScreen.score);
+                    scoreList.sort(Collections.reverseOrder());
+                    scoreList.get(0).toString();
 
                     easyGameScreen.beetY += 10;
                     easyGameScreen.farmerY += 15;

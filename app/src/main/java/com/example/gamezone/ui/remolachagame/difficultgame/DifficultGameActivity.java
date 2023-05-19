@@ -14,6 +14,8 @@ import com.example.gamezone.databinding.ActivityDifficultGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
 import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +26,7 @@ public class DifficultGameActivity extends AppCompatActivity {
 
     public DifficultGameScreen difficultGameScreen;
     private final Handler handler = new Handler();
+    ArrayList<Integer> scoreList = new ArrayList<>();
     Random random = new Random();
 
     @Override
@@ -96,6 +99,9 @@ public class DifficultGameActivity extends AppCompatActivity {
                         difficultGameScreen.audio[0].stop();
                         goToVictory();
                     }
+                    scoreList.add(difficultGameScreen.score);
+                    scoreList.sort(Collections.reverseOrder());
+                    scoreList.get(0).toString();
 
                     difficultGameScreen.beetY += 20;
                     difficultGameScreen.farmerY += 25;
