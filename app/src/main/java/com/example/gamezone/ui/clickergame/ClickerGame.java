@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,20 +17,25 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
+import com.example.gamezone.data.database.Firestore;
+import com.example.gamezone.data.firebase.Firebase;
 
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 public class ClickerGame extends AppCompatActivity {
 
-    private int score = 0;
-    private int clickValue = 1;
-    private int clickValueCost = 10;
-    private int clickSpeed = 1000;
-    private int clickSpeedCost = 50;
+    private long score = 0L;
+    private long clickValue = 1L;
+    private long clickValueCost = 10L;
+    private long clickSpeed = 1000L;
+    private long clickSpeedCost = 50L;
     private ImageButton clickButton;
     private TextView scoreTextView;
     private MediaPlayer mediaPlayer;
+    private final Firestore firestore = new Firestore();
+    private final Firebase firebase = new Firebase();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -152,6 +156,9 @@ public class ClickerGame extends AppCompatActivity {
         if (score >= 1000000000) {
             clickButton.setImageResource(R.drawable.fondo_ocho);
         }
+        if (score >= 10000000000L) {
+            clickButton.setImageResource(R.drawable.fondo_nueve);
+        }
 
     }
 
@@ -182,24 +189,50 @@ public class ClickerGame extends AppCompatActivity {
         saveGame();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveGame();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveGame();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveGame();
+        finish();
+    }
+
     private void saveGame() {
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("score", score);
-        editor.putInt("clickValue", clickValue);
-        editor.putInt("clickValueCost", clickValueCost);
-        editor.putInt("clickSpeed", clickSpeed);
-        editor.putInt("clickSpeedCost", clickSpeedCost);
+        editor.putLong("score", score);
+        editor.putLong("clickValue", clickValue);
+        editor.putLong("clickValueCost", clickValueCost);
+        editor.putLong("clickSpeed", clickSpeed);
+        editor.putLong("clickSpeedCost", clickSpeedCost);
         editor.apply();
+        firestore.updateScores(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), "ClickerGameRecord", String.valueOf(score));
     }
 
     private void loadGame() {
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        score = prefs.getInt("score", 0);
-        clickValue = prefs.getInt("clickValue", 1);
-        clickValueCost = prefs.getInt("clickValueCost", 10);
-        clickSpeed = prefs.getInt("clickSpeed", 1000);
-        clickSpeedCost = prefs.getInt("clickSpeedCost", 50);
+        long defaultScore = 0L;
+        long defaultClickValue = 1L;
+        long defaultClickValueCost = 10L;
+        long defaultClickSpeed = 1000L;
+        long defaultClickSpeedCost = 50L;
+
+        score = prefs.getLong("score", defaultScore);
+        clickValue = prefs.getLong("clickValue", defaultClickValue);
+        clickValueCost = prefs.getLong("clickValueCost", defaultClickValueCost);
+        clickSpeed = prefs.getLong("clickSpeed", defaultClickSpeed);
+        clickSpeedCost = prefs.getLong("clickSpeedCost", defaultClickSpeedCost);
         updateScoreTextView();
         updateClickValueButton();
         updateClickSpeedButton();
