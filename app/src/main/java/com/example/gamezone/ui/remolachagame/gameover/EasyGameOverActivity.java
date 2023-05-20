@@ -14,15 +14,16 @@ import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityEasyGameOverBinding;
 import com.example.gamezone.ui.remolachagame.easygame.EasyGameActivity;
+import com.example.gamezone.ui.remolachagame.easygame.EasyGameScreen;
 import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.Objects;
+
 public class EasyGameOverActivity extends AppCompatActivity {
 
     ActivityEasyGameOverBinding binding;
-
-    EasyGameActivity game = new EasyGameActivity();
 
     Firestore db = new Firestore();
 
@@ -39,6 +40,7 @@ public class EasyGameOverActivity extends AppCompatActivity {
 
         setBackgroundGif();
         setUi();
+
     }
 
     private void setUi() {
@@ -68,8 +70,8 @@ public class EasyGameOverActivity extends AppCompatActivity {
     private void setScore() {
         Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
         doc.addOnSuccessListener(documentSnapshot -> {
-            Log.d("Score", documentSnapshot.getString("RemolachaHeroLastScore"));
-            binding.tvScore.setText("Conseguiste " + documentSnapshot.getString("RemolachaHeroLastScore") + " remolacha/s");
+            int score = Integer.parseInt(Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroLastScore")));
+            binding.tvScore.setText("Conseguiste " + score + " remolacha/s");
         });
     }
 }

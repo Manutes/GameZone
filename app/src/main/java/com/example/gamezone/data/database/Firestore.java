@@ -26,9 +26,9 @@ public class Firestore {
         user.put("Name", newUser.username);
         user.put("Email", newUser.email);
         user.put("Photo", setDefaultImage(context, R.drawable.consola));
-        user.put("RemolachaHeroEasyRecord", null);
-        user.put("RemolachaHeroDifficultRecord", null);
-        user.put("RemolachaHeroLastScore", null);
+        user.put("RemolachaHeroEasyRecord", "0");
+        user.put("RemolachaHeroDifficultRecord", "0");
+        user.put("RemolachaHeroLastScore", "0");
         db.collection("Users").document(userId).set(user);
     }
 

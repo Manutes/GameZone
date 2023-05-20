@@ -31,7 +31,7 @@ public class EasyGameScreen extends View {
     private final Random random = new Random();
     private Boolean goldenBeetCaught = false;
     public Integer score = 0;
-    public MediaPlayer[] audio = new MediaPlayer[3];
+    public MediaPlayer[] audio = new MediaPlayer[2];
 
     public EasyGameScreen(Context context) {
         super(context);
@@ -45,9 +45,8 @@ public class EasyGameScreen extends View {
         super(context, attrs);
         audio[0] = MediaPlayer.create(context, R.raw.normal);
         audio[1] = MediaPlayer.create(context, R.raw.yija);
-        audio[2] = MediaPlayer.create(context, R.raw.gameover);
         audio[0].start();
-        audio[0].setOnCompletionListener(mp -> audio[0].start());
+        audio[0].setLooping(true);
     }
 
     @Override

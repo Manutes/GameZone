@@ -3,22 +3,27 @@ package com.example.gamezone.ui.remolachagame.difficultgame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityDifficultGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
 import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
@@ -35,6 +40,12 @@ public class DifficultGameActivity extends AppCompatActivity {
     Firestore firestore = new Firestore();
 
     Firebase firebase = new Firebase();
+
+    FirebaseUser user = Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser());
+
+    boolean isNewRecord = false;
+
+    boolean musicIsActive = true;
 
     Random random = new Random();
 
@@ -55,20 +66,36 @@ public class DifficultGameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        difficultGameScreen.audio[0].stop();
         super.onBackPressed();
+        if (musicIsActive) {
+            difficultGameScreen.audio[0].stop();
+        }
+        finish();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        difficultGameScreen.audio[0].pause();
+        if (musicIsActive) {
+            difficultGameScreen.audio[0].pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!musicIsActive) {
+            musicIsActive = true;
+            difficultGameScreen.audio[0].start();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        difficultGameScreen.audio[0].stop();
+        if (musicIsActive) {
+            difficultGameScreen.audio[0].stop();
+        }
     }
 
     private void setViewTreeObserver() {
@@ -98,12 +125,13 @@ public class DifficultGameActivity extends AppCompatActivity {
                 handler.post(() -> {
                     if (difficultGameScreen.score < 0){
                         timer.cancel();
+                        musicIsActive = false;
                         difficultGameScreen.audio[0].stop();
+                        difficultGameScreen.audio[0].release();
                         difficultGameScreen.audio[1].start();
-                        FirebaseUser user = Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser());
                         firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0).toString());
+                        checkNewRecord();
                         goToGameOver();
-                        difficultGameScreen.audio[2].start();
                     }
                     if (difficultGameScreen.score == 100){
                         timer.cancel();
@@ -137,7 +165,28 @@ public class DifficultGameActivity extends AppCompatActivity {
         finish();
     }
 
-    public boolean checkRecord() {
-        return true;
+    public MutableLiveData<String> getLastRecord() {
+        MutableLiveData<String> recordLiveData = new MutableLiveData<>();
+        Task<DocumentSnapshot> doc = firestore.getUserDocument(user.getUid());
+        doc.addOnSuccessListener(documentSnapshot -> {
+            String record =  Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroDifficultRecord"));
+            recordLiveData.postValue(record);
+
+        });
+        return recordLiveData;
+    }
+
+    private void checkNewRecord () {
+        getLastRecord().observe(this, s -> {
+            if (!Objects.equals(s, "0")){
+                isNewRecord = scoreList.get(0) > Integer.parseInt(s);
+                if (isNewRecord) {
+                    firestore.updateScores(user, "RemolachaHeroDifficultRecord", scoreList.get(0).toString());
+                }
+            } else {
+                firestore.updateScores(user, "RemolachaHeroDifficultRecord", scoreList.get(0).toString());
+            }
+
+        });
     }
 }

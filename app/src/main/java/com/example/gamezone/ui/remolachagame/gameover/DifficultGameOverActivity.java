@@ -1,7 +1,6 @@
 package com.example.gamezone.ui.remolachagame.gameover;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,18 +13,15 @@ import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityDifficultGameOverBinding;
 import com.example.gamezone.ui.remolachagame.difficultgame.DifficultGameActivity;
-import com.example.gamezone.ui.remolachagame.difficultgame.DifficultGameScreen;
 import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.util.Collections;
+import java.util.Objects;
 
 public class DifficultGameOverActivity extends AppCompatActivity {
 
     ActivityDifficultGameOverBinding binding;
-
-    DifficultGameActivity game = new DifficultGameActivity();
 
     Firestore db = new Firestore();
 
@@ -70,7 +66,9 @@ public class DifficultGameOverActivity extends AppCompatActivity {
 
     private void setScore() {
         Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
-        doc.addOnSuccessListener(documentSnapshot ->
-                binding.tvScore.setText("Conseguiste " + documentSnapshot.getString("RemolachaHeroLastScore") + " remolacha/s"));
+        doc.addOnSuccessListener(documentSnapshot -> {
+            int score = Integer.parseInt(Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroLastScore")));
+            binding.tvScore.setText("Conseguiste " + score + " remolacha/s");
+        });
     }
 }
