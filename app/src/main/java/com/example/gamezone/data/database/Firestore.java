@@ -45,7 +45,7 @@ public class Firestore {
         db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
-    public Task<DocumentSnapshot> getUserDocument (String userId) {
+    public Task<DocumentSnapshot> getUserDocument(String userId) {
         return db.collection("Users").document(userId).get();
     }
 
@@ -56,11 +56,13 @@ public class Firestore {
         user.put("Photo", newUri);
         db.collection("Users").document(currentUser.getUid()).set(user);
     }
+
     public Uri setDefaultImage(Context context,
-                                   @AnyRes int drawableId) {
+                               @AnyRes int drawableId) {
         return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                 + "://" + context.getResources().getResourcePackageName(drawableId)
                 + '/' + context.getResources().getResourceTypeName(drawableId)
-                + '/' + context.getResources().getResourceEntryName(drawableId) );
+                + '/' + context.getResources().getResourceEntryName(drawableId));
     }
+
 }

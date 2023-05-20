@@ -1,43 +1,82 @@
 package com.example.gamezone.ui.ranking;
 
-import android.content.Context;
-
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.gamezone.R;
-import com.example.gamezone.data.models.GameRanking;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Objects;
 
 public class RankingViewModel extends ViewModel {
 
-    public List<GameRanking> setGamesRankingList(Context context) {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<Long> remolachaEasyList = new ArrayList<>();
+    ArrayList<Long> remolachaDifficultList = new ArrayList<>();
+    ArrayList<Long> clickerGameList = new ArrayList<>();
+    ArrayList<Long> marcianitosList = new ArrayList<>();
 
-        List<GameRanking> gamesRanking = new ArrayList<>();
-        GameRanking remolachaEasyGame = new GameRanking(context.getString(R.string.ranking_remolacha_hero_easy),
-                "sdfsf", "12213",
-                "dewrwere", "2334",
-                "skuyt", "32543");
-        gamesRanking.add(remolachaEasyGame);
+    public MutableLiveData<ArrayList<Long>> getRemolachaEasyRanking() {
+        remolachaEasyList.clear();
+        MutableLiveData<ArrayList<Long>> listMutableLiveData = new MutableLiveData<>();
+        db.collection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    remolachaEasyList.add(Long.parseLong(Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroEasyRecord"))));
+                    remolachaEasyList.sort(Collections.reverseOrder());
+                    listMutableLiveData.postValue(remolachaEasyList);
 
-        GameRanking remolachaDifficultGame = new GameRanking(context.getString(R.string.ranking_remolacha_hero_difficult),
-                "rter", "7656445",
-                "tehf", "5345343",
-                "juyki", "345322354");
-        gamesRanking.add(remolachaDifficultGame);
+                }
+            }
+        });
 
-        GameRanking clickerGame = new GameRanking(context.getString(R.string.ranking_clicker_game),
-                "rtree", "344",
-                "ewww", "566",
-                "bcff", "8765");
-        gamesRanking.add(clickerGame);
+        return listMutableLiveData;
+    }
 
-        GameRanking marcianitosGame = new GameRanking(context.getString(R.string.ranking_marcianitos),
-                "trreeertdg", "76",
-                "hgf", "65",
-                "jgg", "34");
-        gamesRanking.add(clickerGame);
-        return gamesRanking;
+    public MutableLiveData<ArrayList<Long>> getRemolachaDifficultRanking() {
+        remolachaDifficultList.clear();
+        MutableLiveData<ArrayList<Long>> listMutableLiveData = new MutableLiveData<>();
+        db.collection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    remolachaDifficultList.add(Long.parseLong(Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroDifficultRecord"))));
+                    remolachaDifficultList.sort(Collections.reverseOrder());
+                    listMutableLiveData.postValue(remolachaDifficultList);
+                }
+            }
+        });
+        return listMutableLiveData;
+    }
+
+    public MutableLiveData<ArrayList<Long>> getClickerGameRanking() {
+        clickerGameList.clear();
+        MutableLiveData<ArrayList<Long>> listMutableLiveData = new MutableLiveData<>();
+        db.collection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    clickerGameList.add(Long.parseLong(Objects.requireNonNull(documentSnapshot.getString("ClickerGameRecord"))));
+                    clickerGameList.sort(Collections.reverseOrder());
+                    listMutableLiveData.postValue(clickerGameList);
+                }
+            }
+        });
+        return listMutableLiveData;
+    }
+
+    public MutableLiveData<ArrayList<Long>> getMarcianitosRanking() {
+        marcianitosList.clear();
+        MutableLiveData<ArrayList<Long>> listMutableLiveData = new MutableLiveData<>();
+        db.collection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    marcianitosList.add(Long.parseLong(Objects.requireNonNull(documentSnapshot.getString("MarcianitosRecord"))));
+                    marcianitosList.sort(Collections.reverseOrder());
+                    listMutableLiveData.postValue(marcianitosList);
+                }
+            }
+        });
+        return listMutableLiveData;
     }
 }

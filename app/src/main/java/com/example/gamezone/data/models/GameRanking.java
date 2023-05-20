@@ -1,5 +1,7 @@
 package com.example.gamezone.data.models;
 
+import androidx.annotation.NonNull;
+
 public class GameRanking {
 
     String title;
@@ -9,6 +11,20 @@ public class GameRanking {
     String silverPoints;
     String bronzeUsername;
     String bronzePoints;
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "GameRanking{" +
+                "title='" + title + '\'' +
+                ", goldUsername='" + goldUsername + '\'' +
+                ", goldPoints='" + goldPoints + '\'' +
+                ", silverUsername='" + silverUsername + '\'' +
+                ", silverPoints='" + silverPoints + '\'' +
+                ", bronzeUsername='" + bronzeUsername + '\'' +
+                ", bronzePoints='" + bronzePoints + '\'' +
+                '}';
+    }
 
     public GameRanking(String title, String goldUsername, String goldPoints, String silverUsername, String silverPoints, String bronzeUsername, String bronzePoints) {
         this.title = title;
