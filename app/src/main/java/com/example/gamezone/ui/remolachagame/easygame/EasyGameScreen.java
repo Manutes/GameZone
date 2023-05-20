@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -24,12 +23,16 @@ import java.util.Random;
 public class EasyGameScreen extends View {
 
     private final Random random = new Random();
+
     public int width, height;
     public int posX, posY, radio;
     public int farmerX, farmerY, bearX, bearY;
     public int beetX, beetY, goldenBeetX, goldenBeetY;
+
     public Integer score = 0;
     private RectF rectBasket;
+
+    boolean bearAppear = false;
 
     public EasyGameScreen(Context context) {
         super(context);
@@ -121,7 +124,7 @@ public class EasyGameScreen extends View {
 
         int goldenBeetAppears = 15;
 
-        if ((score % goldenBeetAppears == 0) && score != 0) {
+        if (score % goldenBeetAppears == 0 && score != 0) {
             RectF rectGoldenBeet = new RectF((goldenBeetX - radio), (goldenBeetY - radio), (goldenBeetX + radio), (goldenBeetY + radio));
             Bitmap bitmapGoldenBeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolachaoro);
             canvas.drawBitmap(bitmapGoldenBeet, null, rectGoldenBeet, goldenBeet);
@@ -162,6 +165,24 @@ public class EasyGameScreen extends View {
         Paint bear = new Paint();
 
         if (score >= 20) {
+            bearAppear = true;
+            RectF rectBear = new RectF((bearX - radio), (bearY - radio), (bearX + radio), (bearY + radio));
+            Bitmap bitmapBear = BitmapFactory.decodeResource(getResources(), R.drawable.oso);
+            canvas.drawBitmap(bitmapBear, null, rectBear, bear);
+
+            if (bearY > height) {
+                bearY = 50;
+                bearX = random.nextInt(width);
+            }
+
+            if (RectF.intersects(rectBasket, rectBear)) {
+                score -= 10;
+                bearY = 50;
+                bearX = random.nextInt(width);
+            }
+        }
+
+        if (score <= 20 && bearAppear) {
             RectF rectBear = new RectF((bearX - radio), (bearY - radio), (bearX + radio), (bearY + radio));
             Bitmap bitmapBear = BitmapFactory.decodeResource(getResources(), R.drawable.oso);
             canvas.drawBitmap(bitmapBear, null, rectBear, bear);

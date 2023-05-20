@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -31,6 +30,8 @@ public class DifficultGameScreen extends View {
     private final Random random = new Random();
 
     public Integer score = 0;
+
+    private boolean bearAppear = false;
 
     public DifficultGameScreen(Context context) {
         super(context);
@@ -183,6 +184,24 @@ public class DifficultGameScreen extends View {
         Paint bear = new Paint();
 
         if (score >= 20) {
+            bearAppear = true;
+            RectF rectBear = new RectF((bearX - radio), (bearY - radio), (bearX + radio), (bearY + radio));
+            Bitmap bitmapBear = BitmapFactory.decodeResource(getResources(), R.drawable.oso);
+            canvas.drawBitmap(bitmapBear, null, rectBear, bear);
+
+            if (bearY > height) {
+                bearY = 50;
+                bearX = random.nextInt(width);
+            }
+
+            if (RectF.intersects(rectBasket, rectBear)) {
+                score -= 10;
+                bearY = 50;
+                bearX = random.nextInt(width);
+            }
+        }
+
+        if (score <= 20 && bearAppear) {
             RectF rectBear = new RectF((bearX - radio), (bearY - radio), (bearX + radio), (bearY + radio));
             Bitmap bitmapBear = BitmapFactory.decodeResource(getResources(), R.drawable.oso);
             canvas.drawBitmap(bitmapBear, null, rectBear, bear);
