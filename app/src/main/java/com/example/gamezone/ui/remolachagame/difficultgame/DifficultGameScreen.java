@@ -193,7 +193,7 @@ public class DifficultGameScreen extends View {
             }
 
             if (RectF.intersects(rectBasket, rectBear)) {
-                score -= 5;
+                score -= 10;
                 bearY = 50;
                 bearX = random.nextInt(width);
             }

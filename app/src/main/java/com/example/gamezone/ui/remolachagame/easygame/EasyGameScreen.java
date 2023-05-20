@@ -119,7 +119,7 @@ public class EasyGameScreen extends View {
     private void setGoldenBeetScore(Canvas canvas) {
         Paint goldenBeet = new Paint();
 
-        int goldenBeetAppears = 25;
+        int goldenBeetAppears = 15;
 
         if ((score % goldenBeetAppears == 0) && score != 0) {
             RectF rectGoldenBeet = new RectF((goldenBeetX - radio), (goldenBeetY - radio), (goldenBeetX + radio), (goldenBeetY + radio));
@@ -172,7 +172,7 @@ public class EasyGameScreen extends View {
             }
 
             if (RectF.intersects(rectBasket, rectBear)) {
-                score -= 5;
+                score -= 10;
                 bearY = 50;
                 bearX = random.nextInt(width);
             }
