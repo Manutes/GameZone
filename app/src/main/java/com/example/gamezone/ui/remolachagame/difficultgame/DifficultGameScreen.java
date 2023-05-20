@@ -29,9 +29,8 @@ public class DifficultGameScreen extends View {
     public int beetX, beetY, goldenBeetX, goldenBeetY;
     private RectF rectBasket;
     private final Random random = new Random();
-    private Boolean goldenBeetCaught = false;
+
     public Integer score = 0;
-    public MediaPlayer[] audio = new MediaPlayer[2];
 
     public DifficultGameScreen(Context context) {
         super(context);
@@ -39,10 +38,6 @@ public class DifficultGameScreen extends View {
 
     public DifficultGameScreen(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        audio[0] = MediaPlayer.create(context, R.raw.dificil);
-        audio[1] = MediaPlayer.create(context, R.raw.yija);
-        audio[0].start();
-        audio[0].setLooping(true);
     }
 
     public DifficultGameScreen(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -126,7 +121,9 @@ public class DifficultGameScreen extends View {
     private void setGoldenBeetScore(Canvas canvas) {
         Paint goldenBeet = new Paint();
 
-        if ((score == 25 || score == 50 || score == 75) && !goldenBeetCaught) {
+        int goldenBeetAppears = 25;
+
+        if ((score % goldenBeetAppears == 0) && score != 0) {
             RectF rectGoldenBeet = new RectF((goldenBeetX - radio), (goldenBeetY - radio), (goldenBeetX + radio), (goldenBeetY + radio));
             Bitmap bitmapGoldenBeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolachaoro);
             canvas.drawBitmap(bitmapGoldenBeet, null, rectGoldenBeet, goldenBeet);
@@ -140,7 +137,6 @@ public class DifficultGameScreen extends View {
                 score += 10;
                 beetY = 50;
                 beetX = random.nextInt(width);
-                goldenBeetCaught = true;
             }
         }
     }

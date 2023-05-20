@@ -33,9 +33,6 @@
             android:name=".ui.remolachagame.gameover.DifficultGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.victory.VictoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.remolachagame.gameover.EasyGameOverActivity"
             android:exported="false" />
         <activity

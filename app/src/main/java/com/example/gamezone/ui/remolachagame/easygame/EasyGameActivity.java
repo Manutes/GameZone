@@ -1,6 +1,7 @@
 package com.example.gamezone.ui.remolachagame.easygame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,11 +12,11 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityEasyGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.EasyGameOverActivity;
-import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,7 +42,9 @@ public class EasyGameActivity extends AppCompatActivity {
 
     boolean isNewRecord = false;
 
-    boolean musicIsActive = true;
+    int playPosition = 0;
+
+    private MediaPlayer mp;
 
     Random random = new Random();
 
@@ -63,35 +66,58 @@ public class EasyGameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (musicIsActive) {
-            easyGameScreen.audio[0].stop();
-        }
+        stopMusic();
         finish();
+    }
+
+    private void setMediaPlayer() {
+        if (mp != null) {
+            mp.release();
+        }
+        mp = MediaPlayer.create(this, R.raw.normal);
+        mp.start();
+        mp.seekTo(playPosition);
+        mp.setOnCompletionListener(MediaPlayer::start);
+    }
+
+    private void stopMusic() {
+        if (mp != null) {
+            mp.release();
+            mp = null;
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (musicIsActive) {
-            easyGameScreen.audio[0].pause();
+        if (mp != null && mp.isPlaying()) {
+            mp.pause();
+            playPosition = mp.getCurrentPosition();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!musicIsActive) {
-            musicIsActive = true;
-            easyGameScreen.audio[0].start();
-        }
+        setMediaPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setMediaPlayer();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (musicIsActive) {
-            easyGameScreen.audio[0].stop();
-        }
+        stopMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopMusic();
     }
 
     private void setViewTreeObserver() {
@@ -120,22 +146,14 @@ public class EasyGameActivity extends AppCompatActivity {
                 handler.post(() -> {
                     if (easyGameScreen.score < 0) {
                         timer.cancel();
-                        musicIsActive = false;
-                        easyGameScreen.audio[0].stop();
-                        easyGameScreen.audio[0].release();
-                        easyGameScreen.audio[1].start();
+                        stopMusic();
                         firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0).toString());
                         checkNewRecord();
                         goToGameOver();
                     }
-                    if (easyGameScreen.score == 50) {
-                        timer.cancel();
-                        easyGameScreen.audio[0].stop();
-                        goToVictory();
-                    }
+
                     scoreList.add(easyGameScreen.score);
                     scoreList.sort(Collections.reverseOrder());
-
 
                     easyGameScreen.beetY += 10;
                     easyGameScreen.farmerY += 15;
@@ -150,12 +168,6 @@ public class EasyGameActivity extends AppCompatActivity {
 
     public void goToGameOver() {
         Intent intent = new Intent(this, EasyGameOverActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void goToVictory() {
-        Intent intent = new Intent(this, VictoryActivity.class);
         startActivity(intent);
         finish();
     }

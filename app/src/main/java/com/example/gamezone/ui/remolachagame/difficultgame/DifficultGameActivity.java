@@ -1,9 +1,9 @@
 package com.example.gamezone.ui.remolachagame.difficultgame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
@@ -12,18 +12,17 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityDifficultGameBinding;
 import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
-import com.example.gamezone.ui.remolachagame.victory.VictoryActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
@@ -45,7 +44,9 @@ public class DifficultGameActivity extends AppCompatActivity {
 
     boolean isNewRecord = false;
 
-    boolean musicIsActive = true;
+    int playPosition = 0;
+
+    private MediaPlayer mp;
 
     Random random = new Random();
 
@@ -67,35 +68,58 @@ public class DifficultGameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (musicIsActive) {
-            difficultGameScreen.audio[0].stop();
-        }
+        stopMusic();
         finish();
+    }
+
+    private void setMediaPlayer() {
+        if (mp != null) {
+            mp.release();
+        }
+        mp = MediaPlayer.create(this, R.raw.dificil);
+        mp.start();
+        mp.seekTo(playPosition);
+        mp.setOnCompletionListener(MediaPlayer::start);
+    }
+
+    private void stopMusic() {
+        if (mp != null) {
+            mp.release();
+            mp = null;
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (musicIsActive) {
-            difficultGameScreen.audio[0].pause();
+        if (mp != null && mp.isPlaying()) {
+            mp.pause();
+            playPosition = mp.getCurrentPosition();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!musicIsActive) {
-            musicIsActive = true;
-            difficultGameScreen.audio[0].start();
-        }
+        setMediaPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setMediaPlayer();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (musicIsActive) {
-            difficultGameScreen.audio[0].stop();
-        }
+        stopMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopMusic();
     }
 
     private void setViewTreeObserver() {
@@ -125,19 +149,12 @@ public class DifficultGameActivity extends AppCompatActivity {
                 handler.post(() -> {
                     if (difficultGameScreen.score < 0){
                         timer.cancel();
-                        musicIsActive = false;
-                        difficultGameScreen.audio[0].stop();
-                        difficultGameScreen.audio[0].release();
-                        difficultGameScreen.audio[1].start();
+                        stopMusic();
                         firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0).toString());
                         checkNewRecord();
                         goToGameOver();
                     }
-                    if (difficultGameScreen.score == 100){
-                        timer.cancel();
-                        difficultGameScreen.audio[0].stop();
-                        goToVictory();
-                    }
+
                     scoreList.add(difficultGameScreen.score);
                     scoreList.sort(Collections.reverseOrder());
 
@@ -155,12 +172,6 @@ public class DifficultGameActivity extends AppCompatActivity {
 
     public void goToGameOver(){
         Intent intent = new Intent(this, DifficultGameOverActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void goToVictory(){
-        Intent intent = new Intent(this, VictoryActivity.class);
         startActivity(intent);
         finish();
     }

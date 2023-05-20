@@ -1,8 +1,8 @@
 package com.example.gamezone.ui.remolachagame.gameover;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,7 +14,6 @@ import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityEasyGameOverBinding;
 import com.example.gamezone.ui.remolachagame.easygame.EasyGameActivity;
-import com.example.gamezone.ui.remolachagame.easygame.EasyGameScreen;
 import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +27,10 @@ public class EasyGameOverActivity extends AppCompatActivity {
     Firestore db = new Firestore();
 
     Firebase firebase = new Firebase();
+
+    int playPosition = 0;
+
+    private MediaPlayer mp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,67 @@ public class EasyGameOverActivity extends AppCompatActivity {
     }
 
     private void setScore() {
-        Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
+        Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
         doc.addOnSuccessListener(documentSnapshot -> {
             int score = Integer.parseInt(Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroLastScore")));
             binding.tvScore.setText("Conseguiste " + score + " remolacha/s");
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        stopMusic();
+        finish();
+    }
+
+    private void setMediaPlayer() {
+        if (mp != null) {
+            mp.release();
+        }
+        mp = MediaPlayer.create(this, R.raw.yija);
+        mp.start();
+        mp.seekTo(playPosition);
+        mp.setOnCompletionListener(MediaPlayer::start);
+    }
+
+    private void stopMusic() {
+        if (mp != null) {
+            mp.release();
+            mp = null;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mp != null && mp.isPlaying()) {
+            mp.pause();
+            playPosition = mp.getCurrentPosition();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setMediaPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setMediaPlayer();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopMusic();
     }
 }
