@@ -74,7 +74,7 @@ public class EasyGameActivity extends AppCompatActivity {
         if (mp != null) {
             mp.release();
         }
-        mp = MediaPlayer.create(this, R.raw.normal);
+        mp = MediaPlayer.create(this, R.raw.easy);
         mp.start();
         mp.seekTo(playPosition);
         mp.setOnCompletionListener(MediaPlayer::start);
