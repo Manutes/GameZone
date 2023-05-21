@@ -16,7 +16,6 @@ import com.example.gamezone.databinding.FragmentRankingBinding;
 import com.example.gamezone.ui.ranking.adapter.RankingAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,21 +30,9 @@ public class RankingFragment extends Fragment {
 
     private Context context;
 
-    ArrayList<Map<String, Long>> rankingRemolachaHeroEasy = new ArrayList<>();
-    ArrayList<Map<String, Long>> rankingRemolachaHeroDifficult = new ArrayList<>();
-    ArrayList<Map<String, Long>> rankingClickerGame = new ArrayList<>();
-    ArrayList<Map<String, Long>> rankingMarcianitos = new ArrayList<>();
-
-    ArrayList<String> userRemolachaEasy = new ArrayList<>();
-    ArrayList<Long> pointsRemolachaEasy = new ArrayList<>();
-    ArrayList<String> userRemolachaDifficult = new ArrayList<>();
-    ArrayList<Long> pointsRemolachaDifficult = new ArrayList<>();
-    ArrayList<String> userClickerGame = new ArrayList<>();
-    ArrayList<Long> pointsClickerGame = new ArrayList<>();
-    ArrayList<String> userMarcianitos = new ArrayList<>();
-    ArrayList<Long> pointsMarcianitos = new ArrayList<>();
-
-    GameRanking clickerGame;
+    ArrayList<Map<String, Long>> ranking = new ArrayList<>();
+    ArrayList<String> userRanking = new ArrayList<>();
+    ArrayList<Long> pointsRanking = new ArrayList<>();
 
     public RankingFragment() {
     }
@@ -85,59 +72,57 @@ public class RankingFragment extends Fragment {
         ArrayList<GameRanking> gamesRanking = new ArrayList<>();
 
         rankingViewModel.getRemolachaEasyRanking().observe(getViewLifecycleOwner(), list -> {
-            rankingRemolachaHeroEasy = list;
-            for (int i = 0; i < rankingRemolachaHeroEasy.size(); i++) {
-                getTopRanking(userRemolachaEasy, pointsRemolachaEasy, rankingRemolachaHeroEasy, i);
+            ranking = list;
+            for (int i = 0; i < ranking.size(); i++) {
+                getTopRanking(userRanking, pointsRanking, ranking, i);
             }
             GameRanking remolachaEasyGame = new GameRanking(context.getString(R.string.ranking_remolacha_hero_easy),
-                    userRemolachaEasy.get(0), pointsRemolachaEasy.get(0).toString(),
-                    userRemolachaEasy.get(1), pointsRemolachaEasy.get(1).toString(),
-                    userRemolachaEasy.get(2), pointsRemolachaEasy.get(2).toString());
+                    userRanking.get(0), pointsRanking.get(0).toString(),
+                    userRanking.get(1), pointsRanking.get(1).toString(),
+                    userRanking.get(2), pointsRanking.get(2).toString());
             gamesRanking.add(remolachaEasyGame);
-
+            clear();
         });
 
+
+
         rankingViewModel.getRemolachaDifficultRanking().observe(getViewLifecycleOwner(), list -> {
-            rankingRemolachaHeroDifficult = list;
-            for (int i = 0; i < rankingRemolachaHeroDifficult.size(); i++) {
-                getTopRanking(userRemolachaDifficult, pointsRemolachaDifficult, rankingRemolachaHeroDifficult, i);
+            ranking = list;
+            for (int i = 0; i < ranking.size(); i++) {
+                getTopRanking(userRanking, pointsRanking, ranking, i);
             }
-            pointsRemolachaDifficult.sort(Collections.reverseOrder());
             GameRanking remolachaDifficultGame = new GameRanking(context.getString(R.string.ranking_remolacha_hero_difficult),
-                    userRemolachaDifficult.get(0), pointsRemolachaDifficult.get(0).toString(),
-                    userRemolachaDifficult.get(1), pointsRemolachaDifficult.get(1).toString(),
-                    userRemolachaDifficult.get(2), pointsRemolachaDifficult.get(2).toString());
+                    userRanking.get(0), pointsRanking.get(0).toString(),
+                    userRanking.get(1), pointsRanking.get(1).toString(),
+                    userRanking.get(2), pointsRanking.get(2).toString());
             gamesRanking.add(remolachaDifficultGame);
+            clear();
         });
 
         rankingViewModel.getClickerGameRanking().observe(getViewLifecycleOwner(), list -> {
-            rankingClickerGame = list;
-            for (int i = 0; i < rankingClickerGame.size(); i++) {
-                getTopRanking(userClickerGame, pointsClickerGame, rankingClickerGame, i);
+            ranking = list;
+            for (int i = 0; i < ranking.size(); i++) {
+                getTopRanking(userRanking, pointsRanking, ranking, i);
             }
-            pointsClickerGame.sort(Collections.reverseOrder());
-
-            clickerGame = new GameRanking(context.getString(R.string.ranking_clicker_game),
-                    userClickerGame.get(0), pointsClickerGame.get(0).toString(),
-                    userClickerGame.get(1), pointsClickerGame.get(1).toString(),
-                    userClickerGame.get(2), pointsClickerGame.get(2).toString());
-
+            GameRanking clickerGame = new GameRanking(context.getString(R.string.ranking_clicker_game),
+                    userRanking.get(0), pointsRanking.get(0).toString(),
+                    userRanking.get(1), pointsRanking.get(1).toString(),
+                    userRanking.get(2), pointsRanking.get(2).toString());
             gamesRanking.add(clickerGame);
+            clear();
         });
-
         rankingViewModel.getMarcianitosRanking().observe(getViewLifecycleOwner(), list -> {
-            rankingMarcianitos = list;
-            for (int i = 0; i < rankingMarcianitos.size(); i++) {
-                getTopRanking(userMarcianitos, pointsMarcianitos, rankingMarcianitos, i);
+            ranking = list;
+            for (int i = 0; i < ranking.size(); i++) {
+                getTopRanking(userRanking, pointsRanking, ranking, i);
             }
-            pointsMarcianitos.sort(Collections.reverseOrder());
-
             GameRanking marcianitosGame = new GameRanking(context.getString(R.string.ranking_marcianitos),
-                    userMarcianitos.get(0), pointsMarcianitos.get(0).toString(),
-                    userMarcianitos.get(1), pointsMarcianitos.get(1).toString(),
-                    userMarcianitos.get(2), pointsMarcianitos.get(2).toString());
+                    userRanking.get(0), pointsRanking.get(0).toString(),
+                    userRanking.get(1), pointsRanking.get(1).toString(),
+                    userRanking.get(2), pointsRanking.get(2).toString());
             gamesRanking.add(marcianitosGame);
             gamesRankingList = gamesRanking;
+            clear();
             setAdapter();
         });
     }
@@ -148,5 +133,11 @@ public class RankingFragment extends Fragment {
             user.add(s);
             points.add(aLong);
         });
+    }
+
+    private void clear() {
+        userRanking.clear();
+        pointsRanking.clear();
+        ranking.clear();
     }
 }
