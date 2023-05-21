@@ -29,7 +29,7 @@ public class EasyGameScreen extends View {
     public int farmerX, farmerY, bearX, bearY;
     public int beetX, beetY, goldenBeetX, goldenBeetY;
 
-    public Integer score = 0;
+    public Long score = 0L;
     private RectF rectBasket;
 
     boolean bearAppear = false;

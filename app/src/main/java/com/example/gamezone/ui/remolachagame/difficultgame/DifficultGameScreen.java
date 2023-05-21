@@ -29,7 +29,7 @@ public class DifficultGameScreen extends View {
     private RectF rectBasket;
     private final Random random = new Random();
 
-    public Integer score = 0;
+    public Long score = 0L;
 
     private boolean bearAppear = false;
 

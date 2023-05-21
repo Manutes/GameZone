@@ -73,7 +73,7 @@ public class EasyGameOverActivity extends AppCompatActivity {
     private void setScore() {
         Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
         doc.addOnSuccessListener(documentSnapshot -> {
-            int score = Integer.parseInt(Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroLastScore")));
+            long score = Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroLastScore").toString()));
             binding.tvScore.setText("Conseguiste " + score + " remolacha/s");
         });
     }

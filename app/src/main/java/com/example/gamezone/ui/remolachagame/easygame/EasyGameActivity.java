@@ -32,7 +32,7 @@ public class EasyGameActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     public EasyGameScreen easyGameScreen;
-    public ArrayList<Integer> scoreList = new ArrayList<>();
+    public ArrayList<Long> scoreList = new ArrayList<>();
     ActivityEasyGameBinding binding;
     Firestore firestore = new Firestore();
 
@@ -147,7 +147,7 @@ public class EasyGameActivity extends AppCompatActivity {
                     if (easyGameScreen.score < 0) {
                         timer.cancel();
                         stopMusic();
-                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0).toString());
+                        firestore.updateScores(user, "RemolachaHeroLastScore", scoreList.get(0));
                         checkNewRecord();
                         goToGameOver();
                     }
@@ -172,11 +172,11 @@ public class EasyGameActivity extends AppCompatActivity {
         finish();
     }
 
-    public MutableLiveData<String> getLastRecord() {
-        MutableLiveData<String> recordLiveData = new MutableLiveData<>();
+    public MutableLiveData<Long> getLastRecord() {
+        MutableLiveData<Long> recordLiveData = new MutableLiveData<>();
         Task<DocumentSnapshot> doc = firestore.getUserDocument(user.getUid());
         doc.addOnSuccessListener(documentSnapshot -> {
-            String record = Objects.requireNonNull(documentSnapshot.getString("RemolachaHeroEasyRecord"));
+            Long record = Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroEasyRecord")).toString());
             recordLiveData.postValue(record);
 
         });
@@ -185,13 +185,13 @@ public class EasyGameActivity extends AppCompatActivity {
 
     private void checkNewRecord() {
         getLastRecord().observe(this, s -> {
-            if (!Objects.equals(s, "0")) {
-                isNewRecord = scoreList.get(0) > Integer.parseInt(s);
+            if (!Objects.equals(s, 0L)) {
+                isNewRecord = scoreList.get(0) > s;
                 if (isNewRecord) {
-                    firestore.updateScores(user, "RemolachaHeroEasyRecord", scoreList.get(0).toString());
+                    firestore.updateScores(user, "RemolachaHeroEasyRecord", scoreList.get(0));
                 }
             } else {
-                firestore.updateScores(user, "RemolachaHeroEasyRecord", scoreList.get(0).toString());
+                firestore.updateScores(user, "RemolachaHeroEasyRecord", scoreList.get(0));
             }
 
         });
