@@ -46,7 +46,7 @@
     <string name="dialog_ok_button">Ok</string>
     <string name="welcome_text">Bienvenido </string>
     <string name="credentials_login_error_text">Error con las credenciales</string>
-    <string name="register_successful_text">Registro completado. Ya puedes hacer login</string>
+    <string name="register_successful_text">Registro completado</string>
     <string name="register_error_text">Error al crear la cuenta. Revisa que el email y la contraseña estén bien escritas</string>
     <string name="logout_text">Cerrar sesion</string>
     <string name="change_username">Cambiar nombre de usuario</string>

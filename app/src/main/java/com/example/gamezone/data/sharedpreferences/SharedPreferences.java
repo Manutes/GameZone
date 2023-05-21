@@ -10,7 +10,7 @@ public class SharedPreferences {
     public void savePrefs (String user, String password, Activity activity) {
         android.content.SharedPreferences prefs = activity.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
         android.content.SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("user", user);
+        editor.putString("email", user);
         editor.putString("password", password);
         editor.apply();
     }
