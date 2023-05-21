@@ -96,47 +96,46 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:background="@drawable/rounded_corner_bg"
+            android:padding="@dimen/dimen_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coinContainer"
-            android:background="@drawable/rounded_corner_bg"
-            android:layout_marginHorizontal="@dimen/dimen_24"
-            android:padding="@dimen/dimen_12"
-            android:layout_marginTop="@dimen/dimen_24">
+            app:layout_constraintTop_toBottomOf="@id/coinContainer">
 
             <LinearLayout
                 android:id="@+id/clickValueContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="@dimen/dimen_80"
-                    android:src="@drawable/click_value_img"
-                    android:scaleType="fitCenter"
-                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/dimen_12"
-                    />
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/click_value_img" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/click_value_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dimen_16"
                     app:backgroundTint="@color/purple_200"
                     app:cornerRadius="@dimen/dimen_28"
-                    tools:text="@string/button_increase_click_value"
-                    android:layout_weight="1"/>
+                    tools:text="@string/button_increase_click_value" />
 
             </LinearLayout>
 
@@ -144,34 +143,42 @@
                 android:id="@+id/clickSpeedContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/clickValueContainer"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clickValueContainer">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="@dimen/dimen_80"
-                    android:src="@drawable/click_speed_img"
-                    android:scaleType="fitCenter"
-                    android:layout_weight="1"
                     android:layout_marginEnd="@dimen/dimen_12"
-                    />
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/click_speed_img" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/click_speed_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dimen_16"
                     app:backgroundTint="@color/purple_200"
                     app:cornerRadius="@dimen/dimen_28"
-                    tools:text="@string/button_increase_click_speed"
-                    android:layout_weight="1"/>
+                    tools:text="@string/button_increase_click_speed" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/upgrade_pc"
+            android:layout_width="245dp"
+            android:layout_height="66dp"
+            android:text="MEJORAR ORDENADOR"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
