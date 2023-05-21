@@ -27,7 +27,7 @@ public class RankingViewModel extends ViewModel {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     Map<String, Long> user = new HashMap<>();
-                    user.put(documentSnapshot.getId(), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroEasyRecord")).toString()));
+                    user.put(documentSnapshot.getString("Name"), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroEasyRecord")).toString()));
                     remolachaEasyList.add(user);
                     listMutableLiveData.postValue(remolachaEasyList);
                 }
@@ -43,7 +43,7 @@ public class RankingViewModel extends ViewModel {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     Map<String, Long> user = new HashMap<>();
-                    user.put(documentSnapshot.getId(), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroDifficultRecord")).toString()));
+                    user.put(documentSnapshot.getString("Name"), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroDifficultRecord")).toString()));
                     remolachaDifficultList.add(user);
                     listMutableLiveData.postValue(remolachaDifficultList);
                 }
@@ -59,7 +59,7 @@ public class RankingViewModel extends ViewModel {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     Map<String, Long> user = new HashMap<>();
-                    user.put(documentSnapshot.getId(), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("ClickerGameRecord")).toString()));
+                    user.put(documentSnapshot.getString("Name"), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("ClickerGameRecord")).toString()));
                     clickerGameList.add(user);
                     listMutableLiveData.postValue(clickerGameList);
                 }
@@ -75,7 +75,7 @@ public class RankingViewModel extends ViewModel {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     Map<String, Long> user = new HashMap<>();
-                    user.put(documentSnapshot.getId(), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("MarcianitosRecord")).toString()));
+                    user.put(documentSnapshot.getString("Name"), Long.parseLong(Objects.requireNonNull(documentSnapshot.get("MarcianitosRecord")).toString()));
                     marcianitosList.add(user);
                     listMutableLiveData.postValue(marcianitosList);
                 }

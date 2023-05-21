@@ -23,7 +23,7 @@ public class Firestore {
     public void writeNewUser(String userId, String name, String email, Context context) {
         User newUser = new User(name, email);
         Map<String, Object> user = new HashMap<>();
-        user.put("Name", newUser.username);
+        user.put("Name", userId);
         user.put("Email", newUser.email);
         user.put("Photo", setDefaultImage(context, R.drawable.consola));
         user.put("RemolachaHeroEasyRecord", 0L);
