@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.remolachagame.gameover;
+package com.example.gamezone.ui.games.remolachagame.gameover;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -12,17 +12,17 @@ import com.bumptech.glide.Glide;
 import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
-import com.example.gamezone.databinding.ActivityDifficultGameOverBinding;
-import com.example.gamezone.ui.remolachagame.difficultgame.DifficultGameActivity;
-import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
+import com.example.gamezone.databinding.ActivityEasyGameOverBinding;
+import com.example.gamezone.ui.games.remolachagame.easygame.EasyGameActivity;
+import com.example.gamezone.ui.games.remolachagame.homescreen.HomeScreenActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Objects;
 
-public class DifficultGameOverActivity extends AppCompatActivity {
+public class EasyGameOverActivity extends AppCompatActivity {
 
-    ActivityDifficultGameOverBinding binding;
+    ActivityEasyGameOverBinding binding;
 
     Firestore db = new Firestore();
 
@@ -38,11 +38,12 @@ public class DifficultGameOverActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
-        binding = ActivityDifficultGameOverBinding.inflate(getLayoutInflater());
+        binding = ActivityEasyGameOverBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setBackgroundGif();
         setUi();
+
     }
 
     private void setUi() {
@@ -58,7 +59,7 @@ public class DifficultGameOverActivity extends AppCompatActivity {
     }
 
     public void restart() {
-        Intent intent = new Intent(this, DifficultGameActivity.class);
+        Intent intent = new Intent(this, EasyGameActivity.class);
         startActivity(intent);
         finish();
     }
@@ -72,7 +73,7 @@ public class DifficultGameOverActivity extends AppCompatActivity {
     private void setScore() {
         Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
         doc.addOnSuccessListener(documentSnapshot -> {
-            long score = Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroLastScore")).toString());
+            long score = Long.parseLong(Objects.requireNonNull(documentSnapshot.get("RemolachaHeroLastScore").toString()));
             binding.tvScore.setText("Conseguiste " + score + " remolacha/s");
         });
     }

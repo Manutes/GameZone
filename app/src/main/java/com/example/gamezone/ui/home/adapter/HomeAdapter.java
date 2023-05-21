@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.games.adapter;
+package com.example.gamezone.ui.home.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
-public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.GameViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.GameViewHolder> {
 
     private final List<Game> games;
     private final SetOnClickListener setOnClickListener;
@@ -31,7 +31,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.GameViewHold
         }
     }
 
-    public GamesAdapter(Context context, List<Game> games, SetOnClickListener setOnClickListener) {
+    public HomeAdapter(Context context, List<Game> games, SetOnClickListener setOnClickListener) {
         this.context = context;
         this.games = games;
         this.setOnClickListener = setOnClickListener;

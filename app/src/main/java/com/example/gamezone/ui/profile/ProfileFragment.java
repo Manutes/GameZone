@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.options;
+package com.example.gamezone.ui.profile;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -22,8 +22,8 @@ import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.data.sharedpreferences.SharedPreferences;
 import com.example.gamezone.databinding.DialogChangeUsernameBinding;
-import com.example.gamezone.databinding.FragmentOptionsBinding;
-import com.example.gamezone.ui.games.GamesFragment;
+import com.example.gamezone.databinding.FragmentProfileBinding;
+import com.example.gamezone.ui.home.HomeFragment;
 import com.example.gamezone.ui.login.LoginActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,9 +33,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Objects;
 
 
-public class OptionsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    FragmentOptionsBinding binding;
+    FragmentProfileBinding binding;
     DialogChangeUsernameBinding alertBinding;
 
     Firestore db = new Firestore();
@@ -49,7 +49,7 @@ public class OptionsFragment extends Fragment {
 
     Uri selectedImageUri;
 
-    public OptionsFragment() {
+    public ProfileFragment() {
     }
 
 
@@ -62,7 +62,7 @@ public class OptionsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentOptionsBinding.inflate(inflater, null, false);
+        binding = FragmentProfileBinding.inflate(inflater, null, false);
         alertBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()), null, false);
         return binding.getRoot();
     }
@@ -79,7 +79,7 @@ public class OptionsFragment extends Fragment {
 
         setPhotoUri();
 
-        binding.tvName.setText(firebase.mFirebaseAuth.getCurrentUser().getDisplayName());
+        binding.tvName.setText(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getDisplayName());
         binding.tvEmail.setText(firebase.mFirebaseAuth.getCurrentUser().getEmail());
 
         binding.btnLogout.setOnClickListener(view1 -> signOut());
@@ -91,7 +91,7 @@ public class OptionsFragment extends Fragment {
     }
 
     private void setPhotoUri() {
-        Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
+        Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
         doc.addOnSuccessListener(documentSnapshot ->
                 binding.imgPhoto.setImageURI(Uri.parse(documentSnapshot.getString("Photo"))));
     }
@@ -104,7 +104,7 @@ public class OptionsFragment extends Fragment {
         });
         dialog.setNegativeButton(R.string.dialog_cancel_button, (dialogInterface, i) -> {
             dialogInterface.dismiss();
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new OptionsFragment()).commit();
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new ProfileFragment()).commit();
         });
         dialog.setView(alertBinding.getRoot());
         dialog.create();
@@ -135,7 +135,7 @@ public class OptionsFragment extends Fragment {
     }
 
     private void goToHome() {
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new GamesFragment()).commit();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new HomeFragment()).commit();
         BottomNavigationView navBar = requireActivity().findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.games);
 

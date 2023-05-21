@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.games.adapter;
+package com.example.gamezone.ui.home.adapter;
 
 import com.example.gamezone.data.models.Game;
 

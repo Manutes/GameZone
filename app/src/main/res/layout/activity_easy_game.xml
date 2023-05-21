@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/fondo"
-    tools:context=".ui.remolachagame.easygame.EasyGameActivity">
+    tools:context=".ui.games.remolachagame.easygame.EasyGameActivity">
 
     <view
         android:id="@+id/easyGameScreen"
-        class="com.example.gamezone.ui.remolachagame.easygame.EasyGameScreen"
+        class="com.example.gamezone.ui.games.remolachagame.easygame.EasyGameScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"

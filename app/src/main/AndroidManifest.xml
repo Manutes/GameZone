@@ -27,22 +27,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.remolachagame.difficultgame.DifficultGameActivity"
+            android:name=".ui.games.remolachagame.difficultgame.DifficultGameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.gameover.DifficultGameOverActivity"
+            android:name=".ui.games.remolachagame.gameover.DifficultGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.gameover.EasyGameOverActivity"
+            android:name=".ui.games.remolachagame.gameover.EasyGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.easygame.EasyGameActivity"
+            android:name=".ui.games.remolachagame.easygame.EasyGameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.homescreen.HomeScreenActivity"
+            android:name=".ui.games.remolachagame.homescreen.HomeScreenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.gamezone.ui.clickergame.ClickerGame"
+            android:name="com.example.gamezone.ui.games.clickergame.ClickerGame"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

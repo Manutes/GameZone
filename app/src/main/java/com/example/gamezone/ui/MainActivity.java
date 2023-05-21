@@ -14,8 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.gamezone.databinding.ActivityMainBinding;
-import com.example.gamezone.ui.games.GamesFragment;
-import com.example.gamezone.ui.options.OptionsFragment;
+import com.example.gamezone.ui.home.HomeFragment;
+import com.example.gamezone.ui.profile.ProfileFragment;
 import com.example.gamezone.ui.ranking.RankingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     FragmentManager fragmentManager = getSupportFragmentManager();
 
-    final Fragment gamesFragment = new GamesFragment();
+    final Fragment gamesFragment = new HomeFragment();
     final Fragment socialFragment = new RankingFragment();
-    final Fragment optionsFragment = new OptionsFragment();
+    final Fragment optionsFragment = new ProfileFragment();
 
 
 

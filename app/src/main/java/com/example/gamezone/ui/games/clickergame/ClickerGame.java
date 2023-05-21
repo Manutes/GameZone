@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.clickergame;
+package com.example.gamezone.ui.games.clickergame;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
