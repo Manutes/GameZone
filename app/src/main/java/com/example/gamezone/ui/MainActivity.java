@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragmentManager.beginTransaction().replace(id.hostFragment, gamesFragment).commit();
                 return true;
 
-            case id.social:
+            case id.ranking:
                 fragmentManager.beginTransaction().replace(id.hostFragment, socialFragment).commit();
                 return true;
 
-            case id.options:
+            case id.profile:
                 fragmentManager.beginTransaction().replace(id.hostFragment, optionsFragment).commit();
                 return true;
         }

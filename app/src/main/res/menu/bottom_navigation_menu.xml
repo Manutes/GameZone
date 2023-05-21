@@ -8,14 +8,14 @@
         android:title="@string/nav_bar_titulo_juegos" />
 
     <item
-        android:id="@+id/social"
-        android:icon="@drawable/ic_social"
+        android:id="@+id/ranking"
+        android:icon="@drawable/ic_ranking"
         app:showAsAction="never"
-        android:title="@string/nav_bar_titulo_social" />
+        android:title="@string/nav_bar_titulo_ranking" />
 
     <item
-        android:id="@+id/options"
-        android:icon="@drawable/ic_opciones"
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_profile"
         app:showAsAction="never"
-        android:title="@string/nav_bar_titulo_opciones" />
+        android:title="@string/nav_bar_titulo_perfil" />
 </menu>

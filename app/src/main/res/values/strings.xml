@@ -2,8 +2,8 @@
     <string name="app_name">Gamezone</string>
 
     <string name="nav_bar_titulo_juegos">Juegos</string>
-    <string name="nav_bar_titulo_social">Social</string>
-    <string name="nav_bar_titulo_opciones">Opciones</string>
+    <string name="nav_bar_titulo_ranking">Ranking</string>
+    <string name="nav_bar_titulo_perfil">Perfil</string>
 
     <string name="titulo_pasatiempos">Pasatiempos</string>
 
