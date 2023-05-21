@@ -35,6 +35,7 @@
     <string name="button_click_me">PULSA</string>
     <string name="button_increase_click_value">Incrementar valor del click (+1) </string>
     <string name="button_increase_click_speed">Incrementar velocidad del click automático</string>
+    <string name="button_upgrade_pc">Mejorar ordenador</string>
     <string name="money_text">Dinero: </string>
     <string name="coins_text"> Coins</string>
 

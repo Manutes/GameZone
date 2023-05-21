@@ -8,10 +8,12 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,9 @@ public class ClickerGame extends AppCompatActivity {
     private long clickValueCost = 10L;
     private long clickSpeed = 1000L;
     private long clickSpeedCost = 50L;
+    private int upgradeCost = 100;
+    private int bonus = 1;
+    private int bay = 0;
     private ImageButton clickButton;
     private TextView scoreTextView;
     private MediaPlayer mediaPlayer;
@@ -98,6 +103,7 @@ public class ClickerGame extends AppCompatActivity {
             if (score >= clickValueCost) {
                 score -= clickValueCost;
                 clickValue++;
+                clickValue=clickValue*bonus;
                 clickValueCost *= 2;
                 updateScoreTextView();
                 updateClickValueButton();
@@ -113,6 +119,22 @@ public class ClickerGame extends AppCompatActivity {
                 updateScoreTextView();
                 updateClickSpeedButton();
                 startAutoClicker();
+            }
+        });
+
+        Button upgradeButton = findViewById(R.id.upgrade_pc);
+        upgradeButton.setOnClickListener(view -> {
+            ImageView coinBg = findViewById(R.id.coinBg);
+            if (score >= upgradeCost) {
+                if(bay == 0) {
+                    bay++;
+                    coinBg.setImageResource(R.drawable.coin_bg2);
+                } else if (bay == 1){
+                    coinBg.setImageResource(R.drawable.coin_bg3);
+                }
+                upgradeCost = upgradeCost * 2;
+                score = 0;
+                bonus++;
             }
         });
 
@@ -181,6 +203,11 @@ public class ClickerGame extends AppCompatActivity {
     private void updateClickSpeedButton() {
         Button clickSpeedButton = findViewById(R.id.click_speed_button);
         clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_speed), " ", clickSpeedCost, " ", getString(R.string.coins_text)));
+    }
+
+    private void updateUpgradeButton() {
+        Button clickSpeedButton = findViewById(R.id.upgrade_pc);
+        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_upgrade_pc), " ", upgradeCost, " ", getString(R.string.coins_text)));
     }
 
     @Override
