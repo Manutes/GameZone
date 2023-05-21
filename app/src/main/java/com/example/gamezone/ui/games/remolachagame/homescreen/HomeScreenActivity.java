@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gamezone.R;
 import com.example.gamezone.databinding.ActivityHomeScreenBinding;
-import com.example.gamezone.ui.games.remolachagame.easygame.EasyGameActivity;
 import com.example.gamezone.ui.games.remolachagame.difficultgame.DifficultGameActivity;
+import com.example.gamezone.ui.games.remolachagame.easygame.EasyGameActivity;
 import com.example.gamezone.ui.games.remolachagame.instructions.InstructionsFragment;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -93,9 +93,12 @@ public class HomeScreenActivity extends AppCompatActivity {
             mp.stop();
             startActivity(intent);
         });
+
         binding.btnInstructions.setOnClickListener(it -> {
             InstructionsFragment instructionsFragment = InstructionsFragment.newInstance();
             instructionsFragment.show(getSupportFragmentManager(), "intructions_fragment");
         });
+
+        binding.btnHome.setOnClickListener(it -> finish());
     }
 }
