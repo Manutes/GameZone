@@ -50,11 +50,9 @@ public class Firestore {
     }
 
     public void updateProfilePhoto(FirebaseUser currentUser, String newUri) {
-        Map<String, String> user = new HashMap<>();
-        user.put("Name", currentUser.getDisplayName());
-        user.put("Email", currentUser.getEmail());
+        Map<String, Object> user = new HashMap<>();
         user.put("Photo", newUri);
-        db.collection("Users").document(currentUser.getUid()).set(user);
+        db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
     public Uri setDefaultImage(Context context,
