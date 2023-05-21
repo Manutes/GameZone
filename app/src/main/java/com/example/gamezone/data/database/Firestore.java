@@ -26,10 +26,10 @@ public class Firestore {
         user.put("Name", newUser.username);
         user.put("Email", newUser.email);
         user.put("Photo", setDefaultImage(context, R.drawable.consola));
-        user.put("RemolachaHeroEasyRecord", "0");
-        user.put("RemolachaHeroDifficultRecord", "0");
-        user.put("RemolachaHeroLastScore", "0");
-        user.put("ClickerGameRecord", "0");
+        user.put("RemolachaHeroEasyRecord", 0L);
+        user.put("RemolachaHeroDifficultRecord", 0L);
+        user.put("RemolachaHeroLastScore", 0L);
+        user.put("ClickerGameRecord", 0L);
         db.collection("Users").document(userId).set(user);
     }
 
@@ -39,7 +39,7 @@ public class Firestore {
         db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
-    public void updateScores(FirebaseUser currentUser, String field, String newScore) {
+    public void updateScores(FirebaseUser currentUser, String field, Object newScore) {
         Map<String, Object> user = new HashMap<>();
         user.put(field, newScore);
         db.collection("Users").document(currentUser.getUid()).update(user);

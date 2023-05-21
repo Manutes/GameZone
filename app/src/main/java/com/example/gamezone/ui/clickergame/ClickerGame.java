@@ -217,7 +217,7 @@ public class ClickerGame extends AppCompatActivity {
         editor.putLong("clickSpeed", clickSpeed);
         editor.putLong("clickSpeedCost", clickSpeedCost);
         editor.apply();
-        firestore.updateScores(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), "ClickerGameRecord", String.valueOf(score));
+        firestore.updateScores(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), "ClickerGameRecord", score);
     }
 
     private void loadGame() {
