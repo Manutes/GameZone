@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.gamezone.data.models.Game;
 import com.example.gamezone.databinding.FragmentHomeBinding;
 import com.example.gamezone.ui.games.clickergame.ClickerGame;
+import com.example.gamezone.ui.games.marcianosGame.MarcianosMainActivity;
 import com.example.gamezone.ui.games.remolachagame.homescreen.HomeScreenActivity;
 import com.example.gamezone.ui.home.adapter.HomeAdapter;
 import com.example.gamezone.ui.home.adapter.SetOnClickListener;
@@ -76,6 +77,11 @@ public class HomeFragment extends Fragment implements SetOnClickListener {
                 Intent intentCG = new Intent(context, ClickerGame.class);
                 startActivity(intentCG);
                 break;
+            case 3:
+                Intent intentM = new Intent(context, MarcianosMainActivity.class);
+                startActivity(intentM);
+                break;
+
         }
 
     }
