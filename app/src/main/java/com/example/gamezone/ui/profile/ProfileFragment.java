@@ -2,8 +2,10 @@ package com.example.gamezone.ui.profile;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 
@@ -50,6 +53,9 @@ public class ProfileFragment extends Fragment {
     CharSequence newUsername = "";
     boolean usernameExists = false;
 
+    boolean permissionsGranted = false;
+    int REQUEST_CODE = 200;
+
     ArrayList<String> usernameList = new ArrayList<>();
 
     Uri selectedImageUri;
@@ -76,6 +82,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        checkPermissions();
         setUi();
     }
 
@@ -99,6 +106,7 @@ public class ProfileFragment extends Fragment {
         Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
         doc.addOnSuccessListener(documentSnapshot ->
                 binding.imgPhoto.setImageURI(Uri.parse(documentSnapshot.getString("Photo"))));
+
     }
 
     private void setAlertDialog() {
@@ -167,9 +175,9 @@ public class ProfileFragment extends Fragment {
             if (requestCode == SELECT_PICTURE) {
                 selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                    binding.imgPhoto.setImageURI(selectedImageUri);
-                    db.updateProfilePhoto(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), selectedImageUri.toString());
-                    Toast.makeText(requireContext(), selectedImageUri.toString(), Toast.LENGTH_SHORT).show();
+                        binding.imgPhoto.setImageURI(selectedImageUri);
+                        db.updateProfilePhoto(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), selectedImageUri.toString());
+                        Toast.makeText(requireContext(), selectedImageUri.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -195,5 +203,18 @@ public class ProfileFragment extends Fragment {
             }
         });
         return mutableLiveData;
+    }
+
+
+    private void checkPermissions() {
+        int permissions = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permissions == PackageManager.PERMISSION_GRANTED) {
+            permissionsGranted = true;
+        } else {
+            permissionsGranted = false;
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+            goToHome();
+        }
     }
 }
