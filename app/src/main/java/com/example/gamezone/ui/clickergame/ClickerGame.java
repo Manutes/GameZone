@@ -33,7 +33,7 @@ public class ClickerGame extends AppCompatActivity {
     private long clickValueCost = 10L;
     private long clickSpeed = 1000L;
     private long clickSpeedCost = 50L;
-    private int upgradeCost = 100;
+    private int upgradeCost = 100000;
     private int bonus = 1;
     private int bay = 0;
     private ImageButton clickButton;
@@ -114,7 +114,7 @@ public class ClickerGame extends AppCompatActivity {
         clickSpeedButton.setOnClickListener(view -> {
             if (score >= clickSpeedCost) {
                 score -= clickSpeedCost;
-                clickSpeed /= 2;
+                clickSpeed /= 2*bonus;
                 clickSpeedCost *= 2;
                 updateScoreTextView();
                 updateClickSpeedButton();
@@ -135,12 +135,21 @@ public class ClickerGame extends AppCompatActivity {
                 upgradeCost = upgradeCost * 2;
                 score = 0;
                 bonus++;
+                resetStats();
+                updateUpgradeButton();
             }
         });
 
         startAutoClicker();
     }
-
+    private void resetStats() {
+        clickSpeed = 1000L;
+        clickValue = 1L;
+        clickSpeedCost = 50L;
+        clickValueCost = 10L;
+        updateClickSpeedButton();
+        updateClickValueButton();
+    }
     private void startAutoClicker() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -207,7 +216,7 @@ public class ClickerGame extends AppCompatActivity {
 
     private void updateUpgradeButton() {
         Button clickSpeedButton = findViewById(R.id.upgrade_pc);
-        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_upgrade_pc), " ", upgradeCost, " ", getString(R.string.coins_text)));
+        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_upgrade_pc), " ", upgradeCost));
     }
 
     @Override
@@ -263,5 +272,6 @@ public class ClickerGame extends AppCompatActivity {
         updateScoreTextView();
         updateClickValueButton();
         updateClickSpeedButton();
+        updateUpgradeButton();
     }
 }
