@@ -86,12 +86,14 @@ public class HomeScreenActivity extends AppCompatActivity {
             Intent intent = new Intent(this, EasyGameActivity.class);
             mp.stop();
             startActivity(intent);
+            finish();
         });
 
         binding.btnNewDifficultGame.setOnClickListener(it -> {
             Intent intent = new Intent(this, DifficultGameActivity.class);
             mp.stop();
             startActivity(intent);
+            finish();
         });
 
         binding.btnInstructions.setOnClickListener(it -> {

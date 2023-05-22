@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.gamezone.R;
 import com.example.gamezone.data.firebase.Firebase;
@@ -40,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);

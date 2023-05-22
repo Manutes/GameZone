@@ -81,7 +81,7 @@ public class DifficultGameOverActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         stopMusic();
-        finish();
+        goToHomeScreen();
     }
 
     private void setMediaPlayer() {
