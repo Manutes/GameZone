@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.remolachagame.gameover;
+package com.example.gamezone.ui.games.remolachagame.gameover;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -13,8 +13,8 @@ import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityEasyGameOverBinding;
-import com.example.gamezone.ui.remolachagame.easygame.EasyGameActivity;
-import com.example.gamezone.ui.remolachagame.homescreen.HomeScreenActivity;
+import com.example.gamezone.ui.games.remolachagame.easygame.EasyGameActivity;
+import com.example.gamezone.ui.games.remolachagame.homescreen.HomeScreenActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -82,7 +82,7 @@ public class EasyGameOverActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         stopMusic();
-        finish();
+        goToHomeScreen();
     }
 
     private void setMediaPlayer() {

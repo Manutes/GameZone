@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.clickergame;
+package com.example.gamezone.ui.games.clickergame;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
@@ -258,13 +260,12 @@ public class ClickerGame extends AppCompatActivity {
 
     private void loadGame() {
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        long defaultScore = 0L;
         long defaultClickValue = 1L;
         long defaultClickValueCost = 10L;
         long defaultClickSpeed = 1000L;
         long defaultClickSpeedCost = 50L;
 
-        score = prefs.getLong("score", defaultScore);
+        getScore();
         clickValue = prefs.getLong("clickValue", defaultClickValue);
         clickValueCost = prefs.getLong("clickValueCost", defaultClickValueCost);
         clickSpeed = prefs.getLong("clickSpeed", defaultClickSpeed);
@@ -273,5 +274,11 @@ public class ClickerGame extends AppCompatActivity {
         updateClickValueButton();
         updateClickSpeedButton();
         updateUpgradeButton();
+    }
+
+    private void getScore() {
+        Task<DocumentSnapshot> doc = firestore.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
+        doc.addOnSuccessListener(documentSnapshot ->
+                score = Long.parseLong(Objects.requireNonNull(documentSnapshot.get("ClickerGameRecord")).toString()));
     }
 }

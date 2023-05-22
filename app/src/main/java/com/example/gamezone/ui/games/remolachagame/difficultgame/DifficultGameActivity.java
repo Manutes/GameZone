@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.remolachagame.difficultgame;
+package com.example.gamezone.ui.games.remolachagame.difficultgame;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -16,7 +16,7 @@ import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.databinding.ActivityDifficultGameBinding;
-import com.example.gamezone.ui.remolachagame.gameover.DifficultGameOverActivity;
+import com.example.gamezone.ui.games.remolachagame.gameover.DifficultGameOverActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;

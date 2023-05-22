@@ -1,7 +1,6 @@
 package com.example.gamezone.ui.login;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,12 +8,12 @@ import android.view.View;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.gamezone.R;
+import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.data.sharedpreferences.SharedPreferences;
 import com.example.gamezone.databinding.ActivityLoginBinding;
-import com.example.gamezone.ui.MainActivity;
-import com.example.gamezone.data.firebase.Firebase;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -32,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile(PASSWORD_REGEX);
 
-    CharSequence user = "";
+    CharSequence email = "";
     CharSequence password = "";
 
     SharedPreferences sharedPreferences = new SharedPreferences();
@@ -42,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -52,18 +53,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setUi() {
-        setUserTextWatcher(binding.tilEmail);
+        setEmailTextWatcher(binding.tilEmail);
         setPasswordTextWatcher(binding.tilPassword);
 
         binding.btnLogin.setOnClickListener(view -> {
-            firebase.signIn(user.toString(), password.toString(), this, this);
+            firebase.signIn(email.toString(), password.toString(), this, this);
             rememberCredentials();
         });
 
         binding.btnRegister.setOnClickListener(view -> {
             if (PASSWORD_PATTERN.matcher(password.toString()).matches()) {
-                firebase.createAccount(user.toString(), password.toString(), this);
-
+                firebase.createAccount(email.toString(), password.toString(), this, this);
             } else {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setMessage(R.string.dialog_password_text);
@@ -75,21 +75,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkCredentials() {
-        user = sharedPreferences.getPrefs("user", this);
+        email = sharedPreferences.getPrefs("email", this);
         password = sharedPreferences.getPrefs("password", this);
 
-        if (user.length() > 0 && password.length() > 0) {
-            firebase.signIn(user.toString(), password.toString(), this, this);
+        if (email.length() > 0 && password.length() > 0) {
+            firebase.signIn(email.toString(), password.toString(), this, this);
         }
     }
 
     private void rememberCredentials() {
         if (binding.cbRememberCredentials.isChecked()) {
-            sharedPreferences.savePrefs(user.toString(), password.toString(), this);
+            sharedPreferences.savePrefs(email.toString(), password.toString(), this);
         }
     }
 
-    private void setUserTextWatcher(TextInputLayout til) {
+    private void setEmailTextWatcher(TextInputLayout til) {
             Objects.requireNonNull(til.getEditText()).addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    user = charSequence;
+                    email = charSequence;
                     validate();
                 }
 
@@ -125,21 +125,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     private void validate() {
-        binding.btnLogin.setEnabled(user.length() > 0 && password.length() > 0);
-        binding.btnRegister.setEnabled(user.length() > 0 && password.length() > 0);
+        binding.btnLogin.setEnabled(email.length() > 0 && password.length() > 0);
+        binding.btnRegister.setEnabled(email.length() > 0 && password.length() > 0);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         firebase.checkUser();
-    }
-
-    public void goToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 }

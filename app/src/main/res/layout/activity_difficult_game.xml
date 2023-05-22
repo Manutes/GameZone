@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondodificil"
-    tools:context=".ui.remolachagame.difficultgame.DifficultGameActivity">
+    tools:context=".ui.games.remolachagame.difficultgame.DifficultGameActivity">
 
     <view
         android:id="@+id/difficultGameScreen"
-        class="com.example.gamezone.ui.remolachagame.difficultgame.DifficultGameScreen"
+        class="com.example.gamezone.ui.games.remolachagame.difficultgame.DifficultGameScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"

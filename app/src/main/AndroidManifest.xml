@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -17,8 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.login.LoginActivity"
+        <activity android:name="com.example.gamezone.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,27 +27,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.remolachagame.difficultgame.DifficultGameActivity"
+            android:name=".ui.login.LoginActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".ui.games.remolachagame.difficultgame.DifficultGameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.gameover.DifficultGameOverActivity"
+            android:name=".ui.games.remolachagame.gameover.DifficultGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.gameover.EasyGameOverActivity"
+            android:name=".ui.games.remolachagame.gameover.EasyGameOverActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.easygame.EasyGameActivity"
+            android:name=".ui.games.remolachagame.easygame.EasyGameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.remolachagame.homescreen.HomeScreenActivity"
+            android:name=".ui.games.remolachagame.homescreen.HomeScreenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.gamezone.ui.clickergame.ClickerGame"
+            android:name="com.example.gamezone.ui.games.clickergame.ClickerGame"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

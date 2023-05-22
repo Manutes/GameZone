@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.remolachagame.easygame;
+package com.example.gamezone.ui.games.remolachagame.difficultgame;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,30 +20,29 @@ import com.example.gamezone.R;
 
 import java.util.Random;
 
-public class EasyGameScreen extends View {
-
-    private final Random random = new Random();
+public class DifficultGameScreen extends View {
 
     public int width, height;
     public int posX, posY, radio;
-    public int farmerX, farmerY, bearX, bearY;
+    public int farmerX, farmerY, nephewX, nephewY, bearX, bearY;
     public int beetX, beetY, goldenBeetX, goldenBeetY;
+    private RectF rectBasket;
+    private final Random random = new Random();
 
     public Long score = 0L;
-    private RectF rectBasket;
 
-    boolean bearAppear = false;
+    private boolean bearAppear = false;
 
-    public EasyGameScreen(Context context) {
+    public DifficultGameScreen(Context context) {
         super(context);
     }
 
-    public EasyGameScreen(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public DifficultGameScreen(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public EasyGameScreen(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+    public DifficultGameScreen(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override
@@ -67,6 +66,7 @@ public class EasyGameScreen extends View {
         setBeetScore(canvas);
         setGoldenBeetScore(canvas);
         setFarmerEnemy(canvas);
+        setNephewEnemy(canvas);
         setBearEnemy(canvas);
     }
 
@@ -122,9 +122,9 @@ public class EasyGameScreen extends View {
     private void setGoldenBeetScore(Canvas canvas) {
         Paint goldenBeet = new Paint();
 
-        int goldenBeetAppears = 15;
+        int goldenBeetAppears = 25;
 
-        if (score % goldenBeetAppears == 0 && score != 0) {
+        if ((score % goldenBeetAppears == 0) && score != 0) {
             RectF rectGoldenBeet = new RectF((goldenBeetX - radio), (goldenBeetY - radio), (goldenBeetX + radio), (goldenBeetY + radio));
             Bitmap bitmapGoldenBeet = BitmapFactory.decodeResource(getResources(), R.drawable.remolachaoro);
             canvas.drawBitmap(bitmapGoldenBeet, null, rectGoldenBeet, goldenBeet);
@@ -135,7 +135,7 @@ public class EasyGameScreen extends View {
             }
 
             if (RectF.intersects(rectBasket, rectGoldenBeet)) {
-                score += 3;
+                score += 10;
                 beetY = 50;
                 beetX = random.nextInt(width);
             }
@@ -158,6 +158,25 @@ public class EasyGameScreen extends View {
             score -= 3;
             farmerY = 50;
             farmerX = random.nextInt(width);
+        }
+    }
+
+    private void setNephewEnemy(Canvas canvas) {
+        Paint nephew = new Paint();
+
+        RectF rectNephew = new RectF((nephewX - radio), (nephewY - radio), (nephewX + radio), (nephewY + radio));
+        Bitmap mvl_bitmapNephew = BitmapFactory.decodeResource(getResources(), R.drawable.sobrino);
+        canvas.drawBitmap(mvl_bitmapNephew, null, rectNephew, nephew);
+
+        if (nephewY > height) {
+            nephewY = 50;
+            nephewX = random.nextInt(width);
+        }
+
+        if (RectF.intersects(rectBasket, rectNephew)) {
+            score -= 5;
+            nephewY = 50;
+            nephewX = random.nextInt(width);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.remolachagame.instructions;
+package com.example.gamezone.ui.games.remolachagame.instructions;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

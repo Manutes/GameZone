@@ -76,6 +76,8 @@
             android:hint="@string/hint_password"
             app:startIconDrawable="@drawable/ic_password"
             app:startIconTint="@drawable/ic_color_selector"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@drawable/ic_color_selector"
             android:layout_marginBottom="@dimen/dimen_12">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -84,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/hint_password"
                 android:fontFamily="@font/barcadenobar"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

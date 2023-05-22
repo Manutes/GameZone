@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,13 +24,14 @@ public class Firestore {
     public void writeNewUser(String userId, String name, String email, Context context) {
         User newUser = new User(name, email);
         Map<String, Object> user = new HashMap<>();
-        user.put("Name", newUser.username);
+        user.put("Name", userId);
         user.put("Email", newUser.email);
         user.put("Photo", setDefaultImage(context, R.drawable.consola));
         user.put("RemolachaHeroEasyRecord", 0L);
         user.put("RemolachaHeroDifficultRecord", 0L);
         user.put("RemolachaHeroLastScore", 0L);
         user.put("ClickerGameRecord", 0L);
+        user.put("MarcianitosRecord", 0L);
         db.collection("Users").document(userId).set(user);
     }
 
@@ -50,11 +52,9 @@ public class Firestore {
     }
 
     public void updateProfilePhoto(FirebaseUser currentUser, String newUri) {
-        Map<String, String> user = new HashMap<>();
-        user.put("Name", currentUser.getDisplayName());
-        user.put("Email", currentUser.getEmail());
+        Map<String, Object> user = new HashMap<>();
         user.put("Photo", newUri);
-        db.collection("Users").document(currentUser.getUid()).set(user);
+        db.collection("Users").document(currentUser.getUid()).update(user);
     }
 
     public Uri setDefaultImage(Context context,
@@ -63,6 +63,10 @@ public class Firestore {
                 + "://" + context.getResources().getResourcePackageName(drawableId)
                 + '/' + context.getResources().getResourceTypeName(drawableId)
                 + '/' + context.getResources().getResourceEntryName(drawableId));
+    }
+
+    public Task<QuerySnapshot> getAllUsers() {
+        return db.collection("Users").get();
     }
 
 }

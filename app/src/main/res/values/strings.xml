@@ -1,36 +1,25 @@
 <resources>
     <string name="app_name">Gamezone</string>
 
+    <!--> NavBar -->
     <string name="nav_bar_titulo_juegos">Juegos</string>
-    <string name="nav_bar_titulo_social">Social</string>
-    <string name="nav_bar_titulo_opciones">Opciones</string>
+    <string name="nav_bar_titulo_ranking">Ranking</string>
+    <string name="nav_bar_titulo_perfil">Perfil</string>
 
-    <string name="titulo_pasatiempos">Pasatiempos</string>
-
+    <!--> RemolachaHero -->
     <string name="titulo_juego_remolacha">Remolacha Hero</string>
     <string name="nueva_partida_facil_text">Nueva Partida Facil</string>
     <string name="nueva_partida_dificil_text">Nueva Partida Dificil</string>
     <string name="instrucciones_text">Instrucciones</string>
-
     <string name="reintentar_text">Reintentar</string>
     <string name="volver_al_menu_principal_text">Volver al menu principal</string>
     <string name="game_over_text">Game over</string>
-
-    <string name="lo_conseguiste_text">¡Lo conseguiste!</string>
-    <string name="dios_remolachas_text">¡Eres el dios de las remolachas!</string>
-
     <string name="textview_instructions_history">Estas hambriento y te has encontrado con la vieja granja de remolachas de la familia Perkins. Debes intentar guardar las remolachas sin que te pille el propietario de la granja. Si pierdes alguna por el camino te penalizara. ¡Atento a las remolachas doradas!</string>
     <string name="textview_instructions_easy_mode">En el modo facil, tendras que sortear al propietario para poder robar remolachas, aunque cuando lleves 20, llamara a su mascota Fujur para que le ayude</string>
     <string name="textview_instructions_difficult_mode">En el modo dificil tendrás que darte mucha mas prisa en coger las remolachas. Esta vez el propietario va con su sobrino Loco Joe, y cuando lleves 20 sacara a su mascota Fujur</string>
-    <string name="check_user_text">El user no puede estar vacío</string>
-    <string name="check_password_text">La contraseña no puede estar vacía</string>
-    <string name="btn_login_text">Login</string>
-    <string name="btn_register_text">Registro</string>
+    <string name="text_go_to_home">Volver a la pantalla principal</string>
 
-    <string name="options_sound_title">Sonido</string>
-    <string name="options_sound_on">ON</string>
-    <string name="options_sound_off">OFF</string>
-
+    <!--> ClickerGame -->
     <string name="titulo_juego_clickergame">Clicker Game</string>
     <string name="button_click_me">PULSA</string>
     <string name="button_increase_click_value">Incrementar valor del click (+1) </string>
@@ -39,30 +28,36 @@
     <string name="money_text">Dinero: </string>
     <string name="coins_text"> Coins</string>
 
+    <!--> Login -->
     <string name="hint_password">Contraseña</string>
     <string name="text_rememeber_password">Recordar contraseña</string>
     <string name="hint_email">Email</string>
-
     <string name="dialog_password_text">La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y contener entre 6 y 12 caracteres</string>
+    <string name="btn_login_text">Login</string>
+    <string name="btn_register_text">Registro</string>
     <string name="dialog_ok_button">Ok</string>
-    <string name="welcome_text">Bienvenido </string>
     <string name="credentials_login_error_text">Error con las credenciales</string>
-    <string name="register_successful_text">Registro completado. Ya puedes hacer login</string>
+    <string name="register_successful_text">Registro completado</string>
     <string name="register_error_text">Error al crear la cuenta. Revisa que el email y la contraseña estén bien escritas</string>
+
+    <!--> Profile -->
     <string name="logout_text">Cerrar sesion</string>
     <string name="change_username">Cambiar nombre de usuario</string>
     <string name="change_profile_img_text">Cambiar imagen de perfil</string>
+    <string name="change_username_success_text">Nombre de usuario cambiado con éxito a</string>
+    <string name="allow_permissions_text"><![CDATA[Debes habilitar los permisos para poder cambiar la foto de perfil. \nPara ello ve a Ajustes > Aplicaciones > Gamezone > Permisos > Archivos y contenido multimedia > Permitir]]></string>
+
+    <!--> DialogAlert -->
     <string name="dialog_change_username_text">Escribe tu nuevo nombre de usuario</string>
     <string name="dialog_accept_button">Aceptar</string>
     <string name="dialog_cancel_button">Cancelar</string>
     <string name="hint_username">Nombre de usuario</string>
-    <string name="change_username_success_text">Nombre de usuario cambiado con éxito a</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--> Ranking -->
     <string name="ranking_remolacha_hero_easy">Ranking Remolacha Hero Fácil</string>
     <string name="ranking_remolacha_hero_difficult">Ranking Remolacha Hero Dificil</string>
     <string name="ranking_clicker_game">Ranking Clicker Game</string>
     <string name="ranking_marcianitos">Ranking Marcianitos</string>
-
+    <string name="text_username_exists">Este nombre de usuario ya existe</string>
 
 </resources>

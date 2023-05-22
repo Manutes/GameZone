@@ -1,4 +1,4 @@
-package com.example.gamezone.ui.games;
+package com.example.gamezone.ui.home;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import com.example.gamezone.data.models.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamesViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel {
 
     private List<Game> games;
 

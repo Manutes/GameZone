@@ -1,10 +1,13 @@
-package com.example.gamezone.ui.options;
+package com.example.gamezone.ui.profile;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,27 +18,30 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
 import com.example.gamezone.data.firebase.Firebase;
 import com.example.gamezone.data.sharedpreferences.SharedPreferences;
 import com.example.gamezone.databinding.DialogChangeUsernameBinding;
-import com.example.gamezone.databinding.FragmentOptionsBinding;
-import com.example.gamezone.ui.games.GamesFragment;
+import com.example.gamezone.databinding.FragmentProfileBinding;
+import com.example.gamezone.ui.home.HomeFragment;
 import com.example.gamezone.ui.login.LoginActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class OptionsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    FragmentOptionsBinding binding;
+    FragmentProfileBinding binding;
     DialogChangeUsernameBinding alertBinding;
 
     Firestore db = new Firestore();
@@ -46,10 +52,16 @@ public class OptionsFragment extends Fragment {
     int SELECT_PICTURE = 200;
 
     CharSequence newUsername = "";
+    boolean usernameExists = false;
+
+    boolean permissionsGranted = false;
+    int REQUEST_CODE = 200;
+
+    ArrayList<String> usernameList = new ArrayList<>();
 
     Uri selectedImageUri;
 
-    public OptionsFragment() {
+    public ProfileFragment() {
     }
 
 
@@ -62,8 +74,9 @@ public class OptionsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentOptionsBinding.inflate(inflater, null, false);
+        binding = FragmentProfileBinding.inflate(inflater, null, false);
         alertBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()), null, false);
+        checkPermissions();
         return binding.getRoot();
     }
 
@@ -79,21 +92,28 @@ public class OptionsFragment extends Fragment {
 
         setPhotoUri();
 
-        binding.tvName.setText(firebase.mFirebaseAuth.getCurrentUser().getDisplayName());
+        binding.tvName.setText(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getDisplayName());
         binding.tvEmail.setText(firebase.mFirebaseAuth.getCurrentUser().getEmail());
 
         binding.btnLogout.setOnClickListener(view1 -> signOut());
 
-        binding.imgBtn.setOnClickListener(view1 -> openGallery());
+        binding.imgBtn.setOnClickListener(view1 -> {
+            if (permissionsGranted) {
+                openGallery();
+            } else {
+                setPermissionsAlertDialog();
+            }
+        });
 
         binding.btnChangeUserName.setOnClickListener(view1 -> setAlertDialog());
 
     }
 
     private void setPhotoUri() {
-        Task<DocumentSnapshot> doc = db.getUserDocument(firebase.mFirebaseAuth.getCurrentUser().getUid());
+        Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
         doc.addOnSuccessListener(documentSnapshot ->
                 binding.imgPhoto.setImageURI(Uri.parse(documentSnapshot.getString("Photo"))));
+
     }
 
     private void setAlertDialog() {
@@ -104,7 +124,7 @@ public class OptionsFragment extends Fragment {
         });
         dialog.setNegativeButton(R.string.dialog_cancel_button, (dialogInterface, i) -> {
             dialogInterface.dismiss();
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new OptionsFragment()).commit();
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new ProfileFragment()).commit();
         });
         dialog.setView(alertBinding.getRoot());
         dialog.create();
@@ -121,6 +141,7 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 newUsername = charSequence;
+                checkNewUserName().observe(getViewLifecycleOwner(), users -> usernameList = users);
             }
 
             @Override
@@ -130,12 +151,17 @@ public class OptionsFragment extends Fragment {
     }
 
     private void changeUsername() {
-        firebase.changeUsername(newUsername.toString(), requireContext());
-        db.updateUsername(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), newUsername.toString());
+        usernameExists = usernameList.contains(newUsername.toString());
+        if (!usernameExists) {
+            firebase.changeUsername(newUsername.toString(), requireContext());
+            db.updateUsername(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), newUsername.toString());
+        } else {
+            Toast.makeText(requireContext(), requireContext().getString(R.string.text_username_exists), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void goToHome() {
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new GamesFragment()).commit();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.hostFragment, new HomeFragment()).commit();
         BottomNavigationView navBar = requireActivity().findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.games);
 
@@ -169,5 +195,59 @@ public class OptionsFragment extends Fragment {
         sharedPreferences.removePrefs(requireActivity());
         Intent intent = new Intent(requireContext(), LoginActivity.class);
         startActivity(intent);
+    }
+
+    private MutableLiveData<ArrayList<String>> checkNewUserName() {
+        usernameList.clear();
+        MutableLiveData<ArrayList<String>> mutableLiveData = new MutableLiveData<>();
+        ArrayList<String> list = new ArrayList<>();
+        db.getAllUsers().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    list.add(documentSnapshot.getString("Name"));
+                    mutableLiveData.postValue(list);
+                }
+            }
+        });
+        return mutableLiveData;
+    }
+
+
+    private void checkPermissions() {
+        int permissions = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (Build.VERSION.SDK_INT <= 32) {
+            if (permissions != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+                permissionsGranted = false;
+            } else {
+                permissionsGranted = true;
+            }
+        } else {
+            if (permissions != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
+                permissionsGranted = false;
+            } else {
+                permissionsGranted = true;
+            }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            permissionsGranted = permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    private void setPermissionsAlertDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setMessage(R.string.allow_permissions_text)
+                .setPositiveButton("Aceptar", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                })
+                .create().show();
     }
 }
