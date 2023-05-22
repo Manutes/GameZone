@@ -31,6 +31,7 @@ public class Firestore {
         user.put("RemolachaHeroDifficultRecord", 0L);
         user.put("RemolachaHeroLastScore", 0L);
         user.put("ClickerGameRecord", 0L);
+        user.put("MarcianitosRecord", 0L);
         db.collection("Users").document(userId).set(user);
     }
 
