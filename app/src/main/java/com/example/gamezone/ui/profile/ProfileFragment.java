@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -215,12 +216,22 @@ public class ProfileFragment extends Fragment {
     private void checkPermissions() {
         int permissions = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
 
-        if (permissions != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
-            permissionsGranted = false;
+        if (Build.VERSION.SDK_INT <= 32) {
+            if (permissions != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+                permissionsGranted = false;
+            } else {
+                permissionsGranted = true;
+            }
         } else {
-            permissionsGranted = true;
+            if (permissions != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
+                permissionsGranted = false;
+            } else {
+                permissionsGranted = true;
+            }
         }
+
     }
 
     @Override
@@ -235,7 +246,7 @@ public class ProfileFragment extends Fragment {
         new AlertDialog.Builder(requireContext())
                 .setMessage(R.string.allow_permissions_text)
                 .setPositiveButton("Aceptar", (dialogInterface, i) -> {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+                    dialogInterface.dismiss();
                 })
                 .create().show();
     }
