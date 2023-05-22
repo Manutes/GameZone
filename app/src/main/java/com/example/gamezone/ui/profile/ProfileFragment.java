@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.gamezone.R;
 import com.example.gamezone.data.database.Firestore;
@@ -30,6 +31,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -46,6 +48,9 @@ public class ProfileFragment extends Fragment {
     int SELECT_PICTURE = 200;
 
     CharSequence newUsername = "";
+    boolean usernameExists = false;
+
+    ArrayList<String> usernameList = new ArrayList<>();
 
     Uri selectedImageUri;
 
@@ -121,6 +126,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 newUsername = charSequence;
+                checkNewUserName().observe(getViewLifecycleOwner(), users -> usernameList = users);
             }
 
             @Override
@@ -130,8 +136,13 @@ public class ProfileFragment extends Fragment {
     }
 
     private void changeUsername() {
-        firebase.changeUsername(newUsername.toString(), requireContext());
-        db.updateUsername(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), newUsername.toString());
+        usernameExists = usernameList.contains(newUsername.toString());
+        if (!usernameExists) {
+            firebase.changeUsername(newUsername.toString(), requireContext());
+            db.updateUsername(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), newUsername.toString());
+        } else {
+            Toast.makeText(requireContext(), requireContext().getString(R.string.text_username_exists), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void goToHome() {
@@ -169,5 +180,20 @@ public class ProfileFragment extends Fragment {
         sharedPreferences.removePrefs(requireActivity());
         Intent intent = new Intent(requireContext(), LoginActivity.class);
         startActivity(intent);
+    }
+
+    private MutableLiveData<ArrayList<String>> checkNewUserName() {
+        usernameList.clear();
+        MutableLiveData<ArrayList<String>> mutableLiveData = new MutableLiveData<>();
+        ArrayList<String> list = new ArrayList<>();
+        db.getAllUsers().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    list.add(documentSnapshot.getString("Name"));
+                    mutableLiveData.postValue(list);
+                }
+            }
+        });
+        return mutableLiveData;
     }
 }
