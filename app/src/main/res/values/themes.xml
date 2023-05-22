@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primary_color_dark</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:textColorHighlightInverse">@color/primary_color</item>
     </style>
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
