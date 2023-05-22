@@ -75,6 +75,7 @@ public class ProfileFragment extends Fragment {
 
         binding = FragmentProfileBinding.inflate(inflater, null, false);
         alertBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()), null, false);
+        checkPermissions();
         return binding.getRoot();
     }
 
@@ -82,7 +83,6 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        checkPermissions();
         setUi();
     }
 
@@ -96,7 +96,13 @@ public class ProfileFragment extends Fragment {
 
         binding.btnLogout.setOnClickListener(view1 -> signOut());
 
-        binding.imgBtn.setOnClickListener(view1 -> openGallery());
+        binding.imgBtn.setOnClickListener(view1 -> {
+            if (permissionsGranted) {
+                openGallery();
+            } else {
+                setPermissionsAlertDialog();
+            }
+        });
 
         binding.btnChangeUserName.setOnClickListener(view1 -> setAlertDialog());
 
@@ -175,9 +181,9 @@ public class ProfileFragment extends Fragment {
             if (requestCode == SELECT_PICTURE) {
                 selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                        binding.imgPhoto.setImageURI(selectedImageUri);
-                        db.updateProfilePhoto(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), selectedImageUri.toString());
-                        Toast.makeText(requireContext(), selectedImageUri.toString(), Toast.LENGTH_SHORT).show();
+                    binding.imgPhoto.setImageURI(selectedImageUri);
+                    db.updateProfilePhoto(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), selectedImageUri.toString());
+                    Toast.makeText(requireContext(), selectedImageUri.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -209,12 +215,28 @@ public class ProfileFragment extends Fragment {
     private void checkPermissions() {
         int permissions = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
 
-        if (permissions == PackageManager.PERMISSION_GRANTED) {
-            permissionsGranted = true;
-        } else {
-            permissionsGranted = false;
+        if (permissions != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
-            goToHome();
+            permissionsGranted = false;
+        } else {
+            permissionsGranted = true;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            permissionsGranted = permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    private void setPermissionsAlertDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setMessage(R.string.allow_permissions_text)
+                .setPositiveButton("Aceptar", (dialogInterface, i) -> {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
+                })
+                .create().show();
     }
 }
