@@ -37,7 +37,7 @@ public class ClickerGame extends AppCompatActivity {
     private long clickSpeedCost = 50L;
     private int upgradeCost = 100000;
     private int bonus = 1;
-    private int bay = 0;
+    private int imageN = 0;
     private ImageButton clickButton;
     private TextView scoreTextView;
     private MediaPlayer mediaPlayer;
@@ -126,14 +126,9 @@ public class ClickerGame extends AppCompatActivity {
 
         Button upgradeButton = findViewById(R.id.upgrade_pc);
         upgradeButton.setOnClickListener(view -> {
-            ImageView coinBg = findViewById(R.id.coinBg);
             if (score >= upgradeCost) {
-                if(bay == 0) {
-                    bay++;
-                    coinBg.setImageResource(R.drawable.coin_bg2);
-                } else if (bay == 1){
-                    coinBg.setImageResource(R.drawable.coin_bg3);
-                }
+                imageN++;
+                compruebaImageN();
                 upgradeCost = upgradeCost * 2;
                 score = 0;
                 bonus++;
@@ -205,7 +200,16 @@ public class ClickerGame extends AppCompatActivity {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         return String.format("%s %s", decimalFormat.format(value), arr[index]);
     }
-
+    private void compruebaImageN() {
+        ImageView coinBg = findViewById(R.id.coinBg);
+        if(imageN == 0) {
+            coinBg.setImageResource(R.drawable.coin_bg);
+        } else if (imageN == 1){
+            coinBg.setImageResource(R.drawable.coin_bg2);
+        } else if (imageN == 2){
+            coinBg.setImageResource(R.drawable.coin_bg3);
+        }
+    }
     private void updateClickValueButton() {
         Button clickValueButton = findViewById(R.id.click_value_button);
         clickValueButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_value), " ", clickValueCost, " ", getString(R.string.coins_text)));
@@ -254,6 +258,7 @@ public class ClickerGame extends AppCompatActivity {
         editor.putLong("clickValueCost", clickValueCost);
         editor.putLong("clickSpeed", clickSpeed);
         editor.putLong("clickSpeedCost", clickSpeedCost);
+        editor.putInt("imageN", imageN);
         editor.apply();
         firestore.updateScores(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()), "ClickerGameRecord", score);
     }
@@ -264,12 +269,15 @@ public class ClickerGame extends AppCompatActivity {
         long defaultClickValueCost = 10L;
         long defaultClickSpeed = 1000L;
         long defaultClickSpeedCost = 50L;
+        int defaultImageN = 0;
 
         getScore();
         clickValue = prefs.getLong("clickValue", defaultClickValue);
         clickValueCost = prefs.getLong("clickValueCost", defaultClickValueCost);
         clickSpeed = prefs.getLong("clickSpeed", defaultClickSpeed);
         clickSpeedCost = prefs.getLong("clickSpeedCost", defaultClickSpeedCost);
+        imageN = prefs.getInt("imageN", defaultImageN);
+        compruebaImageN();
         updateScoreTextView();
         updateClickValueButton();
         updateClickSpeedButton();
