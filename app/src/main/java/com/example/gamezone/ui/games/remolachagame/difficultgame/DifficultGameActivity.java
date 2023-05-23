@@ -131,7 +131,11 @@ public class DifficultGameActivity extends AppCompatActivity {
             difficultGameScreen.height = difficultGameScreen.getHeight();
             difficultGameScreen.posX = difficultGameScreen.width / 2;
             difficultGameScreen.posY = difficultGameScreen.height - 100;
-            difficultGameScreen.radio = 100;
+            if (difficultGameScreen.width <= 800) {
+                difficultGameScreen.radio = 70;
+            } else {
+                difficultGameScreen.radio = 100;
+            }
             difficultGameScreen.beetY = 50;
             difficultGameScreen.beetX = random.nextInt(difficultGameScreen.width);
             difficultGameScreen.farmerX = random.nextInt(difficultGameScreen.width);

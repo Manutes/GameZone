@@ -31,7 +31,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(view);
 
         setMediaPlayer();
-        setButtons();
+        setUi();
     }
 
     private void setMediaPlayer() {
@@ -81,7 +81,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         }
     }
 
-    private void setButtons() {
+    private void setUi() {
         binding.btnNewEasyGame.setOnClickListener(it -> {
             Intent intent = new Intent(this, EasyGameActivity.class);
             mp.stop();
@@ -102,5 +102,13 @@ public class HomeScreenActivity extends AppCompatActivity {
         });
 
         binding.btnHome.setOnClickListener(it -> finish());
+
+        if (binding.getRoot().getWidth() <= 800) {
+            binding.btnNewEasyGame.setTextSize(getResources().getDimension(R.dimen.dimen_16));
+            binding.btnNewDifficultGame.setTextSize(getResources().getDimension(R.dimen.dimen_16));
+            binding.btnInstructions.setTextSize(getResources().getDimension(R.dimen.dimen_16));
+            binding.btnHome.setTextSize(getResources().getDimension(R.dimen.dimen_16));
+        }
+
     }
 }

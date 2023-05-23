@@ -174,7 +174,7 @@
         <Button
             android:id="@+id/upgrade_pc"
             android:layout_width="wrap_content"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:text="@string/button_upgrade_pc"
             android:textColor="@android:color/white"
             android:background="#0000FF"
@@ -184,9 +184,8 @@
             android:padding="12dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:letterSpacing="0.02"
             android:gravity="center"
-            android:singleLine="true"
+            android:maxLines="2"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout" />

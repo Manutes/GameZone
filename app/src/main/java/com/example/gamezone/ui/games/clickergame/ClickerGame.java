@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -35,7 +34,7 @@ public class ClickerGame extends AppCompatActivity {
     private long clickValueCost = 10L;
     private long clickSpeed = 1000L;
     private long clickSpeedCost = 50L;
-    private int upgradeCost = 100000;
+    private long upgradeCost = 100000L;
     private int bonus = 1;
     private int imageN = 0;
     private ImageButton clickButton;
@@ -116,7 +115,7 @@ public class ClickerGame extends AppCompatActivity {
         clickSpeedButton.setOnClickListener(view -> {
             if (score >= clickSpeedCost) {
                 score -= clickSpeedCost;
-                clickSpeed /= 2*bonus;
+                clickSpeed /= 2L *bonus;
                 clickSpeedCost *= 2;
                 updateScoreTextView();
                 updateClickSpeedButton();
@@ -212,17 +211,17 @@ public class ClickerGame extends AppCompatActivity {
     }
     private void updateClickValueButton() {
         Button clickValueButton = findViewById(R.id.click_value_button);
-        clickValueButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_value), " ", clickValueCost, " ", getString(R.string.coins_text)));
+        clickValueButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_value), " ", format(clickValueCost), " ", getString(R.string.coins_text)));
     }
 
     private void updateClickSpeedButton() {
         Button clickSpeedButton = findViewById(R.id.click_speed_button);
-        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_speed), " ", clickSpeedCost, " ", getString(R.string.coins_text)));
+        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_increase_click_speed), " ", format(clickSpeedCost), " ", getString(R.string.coins_text)));
     }
 
     private void updateUpgradeButton() {
         Button clickSpeedButton = findViewById(R.id.upgrade_pc);
-        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_upgrade_pc), " ", upgradeCost));
+        clickSpeedButton.setText(MessageFormat.format("{0}{1}{2}{3}{4}", getString(R.string.button_upgrade_pc), " ", format(upgradeCost), " ", getString(R.string.coins_text)));
     }
 
     @Override
