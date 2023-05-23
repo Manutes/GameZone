@@ -111,14 +111,8 @@ public class ProfileFragment extends Fragment {
 
     private void setPhotoUri() {
         Task<DocumentSnapshot> doc = db.getUserDocument(Objects.requireNonNull(firebase.mFirebaseAuth.getCurrentUser()).getUid());
-        doc.addOnSuccessListener(documentSnapshot -> {
-            try {
-                binding.imgPhoto.setImageURI(Uri.parse(documentSnapshot.getString("Photo")));
-            } catch (SecurityException e) {
-                binding.imgPhoto.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.consola));
-
-            }
-        });
+        doc.addOnSuccessListener(documentSnapshot ->
+                binding.imgPhoto.setImageURI(Uri.parse(documentSnapshot.getString("Photo"))));
 
     }
 
