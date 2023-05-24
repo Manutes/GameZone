@@ -12,52 +12,13 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import com.example.gamezone.R;
-import com.example.gamezone.ui.games.marcianosGame.Juego;
 import com.example.gamezone.ui.games.marcianosGame.objetosJuego.fondoJuego;
 
 import java.util.Timer;
 import java.util.TimerTask;
-/*
-todo, BUGS
-1 - (RESUELTO) Los asteroides no aparecen al cargar por primera vez el juego sino la segunda vez que los cargas.
-                El boolean explosión asteroide lo pongo en false al comenzar el metodo onCreate
-2 - Borrar las imagenes de drawable innecesarias y metodos innecesarios
-3 - (HECHO A MEDIAS) -> Revisar porque las explosiones duran tan poco. Resuelto en Asteroides
 
-                        OJO revisar el condicional de la logica
-                        de los asteroides en la clase Juego
-                        una vez revisada encapsularla en el objeto Asteroide para que se cumpla
-                        en ambos objetos sin tener dos condicionales grandes.
-
-                        Una vez hecho eso aplicamos la misma logica pero con el resto
-                        de objetos. Excepto la puta nave, la nave la dejas
-                        tranquila no seas puto perfeccionista que no acabas nunca joder.
-
-  3.1 - (ENCAPSULAR)uando los asteroides explotan cuando chocan con la nave
-  3.2 - (FALTA) Cuando los marcianos explotan cuando mueren
-  3.3 - (FALTA) Cuando los marcianos chocan con la base
-
-4 - Revisar porque en el gameOver cuando los objetos explotan porque no desaparecen. Deben
-    desaparecer primero y luego explotar.
-5 - Te deja traspasar el escudo por los laterales, imposibilitar eso.
-6 - Resolver el hecho de que cuando caen asteroides lo hacen juntos a veces, no pueden aparecer
-7 - En la misma posición
-
-
-todo, Tareas pendientes
-1 - Programar o mas asteroides y que exploten despues de 3 toques con el proyectil o deshabilitar
-    los proyectiles al principio
-2 - Programar nuevamente el tema de las vidas y su Game Over
-3 - Programar tambien el gameOver cuando el Marciano llegue a la base
-2 - Programar los sonidos correctamente
- */
 
     public class MarcianosMainActivity extends AppCompatActivity {
-        /*
-    El código crea un objeto de la clase Juego y un objeto de la clase GifImageView,
-    y también define una lista llamada listaProyectiles para almacenar objetos de la clase Proyectil.
-    */
-
         public MediaPlayer mp;
         public Juego juego;
         public fondoJuego gif;
@@ -68,20 +29,12 @@ todo, Tareas pendientes
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_marcianos);
-
-            /*
-            En el método onCreate, se establece el diseño de la actividad y
-            se obtienen referencias a los elementos de la interfaz de usuario,
-            como un FrameLayout y una vista de imagen GIF.
-             */
             FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_layout);
             gif = findViewById(R.id.gif_View);
             juego = findViewById(R.id.Pantalla);
-
-            /*
-            Se agrega un observador de layout para obtener e inicializar las variables del juego.
-             */
             setMediaPlayer();
+
+           // Se agrega un observador de layout para obtener e inicializar las variables del juego.
             ViewTreeObserver obs = juego.getViewTreeObserver();
             obs.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -99,7 +52,7 @@ todo, Tareas pendientes
                     //Aqui se establece el punto en el que se pinta el asteroide
                     //para que seguidamente caiga hacia abajo
                     juego.posAsteroideY = 0; //cambiar a 0
-                    juego.posAsteroide2Y = -300; //cambiar a -100
+                    juego.posAsteroide2Y = -1200; //cambiar a -100
 
                     //todo Boleans de Aparicion de personajes
                     juego.explotaAsteroide1 = false;
@@ -190,13 +143,13 @@ todo, Tareas pendientes
                             //todo, Logica de interseccion entre nave y asteroide 1
                             if(RectF.intersects(juego.rectNave,juego.rectAsteroide)){
                                 juego.explotaAsteroide1 = true;
-                                juego.porcentajeDeDaño++;
+                                juego.porcentajeDeDano++;
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         // Establecer explota como falso después de 2 segundos
-                                        juego.posAsteroideY = -200;
+                                        juego.posAsteroideY = -1000;
                                         juego.posAsteroideX = juego.random.nextInt(juego.ancho);
                                         juego.explotaAsteroide1 = false;
                                     }
@@ -206,14 +159,14 @@ todo, Tareas pendientes
                             //todo, Logica de interseccion entre nave  y asteroide 2
                             if(RectF.intersects(juego.rectNave,juego.rectAsteroide2)){
                                 juego.explotaAsteroide2 = true;
-                                juego.porcentajeDeDaño++;
+                                juego.porcentajeDeDano++;
                              //   juego.numeroDeVidas = juego.numeroDeVidas - 1;
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         // Establecer explota como falso después de 2 segundos
-                                        juego.posAsteroide2Y = -200;
+                                        juego.posAsteroide2Y = -1000;
                                         juego.posAsteroide2X = juego.random2.nextInt(juego.ancho);
                                         juego.explotaAsteroide2 = false;
                                     }
@@ -227,48 +180,48 @@ todo, Tareas pendientes
                                 juego.posEscudo2Y += 10;
                             }
                             //todo Logica de movimiento de los Marcianos
-
+                            //el marciano solo va muy rapido al principio luego va lentito para que sea mas facil de matar
                             if(!juego.explotaMarciano){
                                 if(tiempoTranscurrido > 11300 && tiempoTranscurrido <= 12300 ){
                                     juego.aparecenMarcianos = true;
-                                    juego.posMarcianoX +=10;
+                                    juego.posMarcianoX +=20;
                                 }else if(tiempoTranscurrido > 12300 && tiempoTranscurrido <= 12400){
                                     juego.posMarcianoY +=10;
                                 }else if(tiempoTranscurrido > 12400 && tiempoTranscurrido <= 13400){
-                                    juego.posMarcianoX -=10;
-                                }else if(tiempoTranscurrido > 13400 && tiempoTranscurrido <= 13500 ){
-                                    juego.posMarcianoY += 10;
+                                    juego.posMarcianoX -=20;
+                                }else if(tiempoTranscurrido > 13400 && tiempoTranscurrido <= 13500){
+                                    juego.posMarcianoY +=10;
                                 }else if(tiempoTranscurrido > 13500 && tiempoTranscurrido <= 14500){
-                                    juego.posMarcianoX += 10;
+                                    juego.posMarcianoX +=10;
                                 }else if(tiempoTranscurrido > 14500 && tiempoTranscurrido <= 14600){
                                     juego.posMarcianoY +=10;
                                 }else if(tiempoTranscurrido > 14600 && tiempoTranscurrido <= 15600){
-                                    juego.posMarcianoX -= 10;
+                                    juego.posMarcianoX -=10;
                                 }else if(tiempoTranscurrido > 15600 && tiempoTranscurrido <= 15700){
                                     juego.posMarcianoY +=10;
                                 }else if(tiempoTranscurrido > 15700 && tiempoTranscurrido <= 16700){
-                                    juego.posMarcianoX += 10;
+                                    juego.posMarcianoX +=10;
                                 }else if(tiempoTranscurrido > 16700 && tiempoTranscurrido <= 16800){
-                                    juego.posMarcianoY += 10;
+                                    juego.posMarcianoY +=10;
                                 }else if(tiempoTranscurrido > 16800 && tiempoTranscurrido <= 17800){
-                                    juego.posMarcianoX -= 10;
+                                    juego.posMarcianoX -=10;
                                 }else if(tiempoTranscurrido > 17800 && tiempoTranscurrido <= 17900){
-                                    juego.posMarcianoY += 10;
+                                    juego.posMarcianoY +=10;
                                 }else if(tiempoTranscurrido > 17900 && tiempoTranscurrido <= 18900){
                                     juego.posMarcianoX += 10;
                                 }else if(tiempoTranscurrido > 18900 && tiempoTranscurrido <= 19000){
                                     juego.posMarcianoY += 10;
                                 }else if(tiempoTranscurrido > 19000 && tiempoTranscurrido <= 20000) {
                                     juego.posMarcianoX -= 10;
-                                }else if(tiempoTranscurrido > 20000 && tiempoTranscurrido <= 20100) {
+                                }else if(tiempoTranscurrido > 20000 && tiempoTranscurrido <= 20100){
                                     juego.posMarcianoY += 10;
-                                }else if(tiempoTranscurrido > 20100 && tiempoTranscurrido <= 21100) {
+                                }else if(tiempoTranscurrido > 20100 && tiempoTranscurrido <= 21100){
                                     juego.posMarcianoX += 10;
-                                }else if(tiempoTranscurrido > 21100 && tiempoTranscurrido <= 21200) {
+                                }else if(tiempoTranscurrido > 21100 && tiempoTranscurrido <= 21200){
                                     juego.posMarcianoY += 10;
-                                }else if(tiempoTranscurrido > 21200 && tiempoTranscurrido <= 22200) {
+                                }else if(tiempoTranscurrido > 21200 && tiempoTranscurrido <= 22200){
                                     juego.posMarcianoX -= 10;
-                                }else if(tiempoTranscurrido > 22200 && tiempoTranscurrido <= 22300) {
+                                }else if(tiempoTranscurrido > 22200 && tiempoTranscurrido <= 22300){
                                     juego.posMarcianoY += 10;
                                 }else if(tiempoTranscurrido > 22300 && tiempoTranscurrido <= 23300) {
                                     juego.posMarcianoX += 10;
@@ -319,7 +272,7 @@ todo, Tareas pendientes
                                         // Establecer explota como falso después de 2 segundos
                                         juego.posEscudo1Y = -10000;
                                         juego.posEscudo2Y = -10000;
-                                        juego.porcentajeDeDaño = 100;
+                                        juego.porcentajeDeDano = 100;
                                     }
                                 }, 500); // 2000 milisegundos = 2 segundos
                             }
@@ -338,7 +291,7 @@ todo, Tareas pendientes
                                         juego.posMarcianoX = -10000;
                                         juego.posNaveX = -10000;
                                         juego.posNaveY = -10000;
-                                        juego.porcentajeDeDaño = 100;
+                                        juego.porcentajeDeDano = 100;
                                     }
                                 }, 500);
                             }
@@ -355,8 +308,7 @@ todo, Tareas pendientes
                         }
                     });
                 }
-            }, 0, 9); //El period lo podrias sustituir por una variable que sea la velocidad. Es un numero Entero.
-                                    //Una variable de tipo int
+            }, 0, 9);
         }
 
         private void setMediaPlayer() {
