@@ -64,7 +64,7 @@ todo, Tareas pendientes
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_marcianos);
 
             /*
             En el método onCreate, se establece el diseño de la actividad y
