@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.Movie;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ViewTreeObserver;
@@ -56,6 +57,8 @@ todo, Tareas pendientes
     El código crea un objeto de la clase Juego y un objeto de la clase GifImageView,
     y también define una lista llamada listaProyectiles para almacenar objetos de la clase Proyectil.
     */
+
+        public MediaPlayer mp;
         public Juego juego;
         public fondoJuego gif;
         private Handler handler = new Handler();
@@ -78,7 +81,7 @@ todo, Tareas pendientes
             /*
             Se agrega un observador de layout para obtener e inicializar las variables del juego.
              */
-
+            setMediaPlayer();
             ViewTreeObserver obs = juego.getViewTreeObserver();
             obs.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -290,11 +293,15 @@ todo, Tareas pendientes
                             if(RectF.intersects(juego.rectFProyectil,juego.rectMarciano)){ //Esto hay que ponerlo en el hilo principal
                                 juego.aparecenMarcianos = false;
                                 juego.explotaMarciano = true;
-                                juego.puntuacion++;
+                                //juego.puntuacion++;
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if(!juego.win){
+                                            juego.puntuacion = juego.puntuacion + 50;
+                                        }
+
                                         juego.posMarcianoY = -500;
                                         juego.win = true;
                                     }
@@ -351,4 +358,53 @@ todo, Tareas pendientes
             }, 0, 9); //El period lo podrias sustituir por una variable que sea la velocidad. Es un numero Entero.
                                     //Una variable de tipo int
         }
+
+        private void setMediaPlayer() {
+            if (mp != null) {
+                mp.release();
+            }
+            mp = MediaPlayer.create(this, R.raw.bandasonora);
+            mp.start();
+            mp.setOnCompletionListener(MediaPlayer::start);
+        }
+
+
+        @Override
+        protected void onPause() {
+            super.onPause();
+            if (mp != null && mp.isPlaying()) {
+                mp.pause();
+            }
+        }
+
+        @Override
+        protected void onResume() {
+            super.onResume();
+            setMediaPlayer();
+        }
+
+        @Override
+        protected void onRestart() {
+            super.onRestart();
+            setMediaPlayer();
+        }
+
+        @Override
+        protected void onStop() {
+            super.onStop();
+            if (mp != null) {
+                mp.release();
+                mp = null;
+            }
+        }
+
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            if (mp != null) {
+                mp.release();
+                mp = null;
+            }
+        }
+
     }

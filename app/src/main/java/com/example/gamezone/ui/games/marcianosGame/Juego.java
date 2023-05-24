@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -80,7 +81,7 @@ public class Juego extends View {
     Bitmap bitmapGameOver = BitmapFactory.decodeResource(getResources(), R.drawable.gameover2);
     Bitmap bitmapWin = BitmapFactory.decodeResource(getResources(),R.drawable.winlogo);
     //MUSICA
-    MediaPlayer bandaSonora, sonidoDisparo, sonidoExplosion, sonidoMarciano,sonidoEscudo;
+    MediaPlayer  sonidoDisparo, sonidoExplosion, sonidoMarciano,sonidoEscudo;
 
 
 
@@ -115,7 +116,6 @@ public class Juego extends View {
         rectFProyectil = new RectF((posProyectilX - radio), (posProyectilY - radio * 2), (posProyectilX + radio), (posProyectilY - radio));
         objProyectil = new Proyectil(context,rectFProyectil);
 
-        bandaSonora = MediaPlayer.create(context,R.raw.bandasonora);
         sonidoMarciano = MediaPlayer.create(context,R.raw.movimientomarciano);
         sonidoExplosion = MediaPlayer.create(context,R.raw.sonidoexplosion);
         sonidoEscudo = MediaPlayer.create(context,R.raw.escudo);
@@ -125,15 +125,6 @@ public class Juego extends View {
         explotaAsteroide2 = false;
 
 
-        //Iniciamos la musica
-        bandaSonora.start();
-        //Establecemos que cuando la canción se complete se reproduzca de nuevo haciendo asi un loop.
-        bandaSonora.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                bandaSonora.start();
-            }
-        });
 
     }
 
@@ -166,23 +157,12 @@ public class Juego extends View {
         objAsteroide2 = new Asteroide(context,rectAsteroide2);
         rectFProyectil = new RectF((posProyectilX - radio), (posProyectilY - radio * 2), (posProyectilX + radio), (posProyectilY - radio));
         objProyectil = new Proyectil(context,rectFProyectil);
-        bandaSonora = MediaPlayer.create(context,R.raw.bandasonora);
         sonidoMarciano = MediaPlayer.create(context,R.raw.movimientomarciano);
         sonidoExplosion = MediaPlayer.create(context,R.raw.sonidoexplosion);
         sonidoEscudo = MediaPlayer.create(context,R.raw.escudo);
         sonidoDisparo = MediaPlayer.create(context,R.raw.disparonave);
         explotaAsteroide1 = false;
         explotaAsteroide2 = false;
-        //Iniciamos la musica
-        bandaSonora.start();
-
-        //Mantiene el loop de soundtrack
-        bandaSonora.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                bandaSonora.start();
-            }
-        });
     }
 
     //El método onTouchEvent() es un método que se ejecuta cuando se produce un evento de toque en
@@ -202,8 +182,6 @@ public class Juego extends View {
                         //Volvemos a la activity Main activity
                         Intent intent = new Intent(getContext(), MarcianosMainActivity.class);
                         getContext().startActivity(intent);
-                        bandaSonora.stop();
-                        bandaSonora.release();
                     }
 
                     traspasaEscudo = false;
@@ -310,6 +288,7 @@ public class Juego extends View {
         if (porcentajeDeDaño >= 100) {
             //todo, pintamos el fondo del gameOver
             canvas.drawRect(new Rect(0, 0, (ancho), (alto)), gameOverFondo);
+            movimientoRestringido = true;
             //todo, pintamos el logo del gameOver
 
             //Establecemos el ancho del logo del Bitmap GameOver
@@ -333,9 +312,8 @@ public class Juego extends View {
             puntuacionTotal.setTextAlign(Paint.Align.LEFT);
             puntuacionTotal.setTextSize(70);
             puntuacionTotal.setColor(Color.RED);
-
             canvas.drawText("Puntuación total: "+Integer.toString(puntuacion), 250, 1400, puntuacionTotal);
-            movimientoRestringido = true;
+
 
 
         } else {
@@ -474,6 +452,7 @@ public class Juego extends View {
         }
 
         if(win == true){
+            movimientoRestringido = true;
             //todo, pintamos el logo del gameOver
             //todo, pintamos el fondo del gameOver
             canvas.drawRect(new Rect(0, 0, (ancho), (alto)), winFondo);
@@ -501,7 +480,7 @@ public class Juego extends View {
             puntuacionTotal.setColor(Color.rgb(255, 215, 0));
 
             canvas.drawText("Puntuación total: "+Integer.toString(puntuacion), 250, 1400, puntuacionTotal);
-            movimientoRestringido = true;
+
 
 
         }
