@@ -59,5 +59,6 @@
     <string name="ranking_clicker_game">Ranking Clicker Game</string>
     <string name="ranking_marcianitos">Ranking Marcianitos</string>
     <string name="text_username_exists">Este nombre de usuario ya existe</string>
+    <string name="marcianos_game_title">Marcianos Game</string>
 
 </resources>

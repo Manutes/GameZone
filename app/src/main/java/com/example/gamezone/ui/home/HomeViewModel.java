@@ -23,7 +23,7 @@ public class HomeViewModel extends ViewModel {
         Game clickerGame = new Game(2, context.getString(R.string.titulo_juego_clickergame), R.drawable.clickergame_banner);
         games.add(clickerGame);
 
-        Game marcianosGame = new Game(3,"MarcianosGame", R.drawable.remolacha_img);
+        Game marcianosGame = new Game(3,context.getString(R.string.marcianos_game_title), R.drawable.marcianos_banner);
         games.add(marcianosGame);
         return games;
     }
