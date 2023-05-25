@@ -129,7 +129,11 @@ public class EasyGameActivity extends AppCompatActivity {
             easyGameScreen.height = easyGameScreen.getHeight();
             easyGameScreen.posX = easyGameScreen.width / 2;
             easyGameScreen.posY = easyGameScreen.height - 100;
-            easyGameScreen.radio = 100;
+            if (easyGameScreen.width <= 800) {
+                easyGameScreen.radio = 70;
+            } else {
+                easyGameScreen.radio = 100;
+            }
             easyGameScreen.beetY = 50;
             easyGameScreen.beetX = random.nextInt(easyGameScreen.width);
             easyGameScreen.farmerX = random.nextInt(easyGameScreen.width);

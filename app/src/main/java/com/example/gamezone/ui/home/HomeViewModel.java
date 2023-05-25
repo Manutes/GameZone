@@ -20,7 +20,7 @@ public class HomeViewModel extends ViewModel {
         Game remolachaGame = new Game(1, context.getString(R.string.titulo_juego_remolacha), R.drawable.remolacha_banner);
         games.add(remolachaGame);
 
-        Game clickerGame = new Game(2, context.getString(R.string.titulo_juego_clickergame), R.drawable.remolacha_img);
+        Game clickerGame = new Game(2, context.getString(R.string.titulo_juego_clickergame), R.drawable.clickergame_banner);
         games.add(clickerGame);
 
         Game marcianosGame = new Game(3,"MarcianosGame", R.drawable.remolacha_img);

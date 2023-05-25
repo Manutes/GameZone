@@ -50,6 +50,12 @@ public class DifficultGameOverActivity extends AppCompatActivity {
 
         binding.btnHomeScreen.setOnClickListener(view -> goToHomeScreen());
 
+        if (binding.getRoot().getWidth() <= 800) {
+            binding.tvScore.setTextSize(getResources().getDimension(R.dimen.dimen_24));
+            binding.btnRestart.setTextSize(getResources().getDimension(R.dimen.dimen_16));
+            binding.btnRestart.setTextSize(getResources().getDimension(R.dimen.dimen_16));
+        }
+
         setScore();
     }
 
